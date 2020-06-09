@@ -1,0 +1,7 @@
+{
+  "proseWrap": "never",
+  "semi": false,
+  "singleQuote": true,
+  "trailingComma": "none",
+  "svelteBracketNewLine": true
+}
