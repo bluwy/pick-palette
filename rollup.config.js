@@ -18,7 +18,7 @@ export default {
   plugins: [
     svelte({
       dev: !isProd,
-      css: css => {
+      css: (css) => {
         css.write('public/build/bundle.css')
       }
     }),
