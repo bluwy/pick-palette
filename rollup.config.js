@@ -5,7 +5,9 @@ import serve from 'rollup-plugin-serve'
 import svelte from 'rollup-plugin-svelte'
 import { terser } from 'rollup-plugin-terser'
 
-const isProd = !process.env.ROLLUP_WATCH
+const svelteConfig = require('./svelte.config')
+
+const isProd = process.env.NODE_ENV === 'production'
 
 export default {
   input: 'src/main.js',
@@ -17,6 +19,7 @@ export default {
   },
   plugins: [
     svelte({
+      ...svelteConfig,
       dev: !isProd,
       css: (css) => {
         css.write('public/build/bundle.css')

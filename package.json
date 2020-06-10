@@ -5,14 +5,17 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -cw",
+    "build": "rollup -c --environment NODE_ENV:production",
+    "dev": "rollup -cw --environment NODE_ENV:development",
     "lint": "prettier --check \"**/*.{html,css,js,md,svelte}\"",
     "lint:fix": "prettier --write \"**/*.{html,css,js,md,svelte}\""
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^8.0.1",
+    "autoprefixer": "^9.8.0",
+    "postcss": "^7.0.32",
+    "postcss-load-config": "^2.1.0",
     "prettier": "^2.0.5",
     "prettier-plugin-svelte": "^1.1.0",
     "rollup": "^2.15.0",
@@ -20,6 +23,13 @@
     "rollup-plugin-serve": "^1.0.1",
     "rollup-plugin-svelte": "^5.2.2",
     "rollup-plugin-terser": "^6.1.0",
-    "svelte": "^3.23.1"
-  }
+    "svelte": "^3.23.1",
+    "svelte-preprocess": "^3.9.6",
+    "tailwindcss": "^1.4.6"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }
