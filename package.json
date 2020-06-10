@@ -10,6 +10,10 @@
     "lint": "prettier --check \"**/*.{html,css,js,md,svelte}\"",
     "lint:fix": "prettier --write \"**/*.{html,css,js,md,svelte}\""
   },
+  "dependencies": {
+    "@fortawesome/free-regular-svg-icons": "^5.13.0",
+    "svelte-fa": "^2.1.1"
+  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^8.0.1",
