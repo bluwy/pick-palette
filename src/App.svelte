@@ -1,10 +1,34 @@
 <script>
   import TheHeader from './components/TheHeader.svelte'
+  import ColorTab from './components/ColorTab.svelte'
 
-  const name = 'world'
+  const colorTabs = [
+    {
+      label: 'Primary',
+      colors: [
+        '#faf5ff',
+        '#e9d8fd',
+        '#d6bcfa',
+        '#b794f4',
+        '#9f7aea',
+        '#805ad5',
+        '#6b46c1',
+        '#553c9a',
+        '#44337a'
+      ]
+    }
+  ]
 </script>
 
 <main>
   <TheHeader />
-  <h1>Hello {name}</h1>
+  <div class="container">
+    <ul>
+      {#each colorTabs as tab}
+        <li>
+          <ColorTab {...tab} />
+        </li>
+      {/each}
+    </ul>
+  </div>
 </main>
