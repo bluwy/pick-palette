@@ -4,6 +4,7 @@ import livereload from 'rollup-plugin-livereload'
 import serve from 'rollup-plugin-serve'
 import svelte from 'rollup-plugin-svelte'
 import { terser } from 'rollup-plugin-terser'
+import postcss from './plugins/postcss'
 
 const svelteConfig = require('./svelte.config')
 
@@ -30,6 +31,9 @@ export default {
       dedupe: ['svelte']
     }),
     commonjs(),
+    postcss({
+      output: 'global.css'
+    }),
     !isProd && serve('public'),
     !isProd && livereload('public'),
     isProd && terser()
