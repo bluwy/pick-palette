@@ -1,4 +1,5 @@
 <script>
+  import { undo, redo } from './store'
   import TheHeader from './components/TheHeader.svelte'
   import ColorTab from './components/ColorTab.svelte'
 
@@ -18,7 +19,20 @@
       ]
     }
   ]
+
+  const handleHistory = (e) => {
+    if (e.ctrlKey && e.key === 'z') {
+      undo()
+    } else if (
+      (e.ctrlKey && e.key == 'y') ||
+      (e.ctrlKey && e.shiftKey && e.key === 'Z')
+    ) {
+      redo()
+    }
+  }
 </script>
+
+<svelte:window on:keydown={handleHistory} />
 
 <main>
   <TheHeader />

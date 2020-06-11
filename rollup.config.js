@@ -1,5 +1,6 @@
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
+import replace from '@rollup/plugin-replace'
 import livereload from 'rollup-plugin-livereload'
 import serve from 'rollup-plugin-serve'
 import svelte from 'rollup-plugin-svelte'
@@ -29,6 +30,9 @@ export default {
     resolve({
       browser: true,
       dedupe: ['svelte']
+    }),
+    replace({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
     commonjs(),
     postcss({
