@@ -15,14 +15,14 @@
 
     dispatch((state) => {
       state.projects.push({ name: newProjectName, colors: [] })
-      state.currentProject = state.projects.length - 1
+      state.selected = state.projects.length - 1
     }, true)
   }
 
   const selectProject = (index) => {
     dispatch((state) => {
-      state.currentProject = index
-    })
+      state.selected = index
+    }, true)
   }
 </script>
 

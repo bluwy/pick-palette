@@ -10,6 +10,7 @@ const stateVersion = 1
 // Default if none in web storage
 const defaultState = {
   version: stateVersion,
+  selected: -1,
   projects: []
 }
 
@@ -22,8 +23,8 @@ const internalState = writable(initialState)
 
 // Undo/redo
 const historyStack = []
-const historyIndex = -1
 const historyMaxLength = 50
+let historyIndex = -1
 
 // Save to web storage on every state change
 internalState.subscribe((v) =>

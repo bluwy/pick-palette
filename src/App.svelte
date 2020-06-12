@@ -4,7 +4,7 @@
   import TheHeader from './components/TheHeader.svelte'
   import ColorTab from './components/ColorTab.svelte'
 
-  $: currentProject = $state.projects[$state.currentProject]
+  $: currentProject = $state.projects[$state.selected]
   $: showDashboard = currentProject == null
 
   const handleHistory = (e) => {
