@@ -38,10 +38,12 @@ export const state = derived(internalState, (v) => v)
  * state. All mutations should be done on the proxied state. More info:
  * https://immerjs.github.io/immer/docs/produce
  */
-export function dispatch(fn) {
+export function dispatch(fn, noHistory = false) {
   internalState.update((v) =>
     produce(v, fn, (patches, inversePatches) => {
-      pushHistory(inversePatches, patches)
+      if (!noHistory) {
+        pushHistory(inversePatches, patches)
+      }
     })
   )
 }
