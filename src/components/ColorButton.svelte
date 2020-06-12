@@ -3,7 +3,7 @@
 </script>
 
 <button
-  class="w-10 h-10 rounded-lg shadow-inner transition duration-200"
+  class="w-8 h-8 rounded-lg shadow-inner transition duration-200"
   style="background-color: {color};"
   on:click
 />

@@ -1,11 +1,7 @@
 <script>
   import { state, undo, redo } from './store'
   import Dashboard from './views/Dashboard.svelte'
-  import TheHeader from './components/TheHeader.svelte'
-  import ColorTab from './components/ColorTab.svelte'
-
-  $: currentProject = $state.projects[$state.selected]
-  $: showDashboard = currentProject == null
+  import Editor from './views/Editor.svelte'
 
   const handleHistory = (e) => {
     if (e.ctrlKey && e.key === 'z') {
@@ -22,18 +18,9 @@
 <svelte:window on:keydown={handleHistory} />
 
 <main class="w-full h-screen overflow-x-hidden">
-  {#if showDashboard}
+  {#if $state.projects[$state.selected] == null}
     <Dashboard />
   {:else}
-    <TheHeader />
-    <div class="container">
-      <ul>
-        {#each currentProject.colors as color}
-          <li>
-            <ColorTab {...color} />
-          </li>
-        {/each}
-      </ul>
-    </div>
+    <Editor />
   {/if}
 </main>
