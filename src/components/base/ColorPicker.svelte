@@ -1,6 +1,7 @@
 <script>
   import tc from 'tinycolor2'
-  import { clamp, slidable, throttle } from '../../util'
+  import slidable from '../../actions/slidable'
+  import { clamp, throttle } from '../../util'
 
   export let value
 
@@ -41,8 +42,23 @@
     );
   }
 
-  .pointer {
+  .svbox-pointer {
     box-shadow: inset 0 0 0 1px white, 0 0 0 1px black;
+  }
+
+  .hbar-pointer::before,
+  .hbar-pointer::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    width: 2px;
+    height: 4px;
+    transform: translateX(-50%);
+    background-color: currentColor;
+  }
+
+  .hbar-pointer::after {
+    top: 100%;
   }
 </style>
 
@@ -55,8 +71,8 @@
     on:slide|preventDefault={handleSatLightBox}
   >
     <div
-      class="pointer absolute w-4 h-4 rounded-full cursor-pointer transform
-      -translate-x-1/2 -translate-y-1/2"
+      class="svbox-pointer absolute w-4 h-4 rounded-full cursor-pointer
+      transform -translate-x-1/2 -translate-y-1/2"
       style="top: {(1 - hsv.v) * 100}%; left: {hsv.s * 100}%;"
     />
   </div>
@@ -66,9 +82,14 @@
       style="background-color: {color.toHexString()}"
     />
     <div
-      class="hue h-3 rounded-full flex-grow"
+      class="hue relative h-3 flex-grow"
       use:slidable
       on:slide={handleHueBar}
-    />
+    >
+      <div
+        class="hbar-pointer absolute h-full top-0 bg-gray-800"
+        style="left: {(hsv.h / 360) * 100}%;"
+      />
+    </div>
   </div>
 </div>
