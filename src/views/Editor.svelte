@@ -1,15 +1,11 @@
 <script>
-  import { state } from '../store'
+  import { state } from '../store/state'
+  import { currentEditorView, editorViews } from '../store/editor'
   import Button from '../components/base/Button.svelte'
   import TheHeader from '../components/TheHeader.svelte'
   import ColorTab from '../components/ColorTab.svelte'
-  import EditorNewColor from './EditorNewColor.svelte'
 
   $: project = $state.projects[$state.selected]
-
-  const EDITOR_NEW_COLOR = 'editor-new-color'
-
-  let editorState = ''
 </script>
 
 <div class="h-full flex flex-col">
@@ -33,7 +29,10 @@
             </ul>
           {/if}
         </div>
-        <Button outline on:click={() => (editorState = EDITOR_NEW_COLOR)}>
+        <Button
+          outline
+          on:click={() => ($currentEditorView = editorViews.newColor)}
+        >
           Add color
         </Button>
       </div>
@@ -42,9 +41,7 @@
         border-gray-500 border-opacity-50 md:border-t-0 border-l"
       >
         <div class="opacity-70 mb-5">Editor</div>
-        {#if editorState == EDITOR_NEW_COLOR}
-          <EditorNewColor />
-        {/if}
+        <svelte:component this={$currentEditorView} />
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 <script>
-  import { state, dispatch } from '../store'
+  import { state, dispatch } from '../store/state'
   import InputText from '../components/base/InputText.svelte'
   import Button from '../components/base/Button.svelte'
 

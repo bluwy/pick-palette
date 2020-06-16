@@ -1,7 +1,7 @@
 <script>
   import tc from 'tinycolor2'
   import slidable from '../../actions/slidable'
-  import { clamp, throttle } from '../../util'
+  import { clamp, throttle } from '../../utils/common'
 
   export let value
 

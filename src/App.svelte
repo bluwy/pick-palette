@@ -1,5 +1,5 @@
 <script>
-  import { state, undo, redo } from './store'
+  import { state, undo, redo } from './store/state'
   import Dashboard from './views/Dashboard.svelte'
   import Editor from './views/Editor.svelte'
 
