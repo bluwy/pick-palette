@@ -35,7 +35,7 @@
 <div bind:this={reference}>
   <slot name="reference" />
 </div>
-<div bind:this={popper}>
+<div bind:this={popper} class="absolute">
   {#if show}
     <slot />
   {/if}
