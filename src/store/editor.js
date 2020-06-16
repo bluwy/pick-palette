@@ -1,8 +1,11 @@
 import { writable } from 'svelte/store'
-import EditorNewColor from '../views/EditorNewColor.svelte'
 
-export const editorViews = {
-  newColor: EditorNewColor
-}
+// Enum. Can't directly map to view component because of circular dependency
+export const editorViews = Object.freeze({
+  empty: -1,
+  editColor: 0,
+  newColor: 1,
+  smartCreate: 2
+})
 
-export const currentEditorView = writable(undefined)
+export const currentEditorView = writable(editorViews.empty)

@@ -1,9 +1,20 @@
 <script>
   import { state } from '../store/state'
   import { currentEditorView, editorViews } from '../store/editor'
+  import EditorEditColor from './EditorEditColor.svelte'
+  import EditorNewColor from './EditorNewColor.svelte'
+  import EditorSmartCreate from './EditorSmartCreate.svelte'
   import Button from '../components/base/Button.svelte'
   import TheHeader from '../components/TheHeader.svelte'
   import ColorTab from '../components/ColorTab.svelte'
+
+  const editorViewMap = Object.freeze({
+    // TODO: Add default empty view
+    [editorViews.empty]: undefined,
+    [editorViews.editColor]: EditorEditColor,
+    [editorViews.newColor]: EditorNewColor,
+    [editorViews.smartCreate]: EditorSmartCreate
+  })
 
   $: project = $state.projects[$state.selected]
 </script>
@@ -41,7 +52,7 @@
         border-gray-500 border-opacity-50 md:border-t-0 border-l"
       >
         <div class="opacity-70 mb-5">Editor</div>
-        <svelte:component this={$currentEditorView} />
+        <svelte:component this={editorViewMap[$currentEditorView]} />
       </div>
     </div>
   </div>

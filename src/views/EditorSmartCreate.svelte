@@ -1,0 +1,1 @@
+<div>Smart Create</div>
