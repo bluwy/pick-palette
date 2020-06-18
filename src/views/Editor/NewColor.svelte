@@ -1,7 +1,7 @@
 <script>
-  import { dispatch } from '../store/state'
-  import { currentEditorView, editorViews } from '../store/editor'
-  import Button from '../components/base/Button.svelte'
+  import { dispatch } from '../../store/state'
+  import { currentEditorView, editorViews } from '../../store/editor'
+  import Button from '../../components/base/Button.svelte'
 
   const smartCreate = () => {
     // Open smart create view
