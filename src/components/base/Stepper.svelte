@@ -2,7 +2,7 @@
   import { faCheck } from '@fortawesome/free-solid-svg-icons'
   import { scale } from 'svelte/transition'
   import Icon from 'svelte-fa'
-  import { clamp } from '../../utils/common'
+  import { clamp } from '@/utils/common'
 
   export let steps
   export let currentStep = 0

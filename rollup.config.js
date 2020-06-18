@@ -1,3 +1,5 @@
+import path from 'path'
+import alias from '@rollup/plugin-alias'
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import replace from '@rollup/plugin-replace'
@@ -25,6 +27,11 @@ export default {
       dev: !isProd,
       css: (css) => {
         css.write('public/build/bundle.css')
+      }
+    }),
+    alias({
+      entries: {
+        '@': path.resolve(__dirname, 'src')
       }
     }),
     resolve({

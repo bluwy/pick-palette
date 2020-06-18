@@ -1,4 +1,4 @@
-import { historyStore } from '../utils/history-store'
+import { historyStore } from '@/utils/history-store'
 
 // Key used for web storage saves
 const stateKey = 'ppdata'

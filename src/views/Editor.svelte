@@ -1,12 +1,12 @@
 <script>
-  import { state } from '../store/state'
-  import { currentEditorView, editorViews } from '../store/editor'
+  import { state } from '@/store/state'
+  import { currentEditorView, editorViews } from '@/store/editor'
   import EditorEditColor from './Editor/EditColor.svelte'
   import EditorNewColor from './Editor/NewColor.svelte'
   import EditorSmartCreate from './Editor/SmartCreate.svelte'
-  import Button from '../components/base/Button.svelte'
-  import TheHeader from '../components/TheHeader.svelte'
-  import ColorTab from '../components/ColorTab.svelte'
+  import Button from '@/components/base/Button.svelte'
+  import TheHeader from '@/components/TheHeader.svelte'
+  import ColorTab from '@/components/ColorTab.svelte'
 
   const editorViewMap = Object.freeze({
     // TODO: Add default empty view
