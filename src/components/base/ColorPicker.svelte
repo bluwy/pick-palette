@@ -5,26 +5,23 @@
 
   export let value
 
-  const hsv = tc(value).toHsv()
-
   $: color = tc(value)
+  $: hsv = color.toHsv()
   $: hueColor = tc({ h: hsv.h, s: 1, v: 1 }).toHexString()
-  $: value = tc(hsv).toHexString()
 
   const handleSatLightBox = throttle((e) => {
     const rect = e.target.getBoundingClientRect()
     const xRatio = clamp((e.clientX - rect.left) / rect.width, 0, 1)
-    const yRatio = 1 - clamp((e.clientY - rect.top) / rect.height, 0, 1)
+    const yRatio = clamp((e.clientY - rect.top) / rect.height, 0, 1)
 
-    hsv.s = xRatio
-    hsv.v = yRatio
+    value = tc({ h: hsv.h, s: xRatio, v: 1 - yRatio }).toHexString()
   }, 30)
 
   const handleHueBar = throttle((e) => {
     const rect = e.target.getBoundingClientRect()
     const xRatio = clamp((e.clientX - rect.left) / rect.width, 0, 1)
 
-    hsv.h = xRatio * 360
+    value = tc({ h: xRatio * 360, s: hsv.s, v: hsv.v }).toHexString()
   }, 30)
 </script>
 
