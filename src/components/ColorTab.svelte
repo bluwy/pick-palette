@@ -1,5 +1,5 @@
 <script>
-  import ColorButton from './ColorButton.svelte'
+  import ButtonColor from './base/ButtonColor.svelte'
 
   export let name
   export let shades
@@ -10,7 +10,7 @@
   <ol class="space-x-2">
     {#each shades as color}
       <li class="inline-block">
-        <ColorButton {color} on:click={console.log(color)} />
+        <ButtonColor {color} on:click={console.log(color)} />
       </li>
     {/each}
   </ol>
