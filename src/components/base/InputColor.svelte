@@ -1,5 +1,6 @@
 <script>
   import { fly } from 'svelte/transition'
+  import tc from 'tinycolor2'
   import clickOutside from '@/actions/click-outside'
   import ButtonColor from './ButtonColor.svelte'
   import ColorPicker from './ColorPicker.svelte'
@@ -7,8 +8,17 @@
   import Popper from './Popper.svelte'
 
   export let value
+  export let vertical = false
 
   let show
+
+  // Set white by default
+  if (!tc(value).isValid()) {
+    value = '#ffffff'
+  }
+
+  // Make sure value is hex string
+  const setValueAsHex = () => (value = tc(value).toHexString())
 </script>
 
 <div
@@ -16,12 +26,18 @@
   class="inline-block"
   on:clickoutside={() => (show = false)}
 >
-  <Popper bind:show options={{ placement: 'bottom-start' }}>
-    <div slot="reference" class="flex items-center">
-      <div class="mr-2">
+  <Popper
+    bind:show
+    options={{ placement: vertical ? 'bottom' : 'bottom-start' }}
+  >
+    <div
+      slot="reference"
+      class="flex items-center {vertical ? 'flex-col' : 'flex-row'}"
+    >
+      <div class={vertical ? 'mb-2' : 'mr-2'}>
         <ButtonColor color={value} on:click={() => (show = true)} />
       </div>
-      <InputText bind:value props={{ size: 8 }} />
+      <InputText bind:value props={{ size: 4 }} on:change={setValueAsHex} />
     </div>
     <div
       transition:fly={{ y: 10, duration: 250 }}

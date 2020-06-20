@@ -10,4 +10,5 @@
   focus:bg-opacity-20 focus:border-primary-500"
   bind:value
   {...props}
+  on:change
 />
