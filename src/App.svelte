@@ -15,6 +15,12 @@
   }
 </script>
 
+<style global>
+  html {
+    overflow: hidden;
+  }
+</style>
+
 <svelte:window on:keydown={handleHistory} />
 
 <main class="w-full h-screen overflow-x-hidden">
