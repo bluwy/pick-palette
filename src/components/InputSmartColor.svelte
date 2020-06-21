@@ -7,6 +7,7 @@
   export let value
   export let label = ''
   export let highlight = false
+  export let disabled = false
 </script>
 
 <div class="flex flex-col justify-center items-center">
@@ -18,7 +19,11 @@
     {/if}
   </div>
   {#if label}
-    <div class="mb-2">{label}</div>
+    <div
+      class="mb-2 transition-opacity duration-200 {disabled ? 'opacity-70' : ''}"
+    >
+      {label}
+    </div>
   {/if}
-  <InputColor bind:value vertical />
+  <InputColor bind:value vertical {disabled} />
 </div>

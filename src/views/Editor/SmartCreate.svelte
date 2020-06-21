@@ -64,6 +64,7 @@
       bind:value={lightestShade}
       label="Lightest"
       highlight={currentStep === 1}
+      disabled={currentStep > 1}
     />
   </div>
   <div class="input-smart-color" class:hide={currentStep < 2}>
@@ -71,6 +72,7 @@
       bind:value={lighterShade}
       label="Lighter"
       highlight={currentStep === 2}
+      disabled={currentStep > 2}
     />
   </div>
   <div>
@@ -78,6 +80,7 @@
       bind:value={baseShade}
       label="Base"
       highlight={currentStep === 0}
+      disabled={currentStep > 0}
     />
   </div>
   <div class="input-smart-color" class:hide={currentStep < 2}>
@@ -85,6 +88,7 @@
       bind:value={darkerShade}
       label="Darker"
       highlight={currentStep === 2}
+      disabled={currentStep > 2}
     />
   </div>
   <div class="input-smart-color" class:hide={currentStep < 1}>
@@ -92,6 +96,7 @@
       bind:value={darkestShade}
       label="Darkest"
       highlight={currentStep === 1}
+      disabled={currentStep > 1}
     />
   </div>
 </div>

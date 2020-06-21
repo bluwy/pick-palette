@@ -9,6 +9,7 @@
 
   export let value
   export let vertical = false
+  export let disabled = false
 
   let show
 
@@ -19,6 +20,9 @@
 
   // Make sure value is hex string
   const setValueAsHex = () => (value = tc(value).toHexString())
+
+  // Whenever disbled toggled true, set show to false
+  $: disabled && (show = false)
 </script>
 
 <div
@@ -35,9 +39,18 @@
       class="flex items-center {vertical ? 'flex-col' : 'flex-row'}"
     >
       <div class={vertical ? 'mb-2' : 'mr-2'}>
-        <ButtonColor color={value} on:click={() => (show = true)} />
+        <ButtonColor
+          color={value}
+          {disabled}
+          on:click={() => (show = !disabled)}
+        />
       </div>
-      <InputText bind:value props={{ size: 4 }} on:change={setValueAsHex} />
+      <InputText
+        bind:value
+        {disabled}
+        props={{ size: 4 }}
+        on:change={setValueAsHex}
+      />
     </div>
     <div
       transition:fly={{ y: 10, duration: 250 }}

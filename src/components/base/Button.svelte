@@ -1,13 +1,37 @@
 <script>
-  export let props = {}
   export let outline = false
+  export let disabled = false
+  export let props = {}
 </script>
 
-<button
-  class="bg-primary-500 border-2 border-primary-500 rounded px-3 py-1
-  transition-colors duration-200 {outline ? 'text-primary-800 bg-opacity-0 hover:bg-opacity-20 focus:bg-opacity-20' : 'text-white hover:bg-opacity-80 focus:bg-opacity-80'}"
-  {...props}
-  on:click
->
+<style lang="postcss">
+  .base {
+    @apply text-white bg-primary-500 border-2 border-primary-500 rounded px-3 py-1 transition-colors duration-200;
+  }
+
+  .base:not(:disabled):hover,
+  .base:not(:disabled):focus {
+    @apply bg-opacity-80;
+  }
+
+  .base:disabled {
+    @apply bg-gray-600 border-gray-600;
+  }
+
+  .base.outline {
+    @apply text-primary-800 bg-opacity-0;
+  }
+
+  .base.outline:not(:disabled):hover,
+  .base.outline:not(:disabled):focus {
+    @apply bg-opacity-20;
+  }
+
+  .base.outline:disabled {
+    @apply text-gray-800 bg-opacity-30;
+  }
+</style>
+
+<button class="base" class:outline {disabled} {...props} on:click>
   <slot />
 </button>

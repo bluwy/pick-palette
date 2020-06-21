@@ -19,6 +19,10 @@
   html {
     overflow: hidden;
   }
+
+  :disabled {
+    cursor: not-allowed;
+  }
 </style>
 
 <svelte:window on:keydown={handleHistory} />
