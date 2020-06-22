@@ -1,12 +1,10 @@
 <script>
-  import { state } from '@/store/state'
   import { currentEditorView, editorViews } from '@/store/editor'
   import EditorEditColor from './Editor/EditColor.svelte'
   import EditorNewColor from './Editor/NewColor.svelte'
   import EditorSmartCreate from './Editor/SmartCreate.svelte'
-  import Button from '@/components/base/Button.svelte'
   import EditorHeader from '@/components/EditorHeader.svelte'
-  import ColorTab from '@/components/ColorTab.svelte'
+  import EditorColorPanel from '@/components/EditorColorPanel.svelte'
 
   const editorViewMap = Object.freeze({
     // TODO: Add default empty view
@@ -15,8 +13,6 @@
     [editorViews.newColor]: EditorNewColor,
     [editorViews.smartCreate]: EditorSmartCreate
   })
-
-  $: project = $state.projects[$state.selected]
 </script>
 
 <div class="h-full flex flex-col">
@@ -24,28 +20,7 @@
   <div class="container flex-grow">
     <div class="h-full py-6 flex flex-col md:flex-row">
       <div class="w-full h-full md:w-1/3 pb-3 md:pb-0 md:pr-6">
-        <div class="opacity-70 mb-5">Palette</div>
-        <div class="flex flex-col">
-          {#if project.colors.length <= 0}
-            <div class="text-center">
-              <p class="text-sm opacity-50 my-6">No colors yet</p>
-            </div>
-          {:else}
-            <ul>
-              {#each project.colors as color}
-                <li class="mb-4">
-                  <ColorTab {...color} />
-                </li>
-              {/each}
-            </ul>
-          {/if}
-        </div>
-        <Button
-          outline
-          on:click={() => ($currentEditorView = editorViews.newColor)}
-        >
-          Add color
-        </Button>
+        <EditorColorPanel />
       </div>
       <div
         class="w-full h-full md:w-2/3 pt-3 md:pt-0 md:pl-6 border-t
