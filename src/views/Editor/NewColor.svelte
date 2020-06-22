@@ -1,6 +1,7 @@
 <script>
   import { dispatch } from '@/store/state'
   import { currentEditorView, editorViews } from '@/store/editor'
+  import { getDefaultColorName } from '@/utils/app'
   import Button from '@/components/base/Button.svelte'
 
   const smartCreate = () => {
@@ -14,7 +15,7 @@
       const currentProject = state.projects[state.selected]
 
       currentProject.colors.push({
-        name: 'Untitled',
+        name: getDefaultColorName(currentProject),
         shades: Array.from({ length: 9 }, () => '#ffffff')
       })
     })
