@@ -5,7 +5,7 @@
   import EditorNewColor from './Editor/NewColor.svelte'
   import EditorSmartCreate from './Editor/SmartCreate.svelte'
   import Button from '@/components/base/Button.svelte'
-  import TheHeader from '@/components/TheHeader.svelte'
+  import EditorHeader from '@/components/EditorHeader.svelte'
   import ColorTab from '@/components/ColorTab.svelte'
 
   const editorViewMap = Object.freeze({
@@ -20,7 +20,7 @@
 </script>
 
 <div class="h-full flex flex-col">
-  <TheHeader />
+  <EditorHeader />
   <div class="container flex-grow">
     <div class="h-full py-6 flex flex-col md:flex-row">
       <div class="w-full h-full md:w-1/3 pb-3 md:pb-0 md:pr-6">
