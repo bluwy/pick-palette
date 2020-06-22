@@ -1,4 +1,6 @@
 <script>
+  import { flip } from 'svelte/animate'
+  import { fade } from 'svelte/transition'
   import { currentEditorView, editorViews } from '@/store/editor'
   import { dispatch, state } from '@/store/state'
   import Button from './base/Button.svelte'
@@ -19,11 +21,19 @@
   }
 </script>
 
-<div class="opacity-70 mb-5">Palette</div>
+<div class="flex flex-row justify-between items-center mb-5">
+  <div class="opacity-70">Palette</div>
+  <Button outline on:click={() => ($currentEditorView = editorViews.newColor)}>
+    Add color
+  </Button>
+</div>
 
 <ul class="mb-4 space-y-4">
-  {#each project.colors as color, index}
-    <li>
+  {#each project.colors as color, index (color.name)}
+    <li
+      transition:fade={{ duration: 200 }}
+      animate:flip={{ duration: 300, delay: 100 }}
+    >
       <ColorTab
         {...color}
         on:remove={() => removeColor(index)}
@@ -36,7 +46,3 @@
     </li>
   {/each}
 </ul>
-
-<Button outline on:click={() => ($currentEditorView = editorViews.newColor)}>
-  Add color
-</Button>
