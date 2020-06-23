@@ -20,7 +20,7 @@
     }
   })
 
-  const removeColor = (colorName) => {
+  function removeColor(colorName) {
     dispatch((state) => {
       const currentProject = state.projects[state.selected]
 
@@ -30,18 +30,17 @@
     })
   }
 
-  const handleClickShade = () => {
+  function handleClickShade() {
     // TODO: Open edit view with shade context
-    // Open color edit view
     $currentEditorView = editorViews.editColor
   }
 
-  const handleDragStart = (colorName) => {
+  function handleDragStart(colorName) {
     draggedColorName = colorName
     dropIndex = colors.findIndex((v) => v.name === colorName)
   }
 
-  const handleDragEnter = (colorName, e) => {
+  function handleDragEnter(colorName, e) {
     const targetTab = e.target.closest('[draggable="true"]')
 
     if (targetTab == null) {
@@ -59,8 +58,7 @@
     dropIndex = colorIndex
   }
 
-  // Dragend is called after drop event, do cleanup
-  const handleDragEnd = () => {
+  function handleDragEnd() {
     dispatch((state) => {
       state.projects[state.selected].colors = orderedColors
     })

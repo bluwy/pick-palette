@@ -50,11 +50,11 @@
       ? css(popperState.styles.popper)
       : ''
 
-  const create = () => {
+  function create() {
     popperInstance = createPopper(reference, popper, popperOptions)
   }
 
-  const destroy = () => {
+  function destroy() {
     if (popperInstance != null) {
       popperInstance.destroy()
       popperInstance = undefined
