@@ -1,4 +1,5 @@
 <script>
+  import produce from 'immer'
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
   import { currentEditorView, editorViews } from '@/store/editor'
@@ -7,30 +8,17 @@
   import Button from './base/Button.svelte'
   import ColorTab from './ColorTab.svelte'
 
-  $: project = $state.projects[$state.selected]
-
   let draggedColorName
   let dropIndex
-  let tabs
 
-  $: {
-    const colorTabs = project.colors.map((v) => ({
-      key: v.name,
-      color: v
-    }))
+  $: colors = $state.projects[$state.selected].colors
 
-    if (dropIndex != null) {
-      colorTabs.splice(dropIndex, 0, {
-        key: 'dropzone',
-        dropzone: true
-      })
+  $: orderedColors = produce(colors, (colors) => {
+    if (draggedColorName != null && dropIndex != null) {
+      const dragIndex = colors.findIndex((v) => v.name === draggedColorName)
+      removeAndInsertElement(colors, dragIndex, dropIndex)
     }
-
-    // tabs will either be in object form of:
-    // { key: '<color-name>', color: {} } or
-    // { key: 'dropzone', dropzone: true }
-    tabs = colorTabs
-  }
+  })
 
   const removeColor = (colorName) => {
     dispatch((state) => {
@@ -48,36 +36,35 @@
     $currentEditorView = editorViews.editColor
   }
 
-  const handleDrag = (colorName, e) => {
+  const handleDragStart = (colorName) => {
     draggedColorName = colorName
+    dropIndex = colors.findIndex((v) => v.name === colorName)
   }
 
-  // Use ref instead of event because event.target is not ref :(
   const handleDragEnter = (colorName, e) => {
-    // const targetRect = e.target.getBoundingClientRect()
-    let targetIndex = project.colors.findIndex((v) => v.name === colorName)
+    const targetTab = e.target.closest('[draggable="true"]')
+
+    if (targetTab == null) {
+      return
+    }
+
+    const tabRect = targetTab.getBoundingClientRect()
+    let colorIndex = colors.findIndex((v) => v.name === colorName)
 
     // If pointer in lower part of rect, drop to lower part
-    // if (e.clientY > targetRect.top + targetRect.height / 2) {
-    //   targetIndex++
-    // }
+    if (e.clientY > tabRect.top + tabRect.height / 2) {
+      colorIndex++
+    }
 
-    dropIndex = targetIndex
-  }
-
-  const handleDrop = () => {
-    dispatch((state) => {
-      const currentProject = state.projects[state.selected]
-      const dragIndex = currentProject.colors.findIndex(
-        (v) => v.name === draggedColorName
-      )
-
-      removeAndInsertElement(currentProject.colors, dragIndex, dropIndex)
-    })
+    dropIndex = colorIndex
   }
 
   // Dragend is called after drop event, do cleanup
   const handleDragEnd = () => {
+    dispatch((state) => {
+      state.projects[state.selected].colors = orderedColors
+    })
+
     draggedColorName = undefined
     dropIndex = undefined
   }
@@ -91,28 +78,28 @@
 </div>
 
 <ul class="mb-4 space-y-4">
-  {#each tabs as tab (tab.key)}
+  {#each orderedColors as color (color.name)}
     <li
       transition:fade={{ duration: 200 }}
       animate:flip={{ duration: 300, delay: 100 }}
+      class="h-16 relative flex justify-center items-center"
       draggable="true"
-      on:drag={(e) => handleDrag(tab.color.name, e)}
-      on:dragenter={(e) => !tab.dropzone && handleDragEnter(tab.color.name, e)}
-      on:dragover|preventDefault
+      on:dragstart={() => handleDragStart(color.name)}
+      on:dragenter={(e) => color.name !== draggedColorName && handleDragEnter(color.name, e)}
       on:dragend={handleDragEnd}
-      on:drop={handleDrop}
     >
-      {#if tab.dropzone}
-        <div class="text-center">
-          <p class="text-sm opacity-50 py-6">Drop here</p>
-        </div>
-      {:else if tab.color.name === draggedColorName}
-        <div transition:fade={{ duration: 200 }} />
+      {#if color.name === draggedColorName}
+        <p
+          transition:fade={{ duration: 200 }}
+          class="absolute text-sm opacity-50"
+        >
+          Drop here
+        </p>
       {:else}
-        <div transition:fade={{ duration: 200 }}>
+        <div transition:fade={{ duration: 200 }} class="absolute">
           <ColorTab
-            {...tab.color}
-            on:remove={() => removeColor(tab.color.name)}
+            {...color}
+            on:remove={() => removeColor(color.name)}
             on:clickshade={handleClickShade}
           />
         </div>
