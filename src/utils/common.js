@@ -21,3 +21,20 @@ export function throttle(fn, wait) {
     }
   }
 }
+
+/**
+ * @param {Array} arr
+ * @param {number} removeIndex
+ * @param {number} insertIndex
+ */
+export function removeAndInsertElement(arr, removeIndex, insertIndex) {
+  if (removeIndex === insertIndex) {
+    return
+  }
+
+  if (insertIndex > removeIndex) {
+    insertIndex--
+  }
+
+  arr.splice(insertIndex, 0, arr.splice(removeIndex, 1)[0])
+}
