@@ -84,6 +84,7 @@
       draggable="true"
       on:dragstart={() => handleDragStart(color.name)}
       on:dragenter={(e) => color.name !== draggedColorName && handleDragEnter(color.name, e)}
+      on:dragover|preventDefault
       on:dragend={handleDragEnd}
     >
       {#if color.name === draggedColorName}
@@ -94,7 +95,7 @@
           Drop here
         </p>
       {:else}
-        <div transition:fade={{ duration: 200 }} class="absolute">
+        <div transition:fade={{ duration: 200 }} class="absolute w-full">
           <ColorTab
             {...color}
             on:remove={() => removeColor(color.name)}
