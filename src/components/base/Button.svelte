@@ -1,12 +1,19 @@
 <script>
   export let outline = false
   export let disabled = false
+  export let small = false
   export let props = {}
 </script>
 
 <style lang="postcss">
   .base {
     @apply text-white bg-primary-500 border-2 border-primary-500 rounded px-3 py-1 transition-colors duration-200;
+  }
+
+  .base--small {
+    @apply text-sm px-2;
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
   }
 
   .base:not(:disabled):hover,
@@ -32,6 +39,13 @@
   }
 </style>
 
-<button class="base" class:outline {disabled} {...props} on:click>
+<button
+  class="base"
+  class:outline
+  class:base--small={small}
+  {disabled}
+  {...props}
+  on:click
+>
   <slot />
 </button>

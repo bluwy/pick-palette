@@ -70,7 +70,11 @@
 
 <div class="flex flex-row justify-between items-center mb-5">
   <div class="opacity-70">Palette</div>
-  <Button outline on:click={() => ($currentEditorView = editorViews.newColor)}>
+  <Button
+    outline
+    small
+    on:click={() => ($currentEditorView = editorViews.newColor)}
+  >
     Add color
   </Button>
 </div>
