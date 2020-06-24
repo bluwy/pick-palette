@@ -1,27 +1,34 @@
 <script>
-  import tc from 'tinycolor2'
+  import chroma from 'chroma-js'
   import slidable from '@/actions/slidable'
   import { clamp, throttle } from '@/utils/common'
 
   export let value
 
-  $: color = tc(value)
-  $: hsv = color.toHsv()
-  $: hueColor = tc({ h: hsv.h, s: 1, v: 1 }).toHexString()
+  let [h, s, v] = chroma(value).hsv()
+
+  // Chroma hue value might be NaN for grays
+  if (Number.isNaN(h)) {
+    h = 0
+  }
+
+  $: value = chroma.hsv(h, s, v).hex()
+  $: hueColor = chroma.hsv(h, 1, 1).hex()
 
   const handleSatLightBox = throttle((e) => {
     const rect = e.target.getBoundingClientRect()
     const xRatio = clamp((e.clientX - rect.left) / rect.width, 0, 1)
     const yRatio = clamp((e.clientY - rect.top) / rect.height, 0, 1)
 
-    value = tc({ h: hsv.h, s: xRatio, v: 1 - yRatio }).toHexString()
+    s = xRatio
+    v = 1 - yRatio
   }, 30)
 
   const handleHueBar = throttle((e) => {
     const rect = e.target.getBoundingClientRect()
     const xRatio = clamp((e.clientX - rect.left) / rect.width, 0, 1)
 
-    value = tc({ h: xRatio * 360, s: hsv.s, v: hsv.v }).toHexString()
+    h = xRatio * 360
   }, 30)
 </script>
 
@@ -59,7 +66,7 @@
   }
 </style>
 
-<div class="w-48">
+<div class="w-48" on:dragstart|preventDefault>
   <div
     class="relative w-48 h-48"
     style="background-image: linear-gradient(transparent, black),
@@ -70,13 +77,13 @@
     <div
       class="svbox-pointer absolute w-4 h-4 rounded-full cursor-pointer
       transform -translate-x-1/2 -translate-y-1/2"
-      style="top: {(1 - hsv.v) * 100}%; left: {hsv.s * 100}%;"
+      style="top: {(1 - v) * 100}%; left: {s * 100}%;"
     />
   </div>
-  <div class="p-2 flex flex-row items-center">
+  <div class="p-2 bg-white flex flex-row items-center">
     <div
       class="w-5 h-5 mr-2 rounded-full shadow-inner"
-      style="background-color: {color.toHexString()}"
+      style="background-color: {value};"
     />
     <div
       class="hue relative h-3 flex-grow"
@@ -85,7 +92,7 @@
     >
       <div
         class="hbar-pointer absolute h-full top-0 bg-gray-800"
-        style="left: {(hsv.h / 360) * 100}%;"
+        style="left: {(h / 360) * 100}%;"
       />
     </div>
   </div>

@@ -1,6 +1,6 @@
 <script>
+  import chroma from 'chroma-js'
   import { fly } from 'svelte/transition'
-  import tc from 'tinycolor2'
   import clickOutside from '@/actions/click-outside'
   import ButtonColor from './ButtonColor.svelte'
   import ColorPicker from './ColorPicker.svelte'
@@ -14,15 +14,17 @@
   let show
 
   // Set white by default
-  if (!tc(value).isValid()) {
+  if (!chroma.valid(value)) {
     value = '#ffffff'
   }
 
-  // Make sure value is hex string
-  const setValueAsHex = () => (value = tc(value).toHexString())
-
   // Whenever disbled toggled true, set show to false
   $: disabled && (show = false)
+
+  // Make sure value is hex string
+  function setValueAsHex() {
+    value = chroma(value).hex()
+  }
 </script>
 
 <div
