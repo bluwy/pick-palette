@@ -2,7 +2,6 @@
   import { currentEditorView, editorViews } from '@/store/editor'
   import EditorEditColor from './Editor/EditColor.svelte'
   import EditorNewColor from './Editor/NewColor.svelte'
-  import EditorSmartCreate from './Editor/SmartCreate.svelte'
   import EditorHeader from '@/components/EditorHeader.svelte'
   import EditorColorPanel from '@/components/EditorColorPanel.svelte'
 
@@ -10,8 +9,7 @@
     // TODO: Add default empty view
     [editorViews.empty]: undefined,
     [editorViews.editColor]: EditorEditColor,
-    [editorViews.newColor]: EditorNewColor,
-    [editorViews.smartCreate]: EditorSmartCreate
+    [editorViews.newColor]: EditorNewColor
   })
 </script>
 

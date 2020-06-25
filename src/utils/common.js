@@ -38,3 +38,12 @@ export function removeAndInsertElement(arr, removeIndex, insertIndex) {
 
   arr.splice(insertIndex, 0, arr.splice(removeIndex, 1)[0])
 }
+
+/**
+ * @param {number} a
+ * @param {number} b
+ * @param {number} t Value between 0 and 1
+ */
+export function lerp(a, b, t) {
+  return a + (b - a) * t
+}
