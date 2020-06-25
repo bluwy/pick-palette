@@ -53,9 +53,9 @@ export function historyStore(value, options) {
   }
 
   const redo = () => {
-    if (historyIndex < historyStack.length - 1) {
+    if (historyIndex + 1 < historyStack.length) {
       internalStore.update((v) =>
-        applyPatches(v, historyStack[historyIndex].redo)
+        applyPatches(v, historyStack[historyIndex + 1].redo)
       )
       historyIndex++
     }
