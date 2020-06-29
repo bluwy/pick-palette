@@ -5,6 +5,7 @@
 
   export let options = undefined
   export let show = false
+  export let arrow = false
 
   let reference
   let popper
@@ -50,6 +51,11 @@
       ? css(popperState.styles.popper)
       : ''
 
+  $: arrowStyle =
+    popperState != null && popperState.styles != null
+      ? css(popperState.styles.arrow)
+      : ''
+
   function create() {
     popperInstance = createPopper(reference, popper, popperOptions)
   }
@@ -71,5 +77,14 @@
 <div bind:this={popper} class="absolute" {...popperAttrs} style={popperStyle}>
   {#if show}
     <slot />
+  {/if}
+  {#if arrow}
+    <div data-popper-arrow class="absolute" style={arrowStyle}>
+      <div
+        class="absolute w-2 h-2 bg-gray-100 transform -translate-x-1/2
+        -translate-y-1/2 rotate-45"
+        class:hidden={!show}
+      />
+    </div>
   {/if}
 </div>
