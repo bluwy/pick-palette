@@ -1,4 +1,6 @@
 <script>
+  import chroma from 'chroma-js'
+
   import { dispatch } from '@/store/state'
   import { currentEditorView, editorViews } from '@/store/editor'
   import { getDefaultColorName, genShadeFunctions } from '@/utils/app'
@@ -11,12 +13,19 @@
   let shadeCount = 9
   let shadeFunctionName = 'Luminance'
   let resultShades = []
+  let correctLightness = true
 
   $: {
     const func = genShadeFunctions.find((v) => v.name === shadeFunctionName)
 
     if (func != null) {
-      resultShades = func.fn(baseColor, shadeCount)
+      let shades = func.fn(baseColor, shadeCount)
+
+      if (correctLightness) {
+        shades = chroma.scale(shades).correctLightness().colors(shades.length)
+      }
+
+      resultShades = shades
     }
   }
 
@@ -42,7 +51,7 @@
   }
 </script>
 
-<div class="flex flex-row">
+<div class="flex flex-row flex-wrap">
   <div class="w-full sm:w-1/2 md:w-1/3 mb-3">
     <label class="block mb-1">Base color</label>
     <InputColor bind:value={baseColor} />
@@ -57,6 +66,12 @@
       bind:value={shadeFunctionName}
       choices={shadeFunctionChoices}
     />
+  </div>
+  <div class="w-full mb-3">
+    <label>
+      <span>Correct lightness</span>
+      <input type="checkbox" bind:checked={correctLightness} />
+    </label>
   </div>
 </div>
 
