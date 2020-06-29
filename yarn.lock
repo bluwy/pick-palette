@@ -23,6 +23,11 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
+"@bjornlu/colorblind@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@bjornlu/colorblind/-/colorblind-1.0.0.tgz#2f37b6ce682f9f4715fd448e1a26d664886234e2"
+  integrity sha512-I2eCUxwu8WQ5X4G2H1VwTN4GhrIFxxWgIRGY4C1USvmlfQ31kMopvIrXVdsa0b59BwHKTKXOJ+lJCIPDK1X0ug==
+
 "@fortawesome/fontawesome-common-types@^0.2.28":
   version "0.2.28"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.28.tgz#1091bdfe63b3f139441e9cba27aa022bff97d8b2"

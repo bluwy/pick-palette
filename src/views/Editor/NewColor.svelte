@@ -1,6 +1,6 @@
 <script>
+  import { simulate } from '@bjornlu/colorblind'
   import chroma from 'chroma-js'
-
   import { dispatch } from '@/store/state'
   import { currentEditorView, editorViews } from '@/store/editor'
   import { getDefaultColorName, genShadeFunctions } from '@/utils/app'
@@ -8,12 +8,15 @@
   import ButtonColor from '@/components/base/ButtonColor.svelte'
   import InputColor from '@/components/base/InputColor.svelte'
   import SelectToolbar from '@/components/base/SelectToolbar.svelte'
+  import SelectColorDeficiency from '@/components/SelectColorDeficiency.svelte'
 
   let baseColor = '#ffffff'
   let shadeCount = 9
   let shadeFunctionName = 'Luminance'
   let resultShades = []
   let correctLightness = true
+  let colorDeficiency = ''
+  let simulatedShades = []
 
   $: {
     const func = genShadeFunctions.find((v) => v.name === shadeFunctionName)
@@ -28,6 +31,17 @@
       resultShades = shades
     }
   }
+
+  $: {
+    if (colorDeficiency) {
+      simulatedShades = resultShades.map((shade) => {
+        const [r, g, b] = chroma(shade).rgb()
+        return chroma(simulate({ r, g, b }, colorDeficiency)).hex()
+      })
+    }
+  }
+
+  $: finalShades = colorDeficiency ? simulatedShades : resultShades
 
   const shadeChoices = [5, 7, 9].map((v) => ({ label: v, value: v }))
 
@@ -73,10 +87,16 @@
       <input type="checkbox" bind:checked={correctLightness} />
     </label>
   </div>
+  <div class="w-full mb-3">
+    <label>
+      <div>Simulate color blind</div>
+      <SelectColorDeficiency bind:value={colorDeficiency} />
+    </label>
+  </div>
 </div>
 
 <div class="max-w-md mx-auto my-8 flex flex-row justify-between">
-  {#each resultShades as shade}
+  {#each finalShades as shade}
     <ButtonColor color={shade} />
   {/each}
 </div>

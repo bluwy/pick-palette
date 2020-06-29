@@ -11,7 +11,7 @@
 
   .base:not(:disabled):hover,
   .base:not(:disabled):focus {
-    @apply bg-primary-500 bg-opacity-20 border-primary-500 bg-primary-500 bg-opacity-20 border-primary-500;
+    @apply bg-primary-500 bg-opacity-20 border-primary-500;
   }
 
   .base:disabled {

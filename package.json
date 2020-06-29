@@ -11,6 +11,7 @@
     "lint:fix": "prettier --write \"**/*.{html,css,js,md,svelte}\""
   },
   "dependencies": {
+    "@bjornlu/colorblind": "^1.0.0",
     "@fortawesome/free-regular-svg-icons": "^5.13.0",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@popperjs/core": "^2.4.2",
