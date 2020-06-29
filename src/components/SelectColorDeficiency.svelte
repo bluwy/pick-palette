@@ -1,5 +1,4 @@
 <script>
-  import { colorDeficiency } from '@/store/colorblind'
   import { simulate } from '@bjornlu/colorblind'
   import Select from './base/Select.svelte'
 
