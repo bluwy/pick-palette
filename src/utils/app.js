@@ -50,7 +50,7 @@ export function genShadeLuminance(color, shadeCount) {
 export function genShadeTint(color, shadeCount) {
   // Color is the base/center color
   const [r, g, b] = chroma(color).rgb()
-  const halfCount = Math.floor(shadeCount / 2)
+  const halfCount = Math.ceil(shadeCount / 2)
   const maxTintAndShade = 0.9
 
   // Tint makes brighter (Reference term)
@@ -58,16 +58,17 @@ export function genShadeTint(color, shadeCount) {
     chroma(lerp(r, 255, t), lerp(g, 255, t), lerp(b, 255, t)).hex()
 
   // Shade makes darker (Reference term)
-  const shade = (t) => chroma(r * t, g * t, b * t).hex()
+  const shade = (t) => chroma(lerp(r, 0, t), lerp(g, 0, t), lerp(b, 0, t)).hex()
 
-  // Create tint and shade values from outer to center
+  // Create tint and shade values from center to outer
+  // and remove first element since it's 0
   const tintAndShadeValues = Array.from({ length: halfCount }, (_, k) =>
-    lerp(maxTintAndShade, 0, k / (halfCount - 1))
-  )
+    lerp(0, maxTintAndShade, k / (halfCount - 1))
+  ).slice(1)
 
   return [
-    ...tintAndShadeValues.map(tint),
+    ...tintAndShadeValues.reverse().map(tint),
     color,
-    ...tintAndShadeValues.map(shade)
+    ...tintAndShadeValues.reverse().map(shade)
   ]
 }
