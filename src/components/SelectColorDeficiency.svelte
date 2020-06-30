@@ -1,5 +1,4 @@
 <script>
-  import { simulate } from '@bjornlu/colorblind'
   import Select from './base/Select.svelte'
 
   export let value

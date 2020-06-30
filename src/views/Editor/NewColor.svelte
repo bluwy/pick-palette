@@ -1,5 +1,4 @@
 <script>
-  import { simulate } from '@bjornlu/colorblind'
   import chroma from 'chroma-js'
   import { dispatch } from '@/store/state'
   import { currentEditorView, editorViews } from '@/store/editor'
@@ -10,53 +9,23 @@
   import SelectToolbar from '@/components/base/SelectToolbar.svelte'
   import SelectColorDeficiency from '@/components/SelectColorDeficiency.svelte'
 
-  let baseColor = '#ffffff'
-  let shadeCount = 9
-  let shadeFunctionName = 'Luminance'
-  let resultShades = []
-  let correctLightness = true
-  let colorDeficiency = ''
-  let simulatedShades = []
-
-  $: {
-    const func = genShadeFunctions.find((v) => v.name === shadeFunctionName)
-
-    if (func != null) {
-      let shades = func.fn(baseColor, shadeCount)
-
-      if (correctLightness) {
-        shades = chroma.scale(shades).correctLightness().colors(shades.length)
-      }
-
-      resultShades = shades
-    }
-  }
-
-  $: {
-    if (colorDeficiency) {
-      simulatedShades = resultShades.map((shade) => {
-        const [r, g, b] = chroma(shade).rgb()
-        return chroma(simulate({ r, g, b }, colorDeficiency)).hex()
-      })
-    }
-  }
-
-  $: finalShades = colorDeficiency ? simulatedShades : resultShades
-
   const shadeChoices = [5, 7, 9].map((v) => ({ label: v, value: v }))
 
-  const shadeFunctionChoices = genShadeFunctions.map((v) => ({
-    label: v.name,
-    value: v.name
+  let baseColor = chroma.random().hex()
+  let shadeCount = 9
+
+  $: shadeIdeas = genShadeFunctions.map((v) => ({
+    name: v.name,
+    shades: v.fn(baseColor, shadeCount)
   }))
 
-  function create() {
+  function create(shades) {
     dispatch((state) => {
       const currentProject = state.projects[state.selected]
 
       currentProject.colors.push({
         name: getDefaultColorName(currentProject),
-        shades: resultShades
+        shades: shades
       })
     })
 
@@ -65,42 +34,34 @@
   }
 </script>
 
-<div class="flex flex-row flex-wrap">
-  <div class="w-full sm:w-1/2 md:w-1/3 mb-3">
-    <label class="block mb-1">Base color</label>
-    <InputColor bind:value={baseColor} />
-  </div>
-  <div class="w-full sm:w-1/2 md:w-1/3 mb-3">
-    <label class="block mb-1">Shade count</label>
+<div class="text-center mb-2">
+  <div class="text-lg mb-3">Pick a new color</div>
+  <InputColor bind:value={baseColor} />
+</div>
+
+<div class="flex justify-between items-center">
+  <div>Ideas</div>
+  <div class="flex items-center">
+    <label class="mr-3">Shade</label>
     <SelectToolbar bind:value={shadeCount} choices={shadeChoices} />
   </div>
-  <div class="w-full md:w-1/3 mb-3">
-    <label class="block mb-1">Shade algorithm</label>
-    <SelectToolbar
-      bind:value={shadeFunctionName}
-      choices={shadeFunctionChoices}
-    />
-  </div>
-  <div class="w-full mb-3">
-    <label>
-      <span>Correct lightness</span>
-      <input type="checkbox" bind:checked={correctLightness} />
-    </label>
-  </div>
-  <div class="w-full mb-3">
-    <label>
-      <div>Simulate color blind</div>
-      <SelectColorDeficiency bind:value={colorDeficiency} />
-    </label>
-  </div>
 </div>
 
-<div class="max-w-md mx-auto my-8 flex flex-row justify-between">
-  {#each finalShades as shade}
-    <ButtonColor color={shade} />
-  {/each}
-</div>
-
-<div class="text-center">
-  <Button on:click={create}>Create</Button>
-</div>
+{#each shadeIdeas as idea}
+  <div
+    class="flex items-center p-2 mt-1 bg-gray-500 bg-opacity-0 rounded
+    transition-colors duration-200 hover:bg-opacity-20"
+  >
+    <div class="flex-shrink text-sm truncate w-48 opacity-70 mr-2">
+      {idea.name}
+    </div>
+    <div class="flex-shrink space-x-2">
+      {#each idea.shades as shade}
+        <ButtonColor color={shade} />
+      {/each}
+    </div>
+    <div class="flex-grow text-right">
+      <Button small on:click={() => create(idea.shades)}>Choose</Button>
+    </div>
+  </div>
+{/each}
