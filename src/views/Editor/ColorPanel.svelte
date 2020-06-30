@@ -5,8 +5,8 @@
   import { currentEditorView, editorViews } from '@/store/editor'
   import { dispatch, state } from '@/store/state'
   import { removeAndInsertElement } from '@/utils/common'
-  import Button from './base/Button.svelte'
-  import ColorTab from './ColorTab.svelte'
+  import Button from '@/components/base/Button.svelte'
+  import ColorTab from '@/components/ColorTab.svelte'
 
   let draggedColorName
   let dropIndex

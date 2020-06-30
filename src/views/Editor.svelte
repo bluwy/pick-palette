@@ -1,9 +1,9 @@
 <script>
   import { currentEditorView, editorViews } from '@/store/editor'
+  import EditorColorPanel from './Editor/ColorPanel.svelte'
   import EditorEditColor from './Editor/EditColor.svelte'
+  import EditorHeader from './Editor/Header.svelte'
   import EditorNewColor from './Editor/NewColor.svelte'
-  import EditorHeader from '@/components/EditorHeader.svelte'
-  import EditorColorPanel from '@/components/EditorColorPanel.svelte'
 
   const editorViewMap = Object.freeze({
     // TODO: Add default empty view

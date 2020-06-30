@@ -1,7 +1,7 @@
 <script>
   import Fa from 'svelte-fa'
   import { faAngry } from '@fortawesome/free-regular-svg-icons'
-  import Button from './base/Button.svelte'
+  import Button from '@/components/base/Button.svelte'
 </script>
 
 <header class="shadow-md">
