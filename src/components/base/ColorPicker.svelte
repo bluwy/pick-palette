@@ -68,7 +68,7 @@
 
 <div class="w-48" on:dragstart|preventDefault>
   <div
-    class="relative w-48 h-48"
+    class="relative w-48 h-48 cursor-crosshair"
     style="background-image: linear-gradient(transparent, black),
     linear-gradient(to right, white, {hueColor});"
     use:slidable
@@ -86,7 +86,7 @@
       style="background-color: {value};"
     />
     <div
-      class="hue relative h-3 flex-grow"
+      class="hue relative h-3 cursor-crosshair flex-grow"
       use:slidable
       on:slide={handleHueBar}
     >

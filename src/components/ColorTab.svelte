@@ -10,25 +10,30 @@
   const dispatch = createEventDispatcher()
 </script>
 
-<div class="flex flex-row justify-between mb-2">
-  <div class="opacity-80">{name}</div>
-  <button on:click={() => dispatch('remove')}>
-    <Icon
-      class="text-gray-700 text-opacity-50 transition-colors duration-200
-      hover:text-error-500 focus:text-error-500 hover:text-opacity-100
-      focus:text-opacity-100"
-      icon={faTrashAlt}
-    />
-  </button>
-</div>
-
-<ol class="flex flex-row justify-between">
-  {#each shades as color, index}
-    <li>
-      <ButtonColor
-        {color}
-        on:click={() => dispatch('clickshade', { index, color })}
+<div
+  class="cursor-grab rounded p-2 bg-gray-500 bg-opacity-0 transition-colors
+  duration-200 hover:bg-opacity-10"
+>
+  <div class="flex flex-row justify-between mb-2">
+    <div class="opacity-80">{name}</div>
+    <button on:click={() => dispatch('remove')}>
+      <Icon
+        class="text-gray-700 text-opacity-50 transition-colors duration-200
+        hover:text-error-500 focus:text-error-500 hover:text-opacity-100
+        focus:text-opacity-100"
+        icon={faTrashAlt}
       />
-    </li>
-  {/each}
-</ol>
+    </button>
+  </div>
+
+  <ol class="flex flex-row justify-between">
+    {#each shades as color, index}
+      <li>
+        <ButtonColor
+          {color}
+          on:click={() => dispatch('clickshade', { index, color })}
+        />
+      </li>
+    {/each}
+  </ol>
+</div>

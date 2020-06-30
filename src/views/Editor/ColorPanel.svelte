@@ -79,12 +79,12 @@
       Add color
     </Button>
   </div>
-  <ul class="flex-grow overflow-y-auto space-y-4">
+  <ul class="flex-grow overflow-y-auto space-y-1">
     {#each orderedColors as color (color.name)}
       <li
         transition:fade={{ duration: 200 }}
         animate:flip={{ duration: 300, delay: 100 }}
-        class="h-16 relative flex justify-center items-center"
+        class="h-20 relative flex justify-center items-center"
         draggable="true"
         on:dragstart={() => handleDragStart(color.name)}
         on:dragenter={(e) => color.name !== draggedColorName && handleDragEnter(color.name, e)}
