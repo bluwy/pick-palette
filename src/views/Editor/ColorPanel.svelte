@@ -68,49 +68,50 @@
   }
 </script>
 
-<div class="flex flex-row justify-between items-center mb-5">
-  <div class="opacity-70">Palette</div>
-  <Button
-    outline
-    small
-    on:click={() => ($currentEditorView = editorViews.newColor)}
-  >
-    Add color
-  </Button>
-</div>
-
-<ul class="mb-4 space-y-4">
-  {#each orderedColors as color (color.name)}
-    <li
-      transition:fade={{ duration: 200 }}
-      animate:flip={{ duration: 300, delay: 100 }}
-      class="h-16 relative flex justify-center items-center"
-      draggable="true"
-      on:dragstart={() => handleDragStart(color.name)}
-      on:dragenter={(e) => color.name !== draggedColorName && handleDragEnter(color.name, e)}
-      on:dragover|preventDefault
-      on:dragend={handleDragEnd}
+<div class="flex flex-col h-full">
+  <div class="flex flex-row justify-between items-center mb-5">
+    <div class="opacity-70">Palette</div>
+    <Button
+      outline
+      small
+      on:click={() => ($currentEditorView = editorViews.newColor)}
     >
-      {#if color.name === draggedColorName}
-        <p
-          transition:fade={{ duration: 200 }}
-          class="absolute text-sm opacity-50"
-        >
-          Drop here
-        </p>
-      {:else}
-        <div transition:fade={{ duration: 200 }} class="absolute w-full">
-          <ColorTab
-            {...color}
-            on:remove={() => removeColor(color.name)}
-            on:clickshade={handleClickShade}
-          />
-        </div>
-      {/if}
-    </li>
-  {:else}
-    <li class="text-center">
-      <p class="text-sm opacity-50 my-6">No colors yet</p>
-    </li>
-  {/each}
-</ul>
+      Add color
+    </Button>
+  </div>
+  <ul class="flex-grow overflow-y-auto space-y-4">
+    {#each orderedColors as color (color.name)}
+      <li
+        transition:fade={{ duration: 200 }}
+        animate:flip={{ duration: 300, delay: 100 }}
+        class="h-16 relative flex justify-center items-center"
+        draggable="true"
+        on:dragstart={() => handleDragStart(color.name)}
+        on:dragenter={(e) => color.name !== draggedColorName && handleDragEnter(color.name, e)}
+        on:dragover|preventDefault
+        on:dragend={handleDragEnd}
+      >
+        {#if color.name === draggedColorName}
+          <p
+            transition:fade={{ duration: 200 }}
+            class="absolute text-sm opacity-50"
+          >
+            Drop here
+          </p>
+        {:else}
+          <div transition:fade={{ duration: 200 }} class="absolute w-full">
+            <ColorTab
+              {...color}
+              on:remove={() => removeColor(color.name)}
+              on:clickshade={handleClickShade}
+            />
+          </div>
+        {/if}
+      </li>
+    {:else}
+      <li class="text-center">
+        <p class="text-sm opacity-50 my-6">No colors yet</p>
+      </li>
+    {/each}
+  </ul>
+</div>

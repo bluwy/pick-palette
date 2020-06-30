@@ -39,7 +39,7 @@
   <InputColor bind:value={baseColor} />
 </div>
 
-<div class="flex justify-between items-center">
+<div class="flex justify-between items-center mb-1">
   <div>Ideas</div>
   <div class="flex items-center">
     <label class="mr-3">Shade</label>
@@ -47,21 +47,23 @@
   </div>
 </div>
 
-{#each shadeIdeas as idea}
-  <div
-    class="flex items-center p-2 mt-1 bg-gray-500 bg-opacity-0 rounded
-    transition-colors duration-200 hover:bg-opacity-20"
-  >
-    <div class="flex-shrink text-sm truncate w-48 opacity-70 mr-2">
-      {idea.name}
+<div class="space-y-1 overflow-y-auto">
+  {#each shadeIdeas as idea}
+    <div
+      class="flex items-center p-2 bg-gray-500 bg-opacity-0 rounded
+      transition-colors duration-200 hover:bg-opacity-20"
+    >
+      <div class="flex-shrink text-sm truncate w-48 opacity-70 mr-2">
+        {idea.name}
+      </div>
+      <div class="flex-shrink space-x-2">
+        {#each idea.shades as shade}
+          <ButtonColor color={shade} />
+        {/each}
+      </div>
+      <div class="flex-grow text-right">
+        <Button small on:click={() => create(idea.shades)}>Choose</Button>
+      </div>
     </div>
-    <div class="flex-shrink space-x-2">
-      {#each idea.shades as shade}
-        <ButtonColor color={shade} />
-      {/each}
-    </div>
-    <div class="flex-grow text-right">
-      <Button small on:click={() => create(idea.shades)}>Choose</Button>
-    </div>
-  </div>
-{/each}
+  {/each}
+</div>

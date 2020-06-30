@@ -27,7 +27,7 @@
 
 <svelte:window on:keydown={handleHistory} />
 
-<main class="w-full h-screen overflow-x-hidden">
+<main class="w-full h-screen overflow-hidden">
   {#if $state.projects[$state.selected] == null}
     <Dashboard />
   {:else}
