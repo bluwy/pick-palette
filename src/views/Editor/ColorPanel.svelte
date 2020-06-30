@@ -4,7 +4,7 @@
   import { fade } from 'svelte/transition'
   import { currentEditorView, editorViews } from '@/store/editor'
   import { dispatch, state } from '@/store/state'
-  import { removeAndInsertElement } from '@/utils/common'
+  import { debounce, removeAndInsertElement } from '@/utils/common'
   import Button from '@/components/base/Button.svelte'
   import ColorTab from '@/components/ColorTab.svelte'
 
@@ -40,7 +40,7 @@
     dropIndex = colors.findIndex((v) => v.name === colorName)
   }
 
-  function handleDragEnter(colorName, e) {
+  const handleDragEnter = debounce((colorName, e) => {
     const targetTab = e.target.closest('[draggable="true"]')
 
     if (targetTab == null) {
@@ -56,7 +56,7 @@
     }
 
     dropIndex = colorIndex
-  }
+  }, 100)
 
   function handleDragEnd() {
     dispatch((state) => {
@@ -83,7 +83,7 @@
     {#each orderedColors as color (color.name)}
       <li
         transition:fade={{ duration: 200 }}
-        animate:flip={{ duration: 300, delay: 100 }}
+        animate:flip={{ duration: 250, delay: 100 }}
         class="h-20 relative flex justify-center items-center"
         draggable="true"
         on:dragstart={() => handleDragStart(color.name)}
@@ -91,14 +91,7 @@
         on:dragover|preventDefault
         on:dragend={handleDragEnd}
       >
-        {#if color.name === draggedColorName}
-          <p
-            transition:fade={{ duration: 200 }}
-            class="absolute text-sm opacity-50"
-          >
-            Drop here
-          </p>
-        {:else}
+        {#if color.name !== draggedColorName}
           <div transition:fade={{ duration: 200 }} class="absolute w-full">
             <ColorTab
               {...color}
