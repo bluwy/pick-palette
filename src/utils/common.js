@@ -8,9 +8,10 @@ export function clamp(value, min, max) {
 }
 
 /**
- * @param {Function} fn
+ * @param {T} fn
  * @param {number} wait
- * @returns {Function}
+ * @returns {T}
+ * @template T
  */
 export function debounce(fn, wait) {
   let t
@@ -21,9 +22,10 @@ export function debounce(fn, wait) {
 }
 
 /**
- * @param {Function} fn
+ * @param {T} fn
  * @param {number} wait
- * @returns {Function}
+ * @returns {T}
+ * @template T
  */
 export function throttle(fn, wait) {
   let t

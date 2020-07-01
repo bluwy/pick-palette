@@ -20,6 +20,8 @@ const defaultState = {
 
 // Get initial data from web storage
 const stateStr = localStorage.getItem(stateKey)
+
+/** @type {import('superstruct').StructType<State>} */
 let initialState = stateStr ? JSON.parse(stateStr) : defaultState
 
 // Make sure state is not tampered and set default values

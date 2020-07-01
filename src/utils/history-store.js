@@ -9,8 +9,9 @@ import { applyPatches, produce } from 'immer'
 
 /**
  * Create a store with undo/redo feature
- * @param {any} value
+ * @param {T} value
  * @param {HistoryStoreOptions} [options]
+ * @template T
  */
 export function historyStore(value, options = {}) {
   const { maxHistoryStack, beforeUpdate } = options
@@ -24,6 +25,13 @@ export function historyStore(value, options = {}) {
    * Use to update state. fn is a function with first argument of the proxied
    * state. All mutations should be done on the proxied state. More info:
    * https://immerjs.github.io/immer/docs/produce
+   *
+   * @callback DispatchFn
+   * @param {T} store
+   * @return {void}
+   *
+   * @param {DispatchFn} fn
+   * @param {boolean} noHistory
    */
   const dispatch = (fn, noHistory = false) => {
     const store = get(internalStore)
