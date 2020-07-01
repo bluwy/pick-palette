@@ -55,14 +55,14 @@
   {#each shadeIdeas as idea}
     <div
       class="flex items-center p-2 bg-gray-500 bg-opacity-0 rounded
-      transition-colors duration-200 hover:bg-opacity-20"
+      transition-colors duration-200 hover:bg-opacity-10"
     >
       <div class="flex-shrink text-sm truncate w-48 opacity-70 mr-2">
         {idea.name}
       </div>
       <div class="flex-shrink space-x-2">
         {#each idea.shades as shade}
-          <ButtonColor color={shade} />
+          <ButtonColor color={shade} disabled />
         {/each}
       </div>
       <div class="flex-grow text-right">

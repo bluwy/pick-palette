@@ -12,6 +12,7 @@
     <label
       class="inline-block cursor-pointer px-3 py-1 bg-primary-500 bg-opacity-0
       transition-colors duration-200 {choice.value === value ? 'bg-opacity-100 text-white hover:bg-opacity-80 focus:bg-opacity-80' : 'hover:bg-opacity-30 focus:bg-opacity-30'}"
+      tabindex="0"
     >
       <span>{choice.label}</span>
       <input
