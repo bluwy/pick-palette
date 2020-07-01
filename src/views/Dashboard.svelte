@@ -1,13 +1,11 @@
 <script>
   import { state, dispatch } from '@/store/state'
-  import InputText from '@/components/base/InputText.svelte'
   import Button from '@/components/base/Button.svelte'
+  import InputText from '@/components/base/InputText.svelte'
 
   let newProjectName = ''
 
-  $: projects = $state.projects || []
-
-  const createProject = () => {
+  function createProject() {
     if (!newProjectName) {
       // TODO: Show error to user
       return
@@ -19,7 +17,7 @@
     }, true)
   }
 
-  const selectProject = (index) => {
+  function selectProject(index) {
     dispatch((state) => {
       state.selected = index
     }, true)
@@ -37,11 +35,11 @@
       <Button props={{ type: 'submit' }}>Create</Button>
     </form>
   </div>
-  {#if projects.length > 0}
+  {#if $state.projects.length > 0}
     <div class="text-center mt-10">
       <p class="opacity-80 mb-2">Or continue on previous projects:</p>
       <div>
-        {#each projects as project, i}
+        {#each $state.projects as project, i (project.id)}
           <button
             class="w-full px-3 py-2 rounded bg-primary-500 bg-opacity-0
             hover:bg-opacity-20 focus:bg-opacity-20"

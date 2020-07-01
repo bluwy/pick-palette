@@ -8,14 +8,14 @@
   import Button from '@/components/base/Button.svelte'
   import ColorTab from '@/components/ColorTab.svelte'
 
-  let draggedColorName
+  let draggedColorId
   let dropIndex
 
   $: colors = $state.projects[$state.selected].colors
 
   $: orderedColors = produce(colors, (colors) => {
-    if (draggedColorName != null && dropIndex != null) {
-      const dragIndex = colors.findIndex((v) => v.name === draggedColorName)
+    if (draggedColorId != null && dropIndex != null) {
+      const dragIndex = colors.findIndex((v) => v.id === draggedColorId)
       removeAndInsertElement(colors, dragIndex, dropIndex)
     }
   })
@@ -37,12 +37,12 @@
     $currentEditorView = editorViews.editColor
   }
 
-  function handleDragStart(colorName) {
-    draggedColorName = colorName
-    dropIndex = colors.findIndex((v) => v.name === colorName)
+  function handleDragStart(colorId) {
+    draggedColorId = colorId
+    dropIndex = colors.findIndex((v) => v.id === colorId)
   }
 
-  const handleDragEnter = debounce((colorName, e) => {
+  const handleDragEnter = debounce((colorId, e) => {
     const targetTab = e.target.closest('[draggable="true"]')
 
     if (targetTab == null) {
@@ -50,7 +50,7 @@
     }
 
     const tabRect = targetTab.getBoundingClientRect()
-    let colorIndex = colors.findIndex((v) => v.name === colorName)
+    let colorIndex = colors.findIndex((v) => v.id === colorId)
 
     // If pointer in lower part of rect, drop to lower part
     if (e.clientY > tabRect.top + tabRect.height / 2) {
@@ -65,7 +65,7 @@
       state.projects[state.selected].colors = orderedColors
     })
 
-    draggedColorName = undefined
+    draggedColorId = undefined
     dropIndex = undefined
   }
 </script>
@@ -88,12 +88,12 @@
         animate:flip={{ duration: 250, delay: 100 }}
         class="h-20 relative flex justify-center items-center"
         draggable="true"
-        on:dragstart={() => handleDragStart(color.name)}
-        on:dragenter={(e) => color.name !== draggedColorName && handleDragEnter(color.name, e)}
+        on:dragstart={() => handleDragStart(color.id)}
+        on:dragenter={(e) => color.id !== draggedColorId && handleDragEnter(color.id, e)}
         on:dragover|preventDefault
         on:dragend={handleDragEnd}
       >
-        {#if color.name !== draggedColorName}
+        {#if color.id !== draggedColorId}
           <div transition:fade={{ duration: 200 }} class="absolute w-full">
             <ColorTab
               name={color.name}
