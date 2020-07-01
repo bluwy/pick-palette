@@ -20,13 +20,15 @@
     }
   })
 
-  function removeColor(colorName) {
+  function removeColor(colorIndex) {
     dispatch((state) => {
-      const currentProject = state.projects[state.selected]
+      state.projects[state.selected].colors.splice(colorIndex, 1)
+    })
+  }
 
-      currentProject.colors = currentProject.colors.filter(
-        (v) => v.name !== colorName
-      )
+  function updateColorName(colorIndex, newName) {
+    dispatch((state) => {
+      state.projects[state.selected].colors[colorIndex].name = newName
     })
   }
 
@@ -80,7 +82,7 @@
     </Button>
   </div>
   <ul class="flex-grow overflow-y-auto space-y-1">
-    {#each orderedColors as color (color.name)}
+    {#each orderedColors as color, i (color.name)}
       <li
         transition:fade={{ duration: 200 }}
         animate:flip={{ duration: 250, delay: 100 }}
@@ -95,7 +97,8 @@
           <div transition:fade={{ duration: 200 }} class="absolute w-full">
             <ColorTab
               {...color}
-              on:remove={() => removeColor(color.name)}
+              on:namechange={(e) => updateColorName(i, e.detail)}
+              on:remove={() => removeColor(i)}
               on:clickshade={handleClickShade}
             />
           </div>

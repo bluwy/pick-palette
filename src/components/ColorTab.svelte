@@ -11,11 +11,24 @@
 </script>
 
 <div
-  class="cursor-grab rounded p-2 bg-gray-500 bg-opacity-0 transition-colors
+  class="cursor-grab rounded p-3 bg-gray-500 bg-opacity-0 transition-colors
   duration-200 hover:bg-opacity-10"
 >
   <div class="flex flex-row justify-between mb-2">
-    <div class="opacity-80">{name}</div>
+    <div
+      class="w-1/2"
+      draggable="true"
+      on:dragstart|preventDefault|stopPropagation
+    >
+      <input
+        class="truncate max-w-full px-2 py-1 -mx-2 -my-1 bg-gray-500
+        bg-opacity-0 transition-colors duration-200 hover:bg-opacity-20
+        focus:bg-opacity-20"
+        type="text"
+        value={name}
+        on:change={(e) => dispatch('namechange', e.target.value)}
+      />
+    </div>
     <button on:click={() => dispatch('remove')}>
       <Icon
         class="text-gray-700 text-opacity-50 transition-colors duration-200
