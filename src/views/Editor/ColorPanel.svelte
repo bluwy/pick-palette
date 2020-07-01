@@ -82,7 +82,7 @@
     </Button>
   </div>
   <ul class="flex-grow overflow-y-auto space-y-1">
-    {#each orderedColors as color, i (color.name)}
+    {#each orderedColors as color, i (color.id)}
       <li
         transition:fade={{ duration: 200 }}
         animate:flip={{ duration: 250, delay: 100 }}
@@ -96,7 +96,8 @@
         {#if color.name !== draggedColorName}
           <div transition:fade={{ duration: 200 }} class="absolute w-full">
             <ColorTab
-              {...color}
+              name={color.name}
+              shades={color.shades}
               on:namechange={(e) => updateColorName(i, e.detail)}
               on:remove={() => removeColor(i)}
               on:clickshade={handleClickShade}

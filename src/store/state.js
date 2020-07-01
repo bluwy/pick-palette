@@ -1,4 +1,9 @@
+import { coerce } from 'superstruct'
 import { historyStore } from '@/utils/history-store'
+import { State } from '@/utils/validation-structs'
+
+// Maximum history records for state updates
+const maxHistoryStack = 50
 
 // Key used for web storage saves
 const stateKey = 'ppdata'
@@ -15,11 +20,22 @@ const defaultState = {
 
 // Get initial data from web storage
 const stateStr = localStorage.getItem(stateKey)
-const initialState = stateStr ? JSON.parse(stateStr) : defaultState
+let initialState = stateStr ? JSON.parse(stateStr) : defaultState
+
+// Make sure state is not tampered and set default values
+initialState = coerce(initialState, State)
 
 export const { store: state, dispatch, undo, redo } = historyStore(
   initialState,
-  { maxHistoryStack: 50 }
+  {
+    maxHistoryStack,
+    beforeUpdate: (state) => {
+      // Make sure default values are set per update.
+      // TODO: Measure performance penalty
+      state = coerce(state, State)
+      return true
+    }
+  }
 )
 
 state.subscribe((v) => {

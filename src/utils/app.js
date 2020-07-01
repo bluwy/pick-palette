@@ -1,6 +1,8 @@
 import chroma from 'chroma-js'
 import { lerp } from './common'
 
+export const supportedShadeCount = [5, 7, 9]
+
 /** Create color name, e.g. Color 1, Color 2... */
 export function getDefaultColorName(project) {
   // Initial color suffix number

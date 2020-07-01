@@ -14,7 +14,7 @@
     }
 
     dispatch((state) => {
-      state.projects.push({ name: newProjectName, colors: [] })
+      state.projects.push({ name: newProjectName })
       state.selected = state.projects.length - 1
     }, true)
   }

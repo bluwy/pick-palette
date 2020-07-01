@@ -1,9 +1,19 @@
-import { writable, derived } from 'svelte/store'
-import produce, { applyPatches } from 'immer'
+import { writable, derived, get } from 'svelte/store'
+import { applyPatches, produce } from 'immer'
 
-// Svelte store with histort functionailty (undo/redo)
-export function historyStore(value, options) {
-  const { maxHistoryStack } = options
+/**
+ * @typedef {Object} HistoryStoreOptions
+ * @property {number} [maxHistoryStack] Max history record count
+ * @property {Function} [beforeUpdate] Function that runs before updating store. If defined, function must return truthy to continue update, otherwise it will not update store.
+ */
+
+/**
+ * Create a store with undo/redo feature
+ * @param {any} value
+ * @param {HistoryStoreOptions} [options]
+ */
+export function historyStore(value, options = {}) {
+  const { maxHistoryStack, beforeUpdate } = options
   const historyStack = []
   let historyIndex = -1
 
@@ -16,31 +26,48 @@ export function historyStore(value, options) {
    * https://immerjs.github.io/immer/docs/produce
    */
   const dispatch = (fn, noHistory = false) => {
-    internalStore.update((v) =>
-      produce(v, fn, (patches, inversePatches) => {
-        if (!noHistory) {
-          // If there's history ahead of current, remove it cuz we're rewriting it :D
-          if (historyIndex < historyStack.length) {
-            historyStack.splice(historyIndex)
-          }
+    const store = get(internalStore)
+    let newStore
+    let patches
+    let inversePatches
 
-          historyStack.push({
-            undo: inversePatches,
-            redo: patches
-          })
-
-          // Check reach history limit and remove earliest history
-          if (
-            maxHistoryStack != null &&
-            historyStack.length >= maxHistoryStack
-          ) {
-            historyStack.shift()
-          } else {
-            historyIndex++
-          }
-        }
+    if (noHistory) {
+      // Use normal produce sinve we dont need to generate patches,
+      // which slightly improves produce performance
+      newStore = produce(store, fn)
+    } else {
+      newStore = produce(store, fn, (a, b) => {
+        patches = a
+        inversePatches = b
       })
-    )
+    }
+
+    // Before altering history, run beforeUpdate hook for validation.
+    // If beforeUpdate returns falsy, exit
+    if (beforeUpdate && !beforeUpdate(newStore)) {
+      return
+    }
+
+    internalStore.update(() => newStore)
+
+    if (patches && inversePatches) {
+      // If there's history ahead of current, remove it cuz we're rewriting it :D
+      if (historyIndex < historyStack.length) {
+        historyStack.splice(historyIndex)
+      }
+
+      historyStack.push({
+        undo: inversePatches,
+        redo: patches
+      })
+
+      // Check reach history limit and remove earliest history
+      if (maxHistoryStack != null && historyStack.length >= maxHistoryStack) {
+        historyStack.shift()
+      } else {
+        historyIndex++
+      }
+    }
   }
 
   const undo = () => {

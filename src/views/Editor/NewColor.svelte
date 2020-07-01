@@ -2,14 +2,18 @@
   import chroma from 'chroma-js'
   import { dispatch } from '@/store/state'
   import { currentEditorView, editorViews } from '@/store/editor'
-  import { getDefaultColorName, genShadeFunctions } from '@/utils/app'
+  import {
+    getDefaultColorName,
+    genShadeFunctions,
+    supportedShadeCount
+  } from '@/utils/app'
   import Button from '@/components/base/Button.svelte'
   import ButtonColor from '@/components/base/ButtonColor.svelte'
   import InputColor from '@/components/base/InputColor.svelte'
   import SelectToolbar from '@/components/base/SelectToolbar.svelte'
   import SelectColorDeficiency from '@/components/SelectColorDeficiency.svelte'
 
-  const shadeChoices = [5, 7, 9].map((v) => ({ label: v, value: v }))
+  const shadeChoices = supportedShadeCount.map((v) => ({ label: v, value: v }))
 
   let baseColor = chroma.random().hex()
   let shadeCount = 9
@@ -25,7 +29,7 @@
 
       currentProject.colors.push({
         name: getDefaultColorName(currentProject),
-        shades: shades
+        shades
       })
     })
 
