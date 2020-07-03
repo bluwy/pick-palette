@@ -27,7 +27,7 @@
         on:change={(e) => dispatch('namechange', e.target.value)}
       />
     </div>
-    <button on:click={() => dispatch('remove')}>
+    <button class="button--transparent" on:click={() => dispatch('remove')}>
       <Icon
         class="text-gray-700 text-opacity-50 transition-colors duration-200
         hover:text-error-500 focus:text-error-500 hover:text-opacity-100

@@ -1,6 +1,5 @@
 <script>
   import { state, dispatch } from '@/store/state'
-  import Button from '@/components/base/Button.svelte'
 
   let newProjectName = ''
 
@@ -33,7 +32,7 @@
         size="15"
         placeholder="Project name"
       />
-      <Button props={{ type: 'submit' }}>Create</Button>
+      <button type="submit">Create</button>
     </form>
   </div>
   {#if $state.projects.length > 0}

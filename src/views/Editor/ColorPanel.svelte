@@ -5,7 +5,6 @@
   import { currentEditorView, editorViews } from '@/store/editor'
   import { dispatch, state } from '@/store/state'
   import { debounce, removeAndInsertElement } from '@/utils/common'
-  import Button from '@/components/base/Button.svelte'
   import ColorTab from '@/components/ColorTab.svelte'
 
   let draggedColorId
@@ -73,13 +72,12 @@
 <div class="flex flex-col h-full">
   <div class="flex flex-row justify-between items-center mb-5">
     <div class="opacity-70">Palette</div>
-    <Button
-      outline
-      small
+    <button
+      class="button--outline button--small"
       on:click={() => ($currentEditorView = editorViews.newColor)}
     >
       Add color
-    </Button>
+    </button>
   </div>
   <ul class="flex-grow overflow-y-auto space-y-1">
     {#each orderedColors as color, i (color.id)}

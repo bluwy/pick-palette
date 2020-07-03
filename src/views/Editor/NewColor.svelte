@@ -7,7 +7,6 @@
     genShadeFunctions,
     supportedShadeCount
   } from '@/utils/app'
-  import Button from '@/components/base/Button.svelte'
   import ButtonColor from '@/components/base/ButtonColor.svelte'
   import InputColor from '@/components/base/InputColor.svelte'
   import SelectToolbar from '@/components/base/SelectToolbar.svelte'
@@ -66,7 +65,9 @@
         {/each}
       </div>
       <div class="flex-grow text-right">
-        <Button small on:click={() => create(idea.shades)}>Choose</Button>
+        <button class="button--small" on:click={() => create(idea.shades)}>
+          Choose
+        </button>
       </div>
     </div>
   {/each}
