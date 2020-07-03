@@ -8,7 +8,7 @@
     supportedShadeCount
   } from '@/utils/app'
   import ButtonColor from '@/components/base/ButtonColor.svelte'
-  import InputColor from '@/components/base/InputColor.svelte'
+  import ColorPicker from '@/components/base/ColorPicker.svelte'
   import SelectToolbar from '@/components/base/SelectToolbar.svelte'
   import SelectColorDeficiency from '@/components/SelectColorDeficiency.svelte'
 
@@ -38,8 +38,10 @@
 </script>
 
 <div class="text-center mb-2">
-  <div class="text-lg mb-3">Pick a new color</div>
-  <InputColor bind:value={baseColor} />
+  <div class="text-lg mb-3">Pick a color</div>
+  <div class="inline-block">
+    <ColorPicker bind:value={baseColor} />
+  </div>
 </div>
 
 <div class="flex justify-between items-center mb-1">
