@@ -15,13 +15,39 @@
   }
 </script>
 
-<style global>
+<style global lang="postcss">
   html {
     overflow: hidden;
   }
 
   :disabled {
     cursor: not-allowed;
+  }
+
+  input,
+  .input {
+    @apply rounded px-3 py-1 border border-gray-500 bg-gray-500 bg-opacity-10 transition-all duration-200;
+  }
+
+  .input--small {
+    @apply text-sm px-2 py-sm;
+  }
+
+  .input--transparent {
+    @apply bg-gray-500 border-none bg-opacity-0;
+  }
+
+  input:not(:disabled):hover,
+  .input:not(:disabled):hover,
+  input:not(:disabled):focus,
+  .input:not(:disabled):focus {
+    @apply bg-primary-500 bg-opacity-20 border-primary-500;
+  }
+
+  input:disabled,
+  .input:disabled,
+  .input--disabled {
+    @apply bg-opacity-50 opacity-50;
   }
 </style>
 

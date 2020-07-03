@@ -62,6 +62,10 @@ module.exports = {
       cursor: {
         crosshair: 'crosshair',
         grab: 'grab'
+      },
+      spacing: {
+        // I needed spacing between p-0 and p-1
+        sm: '0.125rem'
       }
     }
   }

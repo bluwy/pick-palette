@@ -21,9 +21,7 @@
       on:dragstart|preventDefault|stopPropagation
     >
       <input
-        class="truncate max-w-full px-2 py-1 -mx-2 -my-1 bg-gray-500
-        bg-opacity-0 transition-colors duration-200 hover:bg-opacity-20
-        focus:bg-opacity-20"
+        class="input--small input--transparent truncate max-w-full -mx-2 -my-sm"
         type="text"
         value={name}
         on:change={(e) => dispatch('namechange', e.target.value)}

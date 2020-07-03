@@ -4,7 +4,6 @@
   import clickOutside from '@/actions/click-outside'
   import ButtonColor from './ButtonColor.svelte'
   import ColorPicker from './ColorPicker.svelte'
-  import InputText from './InputText.svelte'
   import Popper from './Popper.svelte'
 
   export let value
@@ -47,10 +46,11 @@
           on:click={() => (show = !disabled)}
         />
       </div>
-      <InputText
+      <input
         bind:value
+        type="text"
+        size="4"
         {disabled}
-        props={{ size: 4 }}
         on:change={setValueAsHex}
       />
     </div>

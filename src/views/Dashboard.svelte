@@ -1,7 +1,6 @@
 <script>
   import { state, dispatch } from '@/store/state'
   import Button from '@/components/base/Button.svelte'
-  import InputText from '@/components/base/InputText.svelte'
 
   let newProjectName = ''
 
@@ -28,9 +27,11 @@
   <div class="text-center">
     <p class="text-lg opacity-80 mb-3">Ready to pick a palette?</p>
     <form novalidate on:submit|preventDefault={createProject}>
-      <InputText
+      <input
         bind:value={newProjectName}
-        props={{ size: 15, placeholder: 'Project name' }}
+        type="text"
+        size="15"
+        placeholder="Project name"
       />
       <Button props={{ type: 'submit' }}>Create</Button>
     </form>
