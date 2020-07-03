@@ -3,5 +3,6 @@
   "semi": false,
   "singleQuote": true,
   "trailingComma": "none",
-  "svelteBracketNewLine": true
+  "svelteBracketNewLine": true,
+  "svelteSortOrder": "scripts-markup-styles"
 }

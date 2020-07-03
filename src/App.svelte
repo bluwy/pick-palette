@@ -15,6 +15,16 @@
   }
 </script>
 
+<svelte:window on:keydown={handleHistory} />
+
+<main class="w-full h-screen overflow-hidden">
+  {#if $state.projects[$state.selected] == null}
+    <Dashboard />
+  {:else}
+    <Editor />
+  {/if}
+</main>
+
 <style global lang="postcss">
   html {
     overflow: hidden;
@@ -89,13 +99,3 @@
     @apply text-gray-800 bg-opacity-30;
   }
 </style>
-
-<svelte:window on:keydown={handleHistory} />
-
-<main class="w-full h-screen overflow-hidden">
-  {#if $state.projects[$state.selected] == null}
-    <Dashboard />
-  {:else}
-    <Editor />
-  {/if}
-</main>

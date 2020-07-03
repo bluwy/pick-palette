@@ -32,6 +32,38 @@
   }, 30)
 </script>
 
+<div class="w-48" on:dragstart|preventDefault>
+  <div
+    class="relative w-48 h-48 cursor-crosshair"
+    style="background-image: linear-gradient(transparent, black),
+    linear-gradient(to right, white, {hueColor});"
+    use:slidable
+    on:slide|preventDefault={handleSatLightBox}
+  >
+    <div
+      class="svbox-pointer absolute w-4 h-4 rounded-full cursor-pointer
+      transform -translate-x-1/2 -translate-y-1/2"
+      style="top: {(1 - v) * 100}%; left: {s * 100}%;"
+    />
+  </div>
+  <div class="p-2 bg-white flex flex-row items-center">
+    <div
+      class="w-5 h-5 mr-2 rounded-full shadow-inner"
+      style="background-color: {value};"
+    />
+    <div
+      class="hue relative h-3 cursor-crosshair flex-grow"
+      use:slidable
+      on:slide={handleHueBar}
+    >
+      <div
+        class="hbar-pointer absolute h-full top-0 bg-gray-800"
+        style="left: {(h / 360) * 100}%;"
+      />
+    </div>
+  </div>
+</div>
+
 <style>
   .hue {
     background-image: linear-gradient(
@@ -65,35 +97,3 @@
     top: 100%;
   }
 </style>
-
-<div class="w-48" on:dragstart|preventDefault>
-  <div
-    class="relative w-48 h-48 cursor-crosshair"
-    style="background-image: linear-gradient(transparent, black),
-    linear-gradient(to right, white, {hueColor});"
-    use:slidable
-    on:slide|preventDefault={handleSatLightBox}
-  >
-    <div
-      class="svbox-pointer absolute w-4 h-4 rounded-full cursor-pointer
-      transform -translate-x-1/2 -translate-y-1/2"
-      style="top: {(1 - v) * 100}%; left: {s * 100}%;"
-    />
-  </div>
-  <div class="p-2 bg-white flex flex-row items-center">
-    <div
-      class="w-5 h-5 mr-2 rounded-full shadow-inner"
-      style="background-color: {value};"
-    />
-    <div
-      class="hue relative h-3 cursor-crosshair flex-grow"
-      use:slidable
-      on:slide={handleHueBar}
-    >
-      <div
-        class="hbar-pointer absolute h-full top-0 bg-gray-800"
-        style="left: {(h / 360) * 100}%;"
-      />
-    </div>
-  </div>
-</div>
