@@ -60,8 +60,8 @@ export function historyStore(value, options = {}) {
 
     if (patches && inversePatches) {
       // If there's history ahead of current, remove it cuz we're rewriting it :D
-      if (historyIndex < historyStack.length) {
-        historyStack.splice(historyIndex)
+      if (historyIndex + 1 < historyStack.length) {
+        historyStack.splice(historyIndex + 1)
       }
 
       historyStack.push({
