@@ -1,3 +1,7 @@
+/**
+ * Emits `slide` event when sliding on node
+ * @param {HTMLElement} node
+ */
 export default function (node) {
   const dispatchSlide = (e) => node.dispatchEvent(new MouseEvent('slide', e))
 
