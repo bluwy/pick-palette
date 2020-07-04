@@ -1,15 +1,18 @@
 <script>
   import chroma from 'chroma-js'
+  import { createEventDispatcher } from 'svelte'
   import slidable from '@/actions/slidable'
   import { clamp, throttle } from '@/utils/common'
 
   export let value
 
+  const dispatch = createEventDispatcher()
+
   // Source of truth
   let [h, s, v] = chroma(value).hsv()
 
   // Chroma hue value might be NaN for grays
-  if (Number.isNaN(h)) {
+  $: if (Number.isNaN(h)) {
     h = 0
   }
 
@@ -18,9 +21,6 @@
   $: hex = color.hex()
   $: hueColor = chroma.hsv(h, 1, 1).hex()
 
-  // Auto update value
-  $: value = color.hex()
-
   const handleSatLightBox = throttle((e) => {
     const rect = e.target.getBoundingClientRect()
     const xRatio = clamp((e.clientX - rect.left) / rect.width, 0, 1)
@@ -28,6 +28,7 @@
 
     s = xRatio
     v = 1 - yRatio
+    updateValue()
   }, 30)
 
   const handleHueBar = throttle((e) => {
@@ -35,36 +36,56 @@
     const xRatio = clamp((e.clientX - rect.left) / rect.width, 0, 1)
 
     h = xRatio * 360
+    updateValue()
   }, 30)
 
   function handleInputR(e) {
     ;[h, s, v] = color.set('rgb.r', e.target.value).hsv()
+    updateValue()
   }
 
   function handleInputG(e) {
     ;[h, s, v] = color.set('rgb.g', e.target.value).hsv()
+    updateValue()
   }
 
   function handleInputB(e) {
     ;[h, s, v] = color.set('rgb.b', e.target.value).hsv()
+    updateValue()
   }
 
   function handleInputH(e) {
     h = e.target.value
+    updateValue()
   }
 
   function handleInputS(e) {
     s = e.target.value / 100
+    updateValue()
   }
 
   function handleInputV(e) {
     v = e.target.value / 100
+    updateValue()
   }
 
   function handleInputHex(e) {
     if (chroma.valid(e.target.value)) {
-      value = chroma(e.target.value).hex()
+      updateValue(e.target.value)
     }
+  }
+
+  function updateValue(newValue = undefined) {
+    // Always use hex for value
+    const hex = chroma(newValue || { h, s, v }).hex()
+    // Update value for two-way binding
+    value = hex
+    // Emit input for event binding
+    dispatch('input', hex)
+  }
+
+  export function reset() {
+    ;[h, s, v] = chroma(value).hsv()
   }
 </script>
 

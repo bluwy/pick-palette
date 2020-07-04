@@ -2,7 +2,12 @@
   import produce from 'immer'
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
-  import { currentEditorView, editorViews } from '@/store/editor'
+  import {
+    currentEditorView,
+    editorViews,
+    editingColorId,
+    editingColorShadeIndex
+  } from '@/store/editor'
   import { dispatch, state } from '@/store/state'
   import { debounce, removeAndInsertElement } from '@/utils/common'
   import ColorTab from '@/components/ColorTab.svelte'
@@ -31,9 +36,10 @@
     })
   }
 
-  function handleClickShade() {
-    // TODO: Open edit view with shade context
+  function handleClickShade(colorId, shadeIndex) {
     $currentEditorView = editorViews.editColor
+    $editingColorId = colorId
+    $editingColorShadeIndex = shadeIndex
   }
 
   function handleDragStart(colorId) {
@@ -98,7 +104,7 @@
               shades={color.shades}
               on:namechange={(e) => updateColorName(i, e.detail)}
               on:remove={() => removeColor(i)}
-              on:clickshade={handleClickShade}
+              on:clickshade={(e) => handleClickShade(color.id, e.detail.index)}
             />
           </div>
         {/if}
