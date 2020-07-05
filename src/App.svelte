@@ -1,5 +1,6 @@
 <script>
   import { state, undo, redo } from './store/state'
+  import Snackbar from './components/Snackbar.svelte'
   import Dashboard from './views/Dashboard.svelte'
   import Editor from './views/Editor.svelte'
 
@@ -23,6 +24,7 @@
   {:else}
     <Editor />
   {/if}
+  <Snackbar />
 </main>
 
 <style global lang="postcss">
