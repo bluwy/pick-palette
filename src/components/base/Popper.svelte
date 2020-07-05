@@ -74,7 +74,7 @@
 <div bind:this={reference}>
   <slot name="reference" />
 </div>
-<div bind:this={popper} class="absolute" {...popperAttrs} style={popperStyle}>
+<div bind:this={popper} class="absolute z-10" {...popperAttrs} style={popperStyle}>
   {#if show}
     <slot />
   {/if}

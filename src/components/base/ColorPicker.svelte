@@ -89,7 +89,10 @@
   }
 </script>
 
-<div class="flex flex-row bg-white" on:dragstart|preventDefault>
+<div
+  class="flex flex-row p-2 border border-gray-500 rounded bg-white"
+  on:dragstart|preventDefault
+>
   <div>
     <div
       class="relative w-48 h-48 cursor-crosshair"
@@ -122,7 +125,7 @@
     </div>
   </div>
   <div>
-    <div class="m-2 space-y-1">
+    <div class="space-y-1 ml-2 mt-1">
       <label class="block">
         <span class="mr-2">R</span>
         <input
@@ -195,7 +198,7 @@
           on:input={handleInputV}
         />
       </label>
-      <label class="block">
+      <label class="block pt-2">
         <span class="mr-2">#</span>
         <input
           class="input--small"
