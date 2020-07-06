@@ -1,6 +1,7 @@
 <script>
+  import { nanoid } from 'nanoid/non-secure'
   import chroma from 'chroma-js'
-  import { dispatch } from '@/store/state'
+  import { updateState } from '@/store/state'
   import { currentEditorView, editorViews } from '@/store/editor'
   import {
     getDefaultColorName,
@@ -23,10 +24,11 @@
   }))
 
   function create(shades) {
-    dispatch((state) => {
+    updateState((state) => {
       const currentProject = state.projects[state.selected]
 
       currentProject.colors.push({
+        id: nanoid(10),
         name: getDefaultColorName(currentProject),
         shades
       })

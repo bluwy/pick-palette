@@ -1,17 +1,17 @@
 <script>
-  import { state, undo, redo } from './store/state'
+  import { state, undoState, redoState } from './store/state'
   import Snackbar from './components/Snackbar.svelte'
   import Dashboard from './views/Dashboard.svelte'
   import Editor from './views/Editor.svelte'
 
   const handleHistory = (e) => {
     if (e.ctrlKey && e.key === 'z') {
-      undo()
+      undoState()
     } else if (
       (e.ctrlKey && e.key == 'y') ||
       (e.ctrlKey && e.shiftKey && e.key === 'Z')
     ) {
-      redo()
+      redoState()
     }
   }
 </script>

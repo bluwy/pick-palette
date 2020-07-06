@@ -9,7 +9,7 @@
     editingColorId,
     editingColorShadeIndex
   } from '@/store/editor'
-  import { dispatch, state } from '@/store/state'
+  import { state, updateState } from '@/store/state'
   import ButtonColor from './base/ButtonColor.svelte'
 
   // Must exist in state data
@@ -19,10 +19,10 @@
 
   $: shades = color != null ? color.shades : []
 
-  const dispatchEvent = createEventDispatcher()
+  const dispatch = createEventDispatcher()
 
   function removeSelf() {
-    dispatch((state) => {
+    updateState((state) => {
       const colors = state.projects[state.selected].colors
       const index = colors.findIndex((v) => v.id === id)
       colors.splice(index, 1)
@@ -30,7 +30,7 @@
   }
 
   function updateName(newName) {
-    dispatch((state) => {
+    updateState((state) => {
       const colors = state.projects[state.selected].colors
       colors.find((v) => v.id === id).name = newName
     })
@@ -68,7 +68,7 @@
       </button>
       <div
         class="inline-block px-2 cursor-grab"
-        on:mousedown={() => dispatchEvent('candrag', true)}
+        on:mousedown={() => dispatch('candrag', true)}
       >
         <Icon
           class="text-gray-700 text-opacity-50 transition-colors duration-200

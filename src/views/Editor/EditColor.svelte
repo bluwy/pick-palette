@@ -4,7 +4,7 @@
   import { fly } from 'svelte/transition'
   import Icon from 'svelte-fa'
   import { editingColorId, editingColorShadeIndex } from '@/store/editor'
-  import { state, dispatch } from '@/store/state'
+  import { state, updateState } from '@/store/state'
   import { debounce } from '@/utils/common'
   import ButtonColor from '@/components/base/ButtonColor.svelte'
   import ColorPicker from '@/components/base/ColorPicker.svelte'
@@ -25,7 +25,7 @@
 
   // Slowly update shades, otherwise this would nuke history
   const updateShade = debounce((newShade) => {
-    dispatch((state) => {
+    updateState((state) => {
       const color = state.projects[state.selected].colors.find(
         (v) => v.id === $editingColorId
       )

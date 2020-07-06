@@ -4,7 +4,7 @@ import { applyPatches, produce } from 'immer'
 /**
  * @typedef {Object} HistoryStoreOptions
  * @property {number} [maxHistoryStack] Max history record count
- * @property {Function} [beforeUpdate] Function that runs before updating store. If defined, function must return truthy to continue update, otherwise it will not update store.
+ * @property {Function} [validate] Function that runs before updating store. If defined, function must return truthy to continue update, otherwise it will not update store.
  */
 
 /**
@@ -14,7 +14,7 @@ import { applyPatches, produce } from 'immer'
  * @template T
  */
 export function historyStore(value, options = {}) {
-  const { maxHistoryStack, beforeUpdate } = options
+  const { maxHistoryStack, validate } = options
   const historyStack = []
   let historyIndex = -1
 
@@ -32,6 +32,8 @@ export function historyStore(value, options = {}) {
    *
    * @param {DispatchFn} fn
    * @param {boolean} noHistory
+   *
+   * @returns {boolean} False if validation fails, otherwise true
    */
   const dispatch = (fn, noHistory = false) => {
     const store = get(internalStore)
@@ -40,7 +42,7 @@ export function historyStore(value, options = {}) {
     let inversePatches
 
     if (noHistory) {
-      // Use normal produce sinve we dont need to generate patches,
+      // Use normal produce since we dont need to generate patches,
       // which slightly improves produce performance
       newStore = produce(store, fn)
     } else {
@@ -50,10 +52,9 @@ export function historyStore(value, options = {}) {
       })
     }
 
-    // Before altering history, run beforeUpdate hook for validation.
-    // If beforeUpdate returns falsy, exit
-    if (beforeUpdate && !beforeUpdate(newStore)) {
-      return
+    // Optional validate after producing new store
+    if (validate && !validate(newStore)) {
+      return false
     }
 
     internalStore.update(() => newStore)
@@ -76,6 +77,8 @@ export function historyStore(value, options = {}) {
         historyIndex++
       }
     }
+
+    return true
   }
 
   const undo = () => {

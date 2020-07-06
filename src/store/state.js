@@ -1,4 +1,4 @@
-import { coerce } from 'superstruct'
+import { coerce, validate } from 'superstruct'
 import { historyStore } from '@/utils/history-store'
 import { State } from '@/utils/validation-structs'
 
@@ -27,18 +27,27 @@ let initialState = stateStr ? JSON.parse(stateStr) : defaultState
 // Make sure state is not tampered and set default values
 initialState = coerce(initialState, State)
 
-export const { store: state, dispatch, undo, redo } = historyStore(
-  initialState,
-  {
-    maxHistoryStack,
-    beforeUpdate: (state) => {
-      // Make sure default values are set per update.
-      // TODO: Measure performance penalty
-      state = coerce(state, State)
-      return true
+export const {
+  store: state,
+  dispatch: updateState,
+  undo: undoState,
+  redo: redoState
+} = historyStore(initialState, {
+  maxHistoryStack,
+  validate: (state) => {
+    // Run state validation on development
+    if (process.env.NODE_ENV !== 'production') {
+      const [error] = validate(state, State)
+
+      if (error != null) {
+        console.error(error)
+        return false
+      }
     }
+
+    return true
   }
-)
+})
 
 state.subscribe((v) => {
   localStorage.setItem(stateKey, JSON.stringify(v))

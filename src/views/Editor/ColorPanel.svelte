@@ -3,7 +3,7 @@
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
   import { currentEditorView, editorViews } from '@/store/editor'
-  import { dispatch, state } from '@/store/state'
+  import { state, updateState } from '@/store/state'
   import { debounce, removeAndInsertElement } from '@/utils/common'
   import ColorTab from '@/components/ColorTab.svelte'
 
@@ -44,7 +44,9 @@
   }, 100)
 
   function handleDragEnd() {
-    dispatch((state) => {
+    updateState((state) => {
+      // TODO: Manually splice and insert so Immer doesn't patch for the entire
+      // color array
       state.projects[state.selected].colors = orderedColors
     })
 

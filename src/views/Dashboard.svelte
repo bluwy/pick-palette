@@ -1,5 +1,6 @@
 <script>
-  import { state, dispatch } from '@/store/state'
+  import { nanoid } from 'nanoid/non-secure'
+  import { state, updateState } from '@/store/state'
 
   let newProjectName = ''
 
@@ -9,14 +10,18 @@
       return
     }
 
-    dispatch((state) => {
-      state.projects.push({ name: newProjectName })
+    updateState((state) => {
+      state.projects.push({
+        id: nanoid(10),
+        name: newProjectName,
+        colors: []
+      })
       state.selected = state.projects.length - 1
     }, true)
   }
 
   function selectProject(index) {
-    dispatch((state) => {
+    updateState((state) => {
       state.selected = index
     }, true)
   }
