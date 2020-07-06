@@ -1,17 +1,13 @@
 <script>
-  import produce from 'immer'
+  import { produce } from 'immer'
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
-  import {
-    currentEditorView,
-    editorViews,
-    editingColorId,
-    editingColorShadeIndex
-  } from '@/store/editor'
+  import { currentEditorView, editorViews } from '@/store/editor'
   import { dispatch, state } from '@/store/state'
   import { debounce, removeAndInsertElement } from '@/utils/common'
   import ColorTab from '@/components/ColorTab.svelte'
 
+  let canDrag = false
   let draggedColorId
   let dropIndex
 
@@ -23,24 +19,6 @@
       removeAndInsertElement(colors, dragIndex, dropIndex)
     }
   })
-
-  function removeColor(colorIndex) {
-    dispatch((state) => {
-      state.projects[state.selected].colors.splice(colorIndex, 1)
-    })
-  }
-
-  function updateColorName(colorIndex, newName) {
-    dispatch((state) => {
-      state.projects[state.selected].colors[colorIndex].name = newName
-    })
-  }
-
-  function handleClickShade(colorId, shadeIndex) {
-    $currentEditorView = editorViews.editColor
-    $editingColorId = colorId
-    $editingColorShadeIndex = shadeIndex
-  }
 
   function handleDragStart(colorId) {
     draggedColorId = colorId
@@ -70,6 +48,7 @@
       state.projects[state.selected].colors = orderedColors
     })
 
+    canDrag = false
     draggedColorId = undefined
     dropIndex = undefined
   }
@@ -86,12 +65,12 @@
     </button>
   </div>
   <ul class="flex-grow overflow-y-auto space-y-1">
-    {#each orderedColors as color, i (color.id)}
+    {#each orderedColors as color (color.id)}
       <li
         transition:fade={{ duration: 200 }}
         animate:flip={{ duration: 250, delay: 100 }}
         class="h-20 relative flex justify-center items-center"
-        draggable="true"
+        draggable={canDrag}
         on:dragstart={() => handleDragStart(color.id)}
         on:dragenter={(e) => color.id !== draggedColorId && handleDragEnter(color.id, e)}
         on:dragover|preventDefault
@@ -99,13 +78,7 @@
       >
         {#if color.id !== draggedColorId}
           <div transition:fade={{ duration: 200 }} class="absolute w-full">
-            <ColorTab
-              name={color.name}
-              shades={color.shades}
-              on:namechange={(e) => updateColorName(i, e.detail)}
-              on:remove={() => removeColor(i)}
-              on:clickshade={(e) => handleClickShade(color.id, e.detail.index)}
-            />
+            <ColorTab id={color.id} on:candrag={(e) => (canDrag = e.detail)} />
           </div>
         {/if}
       </li>
