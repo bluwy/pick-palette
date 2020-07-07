@@ -128,6 +128,11 @@ export function historyStore(value, options = {}) {
       return
     }
 
+    // If there's history ahead of now, remove it
+    if (canRedo()) {
+      historyStack.splice(historyIndex + 1)
+    }
+
     historyStack.push({ name, undo, redo })
 
     if (limit != null && historyStack.length >= limit) {
