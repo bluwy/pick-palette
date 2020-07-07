@@ -46,11 +46,10 @@
 
   function handleDragEnd() {
     state.update('Sort color order', (state) => {
-      // TODO: Manually splice and insert so Immer doesn't patch for the entire
-      // color array
-      state.projects.find(
-        (v) => v.id === $selectedProjectId
-      ).colors = orderedColors
+      const colors = state.projects.find((v) => v.id === $selectedProjectId)
+        .colors
+      const dragIndex = colors.findIndex((v) => v.id === draggedColorId)
+      removeAndInsertElement(colors, dragIndex, dropIndex)
     })
 
     canDrag = false
