@@ -47,7 +47,6 @@ export const Project = object({
 
 export const State = object({
   version: number(),
-  selected: defaulted(number(), -1),
   projects: defaulted(array(Project), () => [])
 })
 

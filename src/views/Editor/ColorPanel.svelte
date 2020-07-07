@@ -3,7 +3,8 @@
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
   import { currentEditorView, editorViews } from '@/store/editor'
-  import { state, updateState } from '@/store/state'
+  import { selectedProjectId } from '@/store/project'
+  import { state } from '@/store/state'
   import { debounce, removeAndInsertElement } from '@/utils/common'
   import ColorTab from '@/components/ColorTab.svelte'
 
@@ -11,7 +12,7 @@
   let draggedColorId
   let dropIndex
 
-  $: colors = $state.projects[$state.selected].colors
+  $: colors = $state.projects.find((v) => v.id === $selectedProjectId).colors
 
   $: orderedColors = produce(colors, (colors) => {
     if (draggedColorId != null && dropIndex != null) {
@@ -44,10 +45,12 @@
   }, 100)
 
   function handleDragEnd() {
-    updateState((state) => {
+    state.update('Sort color order', (state) => {
       // TODO: Manually splice and insert so Immer doesn't patch for the entire
       // color array
-      state.projects[state.selected].colors = orderedColors
+      state.projects.find(
+        (v) => v.id === $selectedProjectId
+      ).colors = orderedColors
     })
 
     canDrag = false

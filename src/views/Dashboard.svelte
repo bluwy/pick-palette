@@ -1,6 +1,7 @@
 <script>
   import { nanoid } from 'nanoid/non-secure'
-  import { state, updateState } from '@/store/state'
+  import { selectProject } from '@/store/project'
+  import { state } from '@/store/state'
 
   let newProjectName = ''
 
@@ -10,20 +11,17 @@
       return
     }
 
-    updateState((state) => {
+    const projectId = nanoid(10)
+
+    state.update('Create new project', (state) => {
       state.projects.push({
-        id: nanoid(10),
+        id: projectId,
         name: newProjectName,
         colors: []
       })
-      state.selected = state.projects.length - 1
-    }, true)
-  }
+    })
 
-  function selectProject(index) {
-    updateState((state) => {
-      state.selected = index
-    }, true)
+    selectProject(projectId)
   }
 </script>
 
@@ -44,11 +42,11 @@
     <div class="text-center mt-10">
       <p class="opacity-80 mb-2">Or continue on previous projects:</p>
       <div>
-        {#each $state.projects as project, i (project.id)}
+        {#each $state.projects as project (project.id)}
           <button
-            class="w-full px-3 py-2 rounded bg-primary-500 bg-opacity-0
-            hover:bg-opacity-20 focus:bg-opacity-20"
-            on:click={selectProject(i)}
+            class="w-full px-3 py-2 rounded bg-primary-200 bg-opacity-0
+            text-primary-700 hover:bg-opacity-10 focus:bg-opacity-10"
+            on:click={() => selectProject(project.id)}
           >
             {project.name}
           </button>

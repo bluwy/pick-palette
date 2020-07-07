@@ -3,19 +3,45 @@
   import { tick } from 'svelte'
   import { fly } from 'svelte/transition'
   import Icon from 'svelte-fa'
-  import { editingColorId, editingColorShadeIndex } from '@/store/editor'
-  import { state, updateState } from '@/store/state'
+  import {
+    editorViews,
+    currentEditorView,
+    editingColorId,
+    editingColorShadeIndex
+  } from '@/store/editor'
+  import { selectedProjectId } from '@/store/project'
+  import { state } from '@/store/state'
   import { debounce } from '@/utils/common'
   import ButtonColor from '@/components/base/ButtonColor.svelte'
   import ColorPicker from '@/components/base/ColorPicker.svelte'
 
+  // Break merge after 500ms of inactivity
+  const debounceBreakMerge = debounce(state.breakMerge, 500)
+
   let resetColorPicker
+  let shadeIndex
 
-  $: currentColor = $state.projects[$state.selected].colors.find(
-    (v) => v.id === $editingColorId
-  )
+  $: currentColor = $state.projects
+    .find((v) => v.id === $selectedProjectId)
+    .colors.find((v) => v.id === $editingColorId)
 
-  $: currentShade = currentColor && currentColor.shades[$editingColorShadeIndex]
+  $: if (currentColor == null) {
+    // May be null because deleted, if so go to empty view
+    $currentEditorView = editorViews.empty
+  }
+
+  $: if (
+    currentColor &&
+    currentColor.shades &&
+    $editingColorShadeIndex >= 0 &&
+    $editingColorShadeIndex < currentColor.shades.length
+  ) {
+    shadeIndex = $editingColorShadeIndex
+  } else {
+    shadeIndex = -1
+  }
+
+  $: currentShade = currentColor && currentColor.shades[shadeIndex]
 
   // Reset color picker whenver color or shade change
   $: if (currentColor && currentShade && resetColorPicker) {
@@ -23,16 +49,25 @@
     tick().then(() => resetColorPicker())
   }
 
-  // Slowly update shades, otherwise this would nuke history
-  const updateShade = debounce((newShade) => {
-    updateState((state) => {
-      const color = state.projects[state.selected].colors.find(
-        (v) => v.id === $editingColorId
-      )
+  function updateShade(newShade) {
+    if (shadeIndex < 0) {
+      return
+    }
 
-      color.shades[$editingColorShadeIndex] = newShade
-    })
-  }, 1000)
+    state.update(
+      'Update shade',
+      (state) => {
+        const color = state.projects
+          .find((v) => v.id === $selectedProjectId)
+          .colors.find((v) => v.id === $editingColorId)
+
+        color.shades[shadeIndex] = newShade
+      },
+      { merge: true }
+    )
+
+    debounceBreakMerge()
+  }
 </script>
 
 <div class="text-center">
@@ -46,7 +81,7 @@
               on:click={() => ($editingColorShadeIndex = i)}
             />
             <div class="h-8">
-              {#if i === $editingColorShadeIndex}
+              {#if i === shadeIndex}
                 <div
                   transition:fly={{ y: 10 }}
                   class="text-gray-900 opacity-70 pt-3"

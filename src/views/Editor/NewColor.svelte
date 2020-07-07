@@ -1,8 +1,13 @@
 <script>
   import { nanoid } from 'nanoid/non-secure'
   import chroma from 'chroma-js'
-  import { updateState } from '@/store/state'
-  import { currentEditorView, editorViews } from '@/store/editor'
+  import { state } from '@/store/state'
+  import {
+    currentEditorView,
+    editorViews,
+    editingColorId
+  } from '@/store/editor'
+  import { selectedProjectId } from '@/store/project'
   import {
     getDefaultColorName,
     genShadeFunctions,
@@ -24,17 +29,22 @@
   }))
 
   function create(shades) {
-    updateState((state) => {
-      const currentProject = state.projects[state.selected]
+    const colorId = nanoid(10)
+
+    state.update('Create new color', (state) => {
+      const currentProject = state.projects.find(
+        (v) => v.id === $selectedProjectId
+      )
 
       currentProject.colors.push({
-        id: nanoid(10),
+        id: colorId,
         name: getDefaultColorName(currentProject),
         shades
       })
     })
 
     // Open color edit view
+    $editingColorId = colorId
     $currentEditorView = editorViews.editColor
   }
 </script>

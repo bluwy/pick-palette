@@ -9,5 +9,6 @@ export const editorViews = Object.freeze({
 
 export const currentEditorView = writable(editorViews.empty)
 
-export const editingColorId = writable('')
+export const editingColorId = writable(undefined)
+
 export const editingColorShadeIndex = writable(-1)

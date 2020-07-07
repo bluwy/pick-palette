@@ -9,37 +9,42 @@
     editingColorId,
     editingColorShadeIndex
   } from '@/store/editor'
-  import { state, updateState } from '@/store/state'
+  import { selectedProjectId } from '@/store/project'
+  import { state } from '@/store/state'
   import ButtonColor from './base/ButtonColor.svelte'
 
   // Must exist in state data
   export let id
 
-  $: color = $state.projects[$state.selected].colors.find((v) => v.id === id)
+  $: color = $state.projects
+    .find((v) => v.id === $selectedProjectId)
+    .colors.find((v) => v.id === id)
 
   $: shades = color != null ? color.shades : []
 
   const dispatch = createEventDispatcher()
 
   function removeSelf() {
-    updateState((state) => {
-      const colors = state.projects[state.selected].colors
+    state.update('Remove color', (state) => {
+      const colors = state.projects.find((v) => v.id === $selectedProjectId)
+        .colors
       const index = colors.findIndex((v) => v.id === id)
       colors.splice(index, 1)
     })
   }
 
   function updateName(newName) {
-    updateState((state) => {
-      const colors = state.projects[state.selected].colors
+    state.update('Update color name', (state) => {
+      const colors = state.projects.find((v) => v.id === $selectedProjectId)
+        .colors
       colors.find((v) => v.id === id).name = newName
     })
   }
 
   function handleClickShade(shadeIndex) {
-    $currentEditorView = editorViews.editColor
     $editingColorId = id
     $editingColorShadeIndex = shadeIndex
+    $currentEditorView = editorViews.editColor
   }
 </script>
 

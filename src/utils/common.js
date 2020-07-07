@@ -62,3 +62,26 @@ export function removeAndInsertElement(arr, removeIndex, insertIndex) {
 export function lerp(a, b, t) {
   return a + (b - a) * t
 }
+
+/**
+ * @param {Storage} storage
+ * @param {string} key
+ * @param {T} [defaultValue]
+ * @returns {T}
+ * @template T
+ */
+export function storageGetItem(storage, key, defaultValue) {
+  const value = storage.getItem(key)
+
+  if (value != null) {
+    return JSON.parse(value)
+  }
+
+  if (defaultValue != null) {
+    // Doesn't exist in storage, set default value
+    storage.setItem(key, JSON.stringify(defaultValue))
+    return defaultValue
+  }
+
+  return undefined
+}

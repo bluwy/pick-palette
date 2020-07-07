@@ -1,17 +1,18 @@
 <script>
-  import { state, undoState, redoState } from './store/state'
+  import { state } from './store/state'
+  import { selectedProjectId } from './store/project'
   import Snackbar from './components/Snackbar.svelte'
   import Dashboard from './views/Dashboard.svelte'
   import Editor from './views/Editor.svelte'
 
   const handleHistory = (e) => {
     if (e.ctrlKey && e.key === 'z') {
-      undoState()
+      state.undo()
     } else if (
       (e.ctrlKey && e.key == 'y') ||
       (e.ctrlKey && e.shiftKey && e.key === 'Z')
     ) {
-      redoState()
+      state.redo()
     }
   }
 </script>
@@ -19,7 +20,7 @@
 <svelte:window on:keydown={handleHistory} />
 
 <main class="w-full h-screen overflow-hidden">
-  {#if $state.projects[$state.selected] == null}
+  {#if $state.projects.find((v) => v.id === $selectedProjectId) == null}
     <Dashboard />
   {:else}
     <Editor />

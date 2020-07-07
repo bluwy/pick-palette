@@ -1,9 +1,10 @@
-import { coerce, validate } from 'superstruct'
-import { historyStore } from '@/utils/history-store'
+import { assert, coerce } from 'superstruct'
+import { storageGetItem } from '@/utils/common'
 import { State } from '@/utils/validation-structs'
+import { historyStore } from './base/history-store'
 
 // Maximum history records for state updates
-const maxHistoryStack = 50
+const historyLimit = 50
 
 // Key used for web storage saves
 const stateKey = 'ppdata'
@@ -14,41 +15,23 @@ const stateVersion = 1
 // Default if none in web storage
 const defaultState = {
   version: stateVersion,
-  selected: -1,
   projects: []
 }
 
-// Get initial data from web storage
-const stateStr = localStorage.getItem(stateKey)
-
+// Get initial state from local storage
 /** @type {import('superstruct').StructType<State>} */
-let initialState = stateStr ? JSON.parse(stateStr) : defaultState
+let initialState = storageGetItem(localStorage, stateKey, defaultState)
 
 // Make sure state is not tampered and set default values
 initialState = coerce(initialState, State)
 
-export const {
-  store: state,
-  dispatch: updateState,
-  undo: undoState,
-  redo: redoState
-} = historyStore(initialState, {
-  maxHistoryStack,
-  validate: (state) => {
-    // Run state validation on development
-    if (process.env.NODE_ENV !== 'production') {
-      const [error] = validate(state, State)
+export const state = historyStore(initialState, { limit: historyLimit })
 
-      if (error != null) {
-        console.error(error)
-        return false
-      }
-    }
-
-    return true
+state.subscribe((state) => {
+  // Run state validation in development
+  if (process.env.NODE_ENV !== 'production') {
+    assert(state, State)
   }
-})
 
-state.subscribe((v) => {
-  localStorage.setItem(stateKey, JSON.stringify(v))
+  localStorage.setItem(stateKey, JSON.stringify(state))
 })
