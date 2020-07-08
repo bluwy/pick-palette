@@ -61,6 +61,10 @@
     // Emit input for event binding
     dispatch('input', hex)
   }
+
+  export function reset() {
+    ;[h, s, v] = chroma(value).hsv()
+  }
 </script>
 
 <div class="flex p-2 border border-gray-500 rounded bg-white">
