@@ -3,7 +3,7 @@
  * Emits `clickoutside` event whenever pointer clicks outside of node
  * @param {HTMLElement} node
  */
-export default function (node) {
+export function clickOutside(node) {
   const handleClick = (e) => {
     if (!node.contains(e.target) && !e.defaultPrevented) {
       node.dispatchEvent(new MouseEvent('clickoutside', e))

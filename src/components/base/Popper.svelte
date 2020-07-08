@@ -1,6 +1,6 @@
 <script>
   import { createPopper } from '@popperjs/core'
-  import produce from 'immer'
+  import { produce } from 'immer'
   import { onDestroy } from 'svelte'
 
   export let options = undefined
