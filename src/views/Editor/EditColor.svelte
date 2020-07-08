@@ -13,7 +13,7 @@
   import { state } from '@/store/state'
   import { debounce } from '@/utils/common'
   import ButtonColor from '@/components/base/ButtonColor.svelte'
-  import ColorPicker from '@/components/base/ColorPicker.svelte'
+  import ColorPicker from '@/components/base/ColorPicker/Index.svelte'
 
   // Break merge after 500ms of inactivity
   const debounceBreakMerge = debounce(state.breakMerge, 500)

@@ -14,7 +14,7 @@
     supportedShadeCount
   } from '@/utils/app'
   import ButtonColor from '@/components/base/ButtonColor.svelte'
-  import ColorPicker from '@/components/base/ColorPicker.svelte'
+  import ColorPicker from '@/components/base/ColorPicker/Index.svelte'
   import SelectToolbar from '@/components/base/SelectToolbar.svelte'
   import SelectColorDeficiency from '@/components/SelectColorDeficiency.svelte'
 

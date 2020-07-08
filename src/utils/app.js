@@ -3,6 +3,16 @@ import { lerp } from './common'
 
 export const supportedShadeCount = [5, 7, 9]
 
+export const hueGradient = [
+  '#ff0000',
+  '#ffff00',
+  '#00ff00',
+  '#00ffff',
+  '#0000ff',
+  '#ff00ff',
+  '#ff0000'
+]
+
 /**
  * Create color name, e.g. Color 1, Color 2...
  * @param {Object} project

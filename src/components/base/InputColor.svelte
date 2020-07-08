@@ -3,7 +3,7 @@
   import { fly } from 'svelte/transition'
   import clickOutside from '@/actions/click-outside'
   import ButtonColor from './ButtonColor.svelte'
-  import ColorPicker from './ColorPicker.svelte'
+  import ColorPicker from './ColorPicker/Index.svelte'
   import Popper from './Popper.svelte'
 
   export let value
