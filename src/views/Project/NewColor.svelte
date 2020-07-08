@@ -4,10 +4,10 @@
   import { state } from '@/store/state'
   import {
     currentEditorView,
+    editingColorId,
     editorViews,
-    editingColorId
-  } from '@/store/editor'
-  import { selectedProjectId } from '@/store/project'
+    selectedProjectId
+  } from '@/store/project'
   import {
     getDefaultColorName,
     genShadeFunctions,

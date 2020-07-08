@@ -3,7 +3,7 @@
   import { selectedProjectId } from './store/project'
   import Snackbar from './components/Snackbar.svelte'
   import Dashboard from './views/Dashboard.svelte'
-  import Editor from './views/Editor.svelte'
+  import Project from './views/Project.svelte'
 
   const handleHistory = (e) => {
     if (e.ctrlKey && e.key === 'z') {
@@ -23,7 +23,7 @@
   {#if $state.projects.find((v) => v.id === $selectedProjectId) == null}
     <Dashboard />
   {:else}
-    <Editor />
+    <Project />
   {/if}
   <Snackbar />
 </main>

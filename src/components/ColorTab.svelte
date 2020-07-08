@@ -5,11 +5,11 @@
   import Icon from 'svelte-fa'
   import {
     currentEditorView,
-    editorViews,
     editingColorId,
-    editingColorShadeIndex
-  } from '@/store/editor'
-  import { selectedProjectId } from '@/store/project'
+    editingColorShadeIndex,
+    editorViews,
+    selectedProjectId
+  } from '@/store/project'
   import { state } from '@/store/state'
   import ButtonColor from './base/ButtonColor.svelte'
 

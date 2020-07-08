@@ -2,8 +2,11 @@
   import { produce } from 'immer'
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
-  import { currentEditorView, editorViews } from '@/store/editor'
-  import { selectedProjectId } from '@/store/project'
+  import {
+    currentEditorView,
+    editorViews,
+    selectedProjectId
+  } from '@/store/project'
   import { state } from '@/store/state'
   import { debounce, removeAndInsertElement } from '@/utils/common'
   import ColorTab from '@/components/ColorTab.svelte'

@@ -4,12 +4,12 @@
   import { fly } from 'svelte/transition'
   import Icon from 'svelte-fa'
   import {
-    editorViews,
     currentEditorView,
+    editorViews,
     editingColorId,
-    editingColorShadeIndex
-  } from '@/store/editor'
-  import { selectedProjectId } from '@/store/project'
+    editingColorShadeIndex,
+    selectedProjectId
+  } from '@/store/project'
   import { state } from '@/store/state'
   import { debounce } from '@/utils/common'
   import ButtonColor from '@/components/base/ButtonColor.svelte'
