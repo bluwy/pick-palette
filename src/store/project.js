@@ -1,54 +1,45 @@
-import { writable, derived, get } from 'svelte/store'
+import { get } from 'svelte/store'
+import { activeRoute } from 'svelte-router-spa/src/store'
 import { storageStore } from './base/storage-store'
 
-const reservedProjectKey = 'reservedproject'
+const openedProjectsKey = 'openedprojects'
 
 // Array of project ids that has been open across windows/tabs
-export const reservedProjectIds = storageStore(
-  localStorage,
-  reservedProjectKey,
-  []
-)
+const internalOpenedProjects = storageStore(localStorage, openedProjectsKey, [])
 
-const internalSelectedProjectId = writable(undefined)
-
-export const selectedProjectId = derived(internalSelectedProjectId, (v) => v)
-
-/**
- * @param {string} id
- * @returns {boolean} True if successfully selected, false if id is reserved
- *     (used in other tabs)
- */
-export function selectProject(id) {
-  if (id === get(internalSelectedProjectId)) {
-    return true
-  }
-
-  // Check if select id is reserved
-  if (get(reservedProjectIds).includes(id)) {
-    return false
-  }
-
-  // Add id as reserved
-  reservedProjectIds.update((v) => v.concat([id]))
-  internalSelectedProjectId.set(id)
-
-  return true
+function isProjectOpen(id) {
+  return get(internalOpenedProjects).includes(id)
 }
 
-export function deselectProject() {
-  const currentProjectId = get(internalSelectedProjectId)
-
-  // If current id is not reserved, ignore. Otherwise reservedProjectIds.update
-  // may trigger an unnecessary storage setItem call
-  if (!get(reservedProjectIds).includes(currentProjectId)) {
-    return
+function addOpenedProject(id) {
+  if (!isProjectOpen(id)) {
+    internalOpenedProjects.update((v) => v.concat([id]))
   }
-
-  // Remove previous id
-  reservedProjectIds.update((v) => v.filter((u) => u !== currentProjectId))
-
-  internalSelectedProjectId.set(undefined)
 }
 
-window.addEventListener('beforeunload', deselectProject)
+function removeOpenedProject(id) {
+  if (isProjectOpen(id)) {
+    internalOpenedProjects.update((v) => v.filter((u) => u !== id))
+  }
+}
+
+export const openedProjects = {
+  subscribe: internalOpenedProjects.subscribe,
+  isOpen: isProjectOpen,
+  add: addOpenedProject,
+  remove: removeOpenedProject
+}
+
+activeRoute.subscribe((v) => {
+  // On page load, add project id if available.
+  // TODO: Use page load events (Require router support)
+  if (v.namedParams && v.namedParams.projectid) {
+    addOpenedProject(v.namedParams.projectid)
+  }
+})
+
+window.addEventListener('beforeunload', () => {
+  // Remove current opened project
+  const openedProjectId = get(activeRoute).namedParams.projectid
+  removeOpenedProject(openedProjectId)
+})

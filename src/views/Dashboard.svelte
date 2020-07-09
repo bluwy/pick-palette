@@ -1,6 +1,7 @@
 <script>
   import { nanoid } from 'nanoid/non-secure'
   import { Navigate, navigateTo } from 'svelte-router-spa'
+  import { openedProjects } from '@/store/project'
   import { state } from '@/store/state'
 
   let newProjectName = ''
@@ -23,6 +24,7 @@
 
     // Prevent undo after navigate
     state.clear()
+    openedProjects.add(projectId)
     navigateTo(`project/${projectId}`)
   }
 </script>
