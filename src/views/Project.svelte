@@ -7,7 +7,7 @@
 </script>
 
 <div class="h-full flex flex-col">
-  <Header />
+  <Header {currentRoute} />
   <div class="container flex-grow overflow-y-auto">
     <div class="h-full py-6 flex flex-col md:flex-row">
       <div class="w-full h-full md:w-1/3 pb-3 md:pb-0 md:pr-6">

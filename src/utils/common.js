@@ -85,3 +85,21 @@ export function storageGetItem(storage, key, defaultValue) {
 
   return undefined
 }
+
+/**
+ * Download a text as a file
+ * Reference: https://stackoverflow.com/a/43388258/13265944
+ * @param {string} text The text to download
+ * @param {string} name The file name
+ * @param {string} type The MIME type
+ */
+export function download(text, name, type) {
+  const blob = new Blob([text], { type })
+  const a = document.createElement('a')
+  a.href = URL.createObjectURL(blob)
+  a.download = name
+  document.body.appendChild(a)
+  a.style.display = 'none'
+  a.click()
+  a.remove()
+}
