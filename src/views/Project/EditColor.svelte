@@ -3,45 +3,45 @@
   import { tick } from 'svelte'
   import { fly } from 'svelte/transition'
   import Icon from 'svelte-fa'
-  import {
-    currentEditorView,
-    editorViews,
-    editingColorId,
-    editingColorShadeIndex,
-    selectedProjectId
-  } from '@/store/project'
+  import { navigateTo } from 'svelte-router-spa'
   import { state } from '@/store/state'
   import { debounce } from '@/utils/common'
   import ButtonColor from '@/components/base/ButtonColor.svelte'
   import ColorPicker from '@/components/base/ColorPicker/Index.svelte'
 
+  export let currentRoute
+
   // Break merge after 500ms of inactivity
   const debounceBreakMerge = debounce(state.breakMerge, 500)
 
   let resetColorPicker
-  let shadeIndex
+  let computedShadeIndex
+
+  $: projectId = currentRoute.namedParams.projectid
+  $: colorId = currentRoute.namedParams.colorid
+  $: shadeIndex = +currentRoute.namedParams.shadeindex
 
   $: currentColor = $state.projects
-    .find((v) => v.id === $selectedProjectId)
-    .colors.find((v) => v.id === $editingColorId)
+    .find((v) => v.id === projectId)
+    .colors.find((v) => v.id === colorId)
 
   $: if (currentColor == null) {
     // May be null because deleted, if so go to empty view
-    $currentEditorView = editorViews.empty
+    navigateTo(`project/${projectId}`)
   }
 
   $: if (
     currentColor &&
     currentColor.shades &&
-    $editingColorShadeIndex >= 0 &&
-    $editingColorShadeIndex < currentColor.shades.length
+    shadeIndex >= 0 &&
+    shadeIndex < currentColor.shades.length
   ) {
-    shadeIndex = $editingColorShadeIndex
+    computedShadeIndex = shadeIndex
   } else {
-    shadeIndex = -1
+    computedShadeIndex = -1
   }
 
-  $: currentShade = currentColor && currentColor.shades[shadeIndex]
+  $: currentShade = currentColor && currentColor.shades[computedShadeIndex]
 
   // Reset color picker whenver color or shade change
   $: if (currentColor && currentShade && resetColorPicker) {
@@ -50,7 +50,7 @@
   }
 
   function updateShade(newShade) {
-    if (shadeIndex < 0) {
+    if (computedShadeIndex < 0) {
       return
     }
 
@@ -58,10 +58,10 @@
       'Update shade',
       (state) => {
         const color = state.projects
-          .find((v) => v.id === $selectedProjectId)
-          .colors.find((v) => v.id === $editingColorId)
+          .find((v) => v.id === projectId)
+          .colors.find((v) => v.id === colorId)
 
-        color.shades[shadeIndex] = newShade
+        color.shades[computedShadeIndex] = newShade
       },
       { merge: true }
     )
@@ -78,10 +78,10 @@
           <div class="flex flex-col justify-center items-center">
             <ButtonColor
               color={shade}
-              on:click={() => ($editingColorShadeIndex = i)}
+              on:click={() => navigateTo(`project/${projectId}/edit/${colorId}/${i}`)}
             />
             <div class="h-8">
-              {#if i === shadeIndex}
+              {#if i === computedShadeIndex}
                 <div
                   transition:fly={{ y: 10 }}
                   class="text-gray-900 opacity-70 pt-3"

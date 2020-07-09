@@ -52,18 +52,3 @@ export function deselectProject() {
 }
 
 window.addEventListener('beforeunload', deselectProject)
-
-// Project UI
-
-// Enum. Can't directly map to view component because of circular dependency
-export const editorViews = Object.freeze({
-  empty: -1,
-  editColor: 0,
-  newColor: 1
-})
-
-export const currentEditorView = writable(editorViews.empty)
-
-export const editingColorId = writable(undefined)
-
-export const editingColorShadeIndex = writable(-1)

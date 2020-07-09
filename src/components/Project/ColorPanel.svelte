@@ -2,20 +2,20 @@
   import { produce } from 'immer'
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
-  import {
-    currentEditorView,
-    editorViews,
-    selectedProjectId
-  } from '@/store/project'
+  import { navigateTo } from 'svelte-router-spa'
   import { state } from '@/store/state'
   import { debounce, removeAndInsertElement } from '@/utils/common'
-  import ColorTab from '@/components/ColorTab.svelte'
+  import ColorTab from './ColorTab.svelte'
+
+  export let currentRoute
 
   let canDrag = false
   let draggedColorId
   let dropIndex
 
-  $: colors = $state.projects.find((v) => v.id === $selectedProjectId).colors
+  $: projectId = currentRoute.namedParams.projectid
+
+  $: colors = $state.projects.find((v) => v.id === projectId).colors
 
   $: orderedColors = produce(colors, (colors) => {
     if (draggedColorId != null && dropIndex != null) {
@@ -49,8 +49,7 @@
 
   function handleDragEnd() {
     state.update('Sort color order', (state) => {
-      const colors = state.projects.find((v) => v.id === $selectedProjectId)
-        .colors
+      const colors = state.projects.find((v) => v.id === projectId).colors
       const dragIndex = colors.findIndex((v) => v.id === draggedColorId)
       removeAndInsertElement(colors, dragIndex, dropIndex)
     })
@@ -66,7 +65,7 @@
     <div class="opacity-70">Palette</div>
     <button
       class="button--outline button--small"
-      on:click={() => ($currentEditorView = editorViews.newColor)}
+      on:click={() => navigateTo(`project/${projectId}/new`)}
     >
       Add color
     </button>
@@ -85,7 +84,7 @@
       >
         {#if color.id !== draggedColorId}
           <div transition:fade={{ duration: 200 }} class="absolute w-full">
-            <ColorTab id={color.id} on:candrag={(e) => (canDrag = e.detail)} />
+            <ColorTab id={color.id} {currentRoute} on:candrag={(e) => (canDrag = e.detail)} />
           </div>
         {/if}
       </li>

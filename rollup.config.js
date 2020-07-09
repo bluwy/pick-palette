@@ -45,7 +45,11 @@ export default {
     postcss({
       output: 'global.css'
     }),
-    !isProd && serve('public'),
+    !isProd &&
+      serve({
+        contentBase: 'public',
+        historyApiFallback: true
+      }),
     !isProd && livereload('public'),
     isProd && terser()
   ],

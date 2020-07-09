@@ -3,21 +3,19 @@
   import { faGripVertical } from '@fortawesome/free-solid-svg-icons'
   import { createEventDispatcher } from 'svelte'
   import Icon from 'svelte-fa'
-  import {
-    currentEditorView,
-    editingColorId,
-    editingColorShadeIndex,
-    editorViews,
-    selectedProjectId
-  } from '@/store/project'
+  import { navigateTo } from 'svelte-router-spa'
   import { state } from '@/store/state'
-  import ButtonColor from './base/ButtonColor.svelte'
+  import ButtonColor from '@/components/base/ButtonColor.svelte'
+
+  export let currentRoute
 
   // Must exist in state data
   export let id
 
+  $: projectId = currentRoute.namedParams.projectid
+
   $: color = $state.projects
-    .find((v) => v.id === $selectedProjectId)
+    .find((v) => v.id === projectId)
     .colors.find((v) => v.id === id)
 
   $: shades = color != null ? color.shades : []
@@ -26,8 +24,7 @@
 
   function removeSelf() {
     state.update('Remove color', (state) => {
-      const colors = state.projects.find((v) => v.id === $selectedProjectId)
-        .colors
+      const colors = state.projects.find((v) => v.id === projectId).colors
       const index = colors.findIndex((v) => v.id === id)
       colors.splice(index, 1)
     })
@@ -35,16 +32,13 @@
 
   function updateName(newName) {
     state.update('Update color name', (state) => {
-      const colors = state.projects.find((v) => v.id === $selectedProjectId)
-        .colors
+      const colors = state.projects.find((v) => v.id === projectId).colors
       colors.find((v) => v.id === id).name = newName
     })
   }
 
   function handleClickShade(shadeIndex) {
-    $editingColorId = id
-    $editingColorShadeIndex = shadeIndex
-    $currentEditorView = editorViews.editColor
+    navigateTo(`project/${projectId}/edit/${id}/${shadeIndex}`)
   }
 </script>
 

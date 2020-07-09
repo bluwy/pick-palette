@@ -1,13 +1,8 @@
 <script>
-  import { nanoid } from 'nanoid/non-secure'
   import chroma from 'chroma-js'
+  import { nanoid } from 'nanoid/non-secure'
+  import { navigateTo } from 'svelte-router-spa'
   import { state } from '@/store/state'
-  import {
-    currentEditorView,
-    editingColorId,
-    editorViews,
-    selectedProjectId
-  } from '@/store/project'
   import {
     getDefaultColorName,
     genShadeFunctions,
@@ -16,12 +11,15 @@
   import ButtonColor from '@/components/base/ButtonColor.svelte'
   import ColorPicker from '@/components/base/ColorPicker/Index.svelte'
   import SelectToolbar from '@/components/base/SelectToolbar.svelte'
-  import SelectColorDeficiency from '@/components/SelectColorDeficiency.svelte'
+
+  export let currentRoute
 
   const shadeChoices = supportedShadeCount.map((v) => ({ label: v, value: v }))
 
   let baseColor = chroma.random().hex()
   let shadeCount = 9
+
+  $: projectId = currentRoute.namedParams.projectid
 
   $: shadeIdeas = genShadeFunctions.map((v) => ({
     name: v.name,
@@ -32,9 +30,7 @@
     const colorId = nanoid(10)
 
     state.update('Create new color', (state) => {
-      const currentProject = state.projects.find(
-        (v) => v.id === $selectedProjectId
-      )
+      const currentProject = state.projects.find((v) => v.id === projectId)
 
       currentProject.colors.push({
         id: colorId,
@@ -44,8 +40,7 @@
     })
 
     // Open color edit view
-    $editingColorId = colorId
-    $currentEditorView = editorViews.editColor
+    navigateTo(`project/${projectId}/edit/${colorId}`)
   }
 </script>
 

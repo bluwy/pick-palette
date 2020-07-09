@@ -1,9 +1,8 @@
 <script>
+  import { Router } from 'svelte-router-spa'
   import { state } from './store/state'
-  import { selectedProjectId } from './store/project'
+  import { routes } from './routes'
   import Snackbar from './components/Snackbar.svelte'
-  import Dashboard from './views/Dashboard.svelte'
-  import Project from './views/Project.svelte'
 
   const handleHistory = (e) => {
     if (e.ctrlKey && e.key === 'z') {
@@ -20,11 +19,7 @@
 <svelte:window on:keydown={handleHistory} />
 
 <main class="w-full h-screen overflow-hidden">
-  {#if $state.projects.find((v) => v.id === $selectedProjectId) == null}
-    <Dashboard />
-  {:else}
-    <Project />
-  {/if}
+  <Router {routes} />
   <Snackbar />
 </main>
 
