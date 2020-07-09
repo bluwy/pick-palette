@@ -11,7 +11,7 @@
       return
     }
 
-    const projectId = nanoid(10)
+    const projectId = nanoid(6)
 
     state.update('Create new project', (state) => {
       state.projects.push({

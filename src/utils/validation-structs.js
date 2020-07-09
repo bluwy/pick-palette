@@ -31,7 +31,7 @@ import { supportedShadeCount } from './app'
   branch changes and the generated patches is just the entire root object.
 */
 
-const ID = defaulted(string(), () => nanoid(10))
+const ID = defaulted(string(), () => nanoid(6))
 
 export const Color = object({
   id: ID,

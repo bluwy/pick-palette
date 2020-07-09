@@ -27,7 +27,7 @@
   }))
 
   function create(shades) {
-    const colorId = nanoid(10)
+    const colorId = nanoid(6)
 
     state.update('Create new color', (state) => {
       const currentProject = state.projects.find((v) => v.id === projectId)
