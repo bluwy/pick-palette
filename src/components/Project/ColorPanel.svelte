@@ -84,7 +84,11 @@
       >
         {#if color.id !== draggedColorId}
           <div transition:fade={{ duration: 200 }} class="absolute w-full">
-            <ColorTab id={color.id} {currentRoute} on:candrag={(e) => (canDrag = e.detail)} />
+            <ColorTab
+              id={color.id}
+              {currentRoute}
+              on:candrag={(e) => (canDrag = e.detail)}
+            />
           </div>
         {/if}
       </li>

@@ -21,6 +21,8 @@
       })
     })
 
+    // Prevent undo after navigate
+    state.clear()
     navigateTo(`project/${projectId}`)
   }
 </script>
