@@ -4,6 +4,7 @@
   import { Navigate, navigateTo } from 'svelte-router-spa'
   import { state } from '@/store/state'
   import InputProjectImport from '@/components/InputProjectImport.svelte'
+  import ProjectViewItem from './ProjectViewItem.svelte'
 
   function handleProjectImport(e) {
     const projectId = e.detail
@@ -12,7 +13,7 @@
   }
 </script>
 
-<div class="flex justify-between items-center">
+<div class="flex justify-between items-center mb-2">
   <div class="text-xl">My projects</div>
   <InputProjectImport on:import={handleProjectImport}>
     <Icon icon={faFileImport} class="inline-block mr-1" />
@@ -20,14 +21,10 @@
   </InputProjectImport>
 </div>
 
-<div>
+<ul class="flex flex-row flex-wrap -mx-2">
   {#each $state.projects as project (project.id)}
-    <Navigate
-      styles="inline-block w-full px-3 py-2 rounded bg-primary-200 bg-opacity-0
-      text-primary-700 hover:bg-opacity-10 focus:bg-opacity-10"
-      to="project/{project.id}"
-    >
-      {project.name}
-    </Navigate>
+    <li class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2">
+      <ProjectViewItem projectId={project.id} />
+    </li>
   {/each}
-</div>
+</ul>
