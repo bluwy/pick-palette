@@ -10,13 +10,13 @@
   export let currentRoute
 
   // Must exist in state data
-  export let id
+  export let colorId
 
   $: projectId = currentRoute.namedParams.projectid
 
   $: color = $state.projects
     .find((v) => v.id === projectId)
-    .colors.find((v) => v.id === id)
+    .colors.find((v) => v.id === colorId)
 
   $: shades = color != null ? color.shades : []
 
@@ -25,7 +25,7 @@
   function removeSelf() {
     state.update('Remove color', (state) => {
       const colors = state.projects.find((v) => v.id === projectId).colors
-      const index = colors.findIndex((v) => v.id === id)
+      const index = colors.findIndex((v) => v.id === colorId)
       colors.splice(index, 1)
     })
   }
@@ -33,12 +33,12 @@
   function updateName(newName) {
     state.update('Update color name', (state) => {
       const colors = state.projects.find((v) => v.id === projectId).colors
-      colors.find((v) => v.id === id).name = newName
+      colors.find((v) => v.id === colorId).name = newName
     })
   }
 
   function handleClickShade(shadeIndex) {
-    navigateTo(`project/${projectId}/edit/${id}/${shadeIndex}`)
+    navigateTo(`project/${projectId}/edit/${colorId}/${shadeIndex}`)
   }
 </script>
 
