@@ -6,7 +6,7 @@
   import { navigateTo } from 'svelte-router-spa'
   import { state } from '@/store/state'
   import { debounce } from '@/utils/common'
-  import ButtonColor from '@/components/base/ButtonColor.svelte'
+  import ColorBox from '@/components/base/ColorBox.svelte'
   import ColorPicker from '@/components/base/ColorPicker/Index.svelte'
 
   export let currentRoute
@@ -76,10 +76,11 @@
       <div class="flex flex-row space-x-2 py-5">
         {#each currentColor.shades as shade, i}
           <div class="flex flex-col justify-center items-center">
-            <ButtonColor
-              color={shade}
+            <button
               on:click={() => navigateTo(`project/${projectId}/edit/${colorId}/${i}`)}
-            />
+            >
+              <ColorBox color={shade} />
+            </button>
             <div class="h-8">
               {#if i === computedShadeIndex}
                 <div

@@ -5,7 +5,7 @@
   import Icon from 'svelte-fa'
   import { navigateTo } from 'svelte-router-spa'
   import { state } from '@/store/state'
-  import ButtonColor from '@/components/base/ButtonColor.svelte'
+  import ColorBox from '@/components/base/ColorBox.svelte'
 
   export let currentRoute
 
@@ -80,7 +80,9 @@
   <ol class="flex flex-row justify-between">
     {#each shades as color, i}
       <li>
-        <ButtonColor {color} on:click={() => handleClickShade(i)} />
+        <button on:click={() => handleClickShade(i)}>
+          <ColorBox {color} />
+        </button>
       </li>
     {/each}
   </ol>

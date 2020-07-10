@@ -8,7 +8,7 @@
     genShadeFunctions,
     supportedShadeCount
   } from '@/utils/app'
-  import ButtonColor from '@/components/base/ButtonColor.svelte'
+  import ColorBox from '@/components/base/ColorBox.svelte'
   import ColorPicker from '@/components/base/ColorPicker/Index.svelte'
   import SelectToolbar from '@/components/base/SelectToolbar.svelte'
 
@@ -70,7 +70,7 @@
       </div>
       <div class="flex-shrink space-x-2">
         {#each idea.shades as shade}
-          <ButtonColor color={shade} disabled />
+          <ColorBox color={shade} />
         {/each}
       </div>
       <div class="flex-grow text-right">
