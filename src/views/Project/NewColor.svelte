@@ -68,7 +68,7 @@
       <div class="flex-shrink text-sm truncate w-48 opacity-70 mr-2">
         {idea.name}
       </div>
-      <div class="flex-shrink space-x-2">
+      <div class="flex-shrink flex space-x-2">
         {#each idea.shades as shade}
           <ColorBox color={shade} />
         {/each}

@@ -99,15 +99,13 @@
 
 <div class="inputs-grid items-center pl-2">
   {#each inputs as input (input.type)}
-    <div>
-      <input
-        id="cp-{input.type}"
-        class="col-auto"
-        type="radio"
-        bind:group={mode}
-        value={input.type}
-      />
-    </div>
+    <input
+      id="cp-{input.type}"
+      class="col-auto"
+      type="radio"
+      bind:group={mode}
+      value={input.type}
+    />
     <label class="col-auto" for="cp-{input.type}">
       {input.type.toUpperCase()}
     </label>
@@ -124,7 +122,7 @@
       />
     </div>
     <input
-      class="input--small"
+      class="input input--small"
       type="number"
       size="4"
       value={input.value}
@@ -137,7 +135,7 @@
   <label for="cp-hex" class="col-start-3 text-right mt-2">#</label>
   <input
     id="cp-hex"
-    class="input--small mt-2"
+    class="input input--small mt-2"
     type="text"
     size="4"
     value={color.hex().slice(1)}

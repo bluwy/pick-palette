@@ -64,13 +64,13 @@
   <div class="flex flex-row justify-between items-center mb-5">
     <div class="opacity-70">Palette</div>
     <button
-      class="button--outline button--small"
+      class="button button--outline button--small"
       on:click={() => navigateTo(`project/${projectId}/new`)}
     >
       Add color
     </button>
   </div>
-  <ul class="flex-grow overflow-y-auto space-y-1">
+  <ul class="flex-grow overflow-y-auto space-y-2">
     {#each orderedColors as color (color.id)}
       <li
         transition:fade={{ duration: 200 }}

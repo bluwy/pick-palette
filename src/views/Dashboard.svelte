@@ -72,11 +72,12 @@
     <form novalidate on:submit|preventDefault={createProject}>
       <input
         bind:value={newProjectName}
+        class="input"
         type="text"
         size="15"
         placeholder="Project name"
       />
-      <button type="submit">Create</button>
+      <button class="button" type="submit">Create</button>
     </form>
     {#if $state.projects.length <= 0}
       <p class="my-5 text-sm opacity-60">or</p>
@@ -97,7 +98,7 @@
       <div class="flex justify-between items-center">
         <div class="text-xl">My projects</div>
         <label class="relative">
-          <button>
+          <button class="button">
             <Icon icon={faFileImport} class="inline-block mr-1" />
             <span>Import project</span>
           </button>

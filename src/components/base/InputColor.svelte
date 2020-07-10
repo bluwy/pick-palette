@@ -48,6 +48,7 @@
       </button>
       <input
         bind:value
+        class="input"
         type="text"
         size="4"
         {disabled}

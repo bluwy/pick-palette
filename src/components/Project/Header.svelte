@@ -34,7 +34,7 @@
     <div class="flex flex-row justify-between items-center">
       <div>PICK</div>
       <div>
-        <button on:click={exportProject}>
+        <button class="button" on:click={exportProject}>
           <Icon class="inline pr-1" icon={faFileExport} />
           Export
         </button>

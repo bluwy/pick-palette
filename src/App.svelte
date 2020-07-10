@@ -32,7 +32,6 @@
     cursor: not-allowed;
   }
 
-  input,
   .input {
     @apply rounded px-3 py-1 border border-gray-500 bg-gray-500 bg-opacity-10 transition-all duration-200;
   }
@@ -45,20 +44,16 @@
     @apply bg-gray-500 border-none bg-opacity-0;
   }
 
-  input:not(:disabled):hover,
   .input:not(:disabled):hover,
-  input:not(:disabled):focus,
   .input:not(:disabled):focus {
     @apply bg-primary-500 bg-opacity-20 border-primary-500;
   }
 
-  input:disabled,
   .input:disabled,
   .input--disabled {
     @apply bg-opacity-50 opacity-50;
   }
 
-  button,
   .button {
     @apply text-white bg-primary-500 border-2 border-primary-500 rounded px-3 py-1 transition-colors duration-200;
   }
@@ -71,14 +66,11 @@
     @apply bg-transparent border-none;
   }
 
-  button:not(:disabled):hover,
   .button:not(:disabled):hover,
-  button:not(:disabled):focus,
   .button:not(:disabled):focus {
     @apply bg-opacity-80;
   }
 
-  button:disabled,
   .button:disabled,
   .button--disabled {
     @apply bg-gray-600 border-gray-600;
