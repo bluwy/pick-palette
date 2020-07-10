@@ -21,7 +21,7 @@ export function storageStore(storage, key, defaultValue) {
 
   window.addEventListener('storage', (e) => {
     if (e.key === key) {
-      store.set(e.newValue)
+      store.set(JSON.parse(e.newValue))
     }
   })
 
