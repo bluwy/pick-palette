@@ -1,21 +1,15 @@
 <script>
   import { faFileImport } from '@fortawesome/free-solid-svg-icons'
   import Icon from 'svelte-fa'
-  import { Navigate, navigateTo } from 'svelte-router-spa'
+  import { navigate } from 'svelte-navigator'
   import { state } from '@/store/state'
   import InputProjectImport from '@/components/InputProjectImport.svelte'
   import ProjectViewItem from './ProjectViewItem.svelte'
-
-  function handleProjectImport(e) {
-    const projectId = e.detail
-    state.clear()
-    navigateTo(`project/${projectId}`)
-  }
 </script>
 
 <div class="flex justify-between items-center mb-2">
   <div class="text-xl">My projects</div>
-  <InputProjectImport on:import={handleProjectImport}>
+  <InputProjectImport on:import={(e) => navigate(`/project/${e.detail}`)}>
     <Icon icon={faFileImport} class="inline-block mr-1" />
     <span>Import project</span>
   </InputProjectImport>

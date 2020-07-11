@@ -2,12 +2,13 @@
   import { faFileExport } from '@fortawesome/free-solid-svg-icons'
   import { produce } from 'immer'
   import Icon from 'svelte-fa'
+  import { useParams } from 'svelte-navigator'
   import { state } from '@/store/state'
   import { download } from '@/utils/common'
 
-  export let currentRoute
+  const params = useParams()
 
-  $: projectId = currentRoute.namedParams.projectid
+  $: projectId = $params.projectId
 
   function exportProject() {
     const project = $state.projects.find((v) => v.id === projectId)

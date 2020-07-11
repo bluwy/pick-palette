@@ -1,11 +1,16 @@
 <script>
   import { nanoid } from 'nanoid/non-secure'
-  import { navigateTo } from 'svelte-router-spa'
+  import { onDestroy } from 'svelte'
+  import { navigate } from 'svelte-navigator'
   import { state } from '@/store/state'
   import ProjectView from '@/components/Dashboard/ProjectView.svelte'
   import InputProjectImport from '@/components/InputProjectImport.svelte'
 
   let newProjectName = ''
+
+  onDestroy(() => {
+    state.clear()
+  })
 
   function createProject() {
     if (!newProjectName) {
@@ -23,18 +28,7 @@
       })
     })
 
-    openProject(projectId)
-  }
-
-  // TODO: Move this logic to nav event (Require router support)
-  function openProject(id) {
-    state.clear()
-    navigateTo(`project/${id}`)
-  }
-
-  function handleProjectImport(e) {
-    const projectId = e.detail
-    openProject(projectId)
+    navigate(`/project/${projectId}`)
   }
 </script>
 
@@ -53,7 +47,7 @@
     </form>
     {#if $state.projects.length <= 0}
       <p class="my-5 text-sm opacity-60">or</p>
-      <InputProjectImport on:import={handleProjectImport}>
+      <InputProjectImport on:import={(e) => navigate(`/project/${e.detail}`)}>
         Import a project
       </InputProjectImport>
     {/if}

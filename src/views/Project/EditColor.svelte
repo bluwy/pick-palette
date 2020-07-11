@@ -3,23 +3,24 @@
   import { tick } from 'svelte'
   import { fly } from 'svelte/transition'
   import Icon from 'svelte-fa'
-  import { navigateTo } from 'svelte-router-spa'
+  import { navigate, useParams } from 'svelte-navigator'
   import { state } from '@/store/state'
   import { debounce } from '@/utils/common'
   import ColorBox from '@/components/base/ColorBox.svelte'
   import ColorPicker from '@/components/base/ColorPicker/Index.svelte'
 
-  export let currentRoute
+  export let projectId
 
   // Break merge after 500ms of inactivity
   const debounceBreakMerge = debounce(state.breakMerge, 500)
 
+  const params = useParams()
+
   let resetColorPicker
   let computedShadeIndex
 
-  $: projectId = currentRoute.namedParams.projectid
-  $: colorId = currentRoute.namedParams.colorid
-  $: shadeIndex = +currentRoute.namedParams.shadeindex
+  $: colorId = $params.colorId
+  $: shadeIndex = +$params.shadeIndex
 
   $: currentColor = $state.projects
     .find((v) => v.id === projectId)
@@ -27,7 +28,7 @@
 
   $: if (currentColor == null) {
     // May be null because deleted, if so go to empty view
-    navigateTo(`project/${projectId}`)
+    navigate(`project/${projectId}`)
   }
 
   $: if (
@@ -77,7 +78,10 @@
         {#each currentColor.shades as shade, i}
           <div class="flex flex-col justify-center items-center">
             <button
-              on:click={() => navigateTo(`project/${projectId}/edit/${colorId}/${i}`)}
+              on:click={() => navigate(
+                  `/project/${projectId}/edit/${colorId}/${i}`,
+                  { replace: true }
+                )}
             >
               <ColorBox color={shade} />
             </button>

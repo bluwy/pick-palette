@@ -1,7 +1,7 @@
 <script>
   import chroma from 'chroma-js'
   import { nanoid } from 'nanoid/non-secure'
-  import { navigateTo } from 'svelte-router-spa'
+  import { navigate } from 'svelte-navigator'
   import { state } from '@/store/state'
   import {
     getDefaultColorName,
@@ -12,14 +12,12 @@
   import ColorPicker from '@/components/base/ColorPicker/Index.svelte'
   import SelectToolbar from '@/components/base/SelectToolbar.svelte'
 
-  export let currentRoute
+  export let projectId
 
   const shadeChoices = supportedShadeCount.map((v) => ({ label: v, value: v }))
 
   let baseColor = chroma.random().hex()
   let shadeCount = 9
-
-  $: projectId = currentRoute.namedParams.projectid
 
   $: shadeIdeas = genShadeFunctions.map((v) => ({
     name: v.name,
@@ -40,7 +38,7 @@
     })
 
     // Open color edit view
-    navigateTo(`project/${projectId}/edit/${colorId}`)
+    navigate(`/project/${projectId}/edit/${colorId}`)
   }
 </script>
 

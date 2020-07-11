@@ -1,5 +1,4 @@
 import { get } from 'svelte/store'
-import { activeRoute } from 'svelte-router-spa/src/store'
 import { storageStore } from './base/storage-store'
 
 const openedProjectsKey = 'openedprojects'
@@ -29,17 +28,3 @@ export const openedProjects = {
   add: addOpenedProject,
   remove: removeOpenedProject
 }
-
-activeRoute.subscribe((v) => {
-  // On page load, add project id if available.
-  // TODO: Use page load events (Require router support)
-  if (v.namedParams && v.namedParams.projectid) {
-    addOpenedProject(v.namedParams.projectid)
-  }
-})
-
-window.addEventListener('beforeunload', () => {
-  // Remove current opened project
-  const openedProjectId = get(activeRoute).namedParams.projectid
-  removeOpenedProject(openedProjectId)
-})

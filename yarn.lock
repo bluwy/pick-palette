@@ -1166,6 +1166,11 @@ svelte-fa@^2.1.1:
   resolved "https://registry.yarnpkg.com/svelte-fa/-/svelte-fa-2.1.1.tgz#57935335b8966f416b93bfb7794dac52fa0b777e"
   integrity sha512-Oj563sJH0eLo6Pd1MsALgx5if9qKHtfCrMY5elMzggu00fP9zM47Vcv2b92g5vc+FNodxKPHhkUFTI8KK8CwGA==
 
+svelte-navigator@^3.0.8:
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/svelte-navigator/-/svelte-navigator-3.0.8.tgz#b1631bcf828ba9f81bb534f7d4b9e22c572d4655"
+  integrity sha512-zIoWJ+THkUhiR6ToJTdFT8es2itO5i3X9qfDhCz3iVlnmsqQJe7sbPQaDRvxUfUxPPfVGR9dhWK7HJw7vRYdbA==
+
 svelte-preprocess@^3.9.6:
   version "3.9.6"
   resolved "https://registry.yarnpkg.com/svelte-preprocess/-/svelte-preprocess-3.9.6.tgz#70e53d7e3d06d3ec6021f320122f5df45f010016"
@@ -1175,13 +1180,6 @@ svelte-preprocess@^3.9.6:
     "@types/sass" "^1.16.0"
     detect-indent "^6.0.0"
     strip-indent "^3.0.0"
-
-svelte-router-spa@^5.7.1:
-  version "5.7.1"
-  resolved "https://registry.yarnpkg.com/svelte-router-spa/-/svelte-router-spa-5.7.1.tgz#1b6a3345fa68b19b0a53f10b5361855403c432d8"
-  integrity sha512-SQI5ZDbIvm80LWg1wTnH4E7GycUi8hTfYqHFL+7z1eXNc1p3nn6OQA44brIBqs59HlnQ91QZJ0PKwVOWUI8bTQ==
-  dependencies:
-    url-params-parser "^1.0.2"
 
 svelte@^3.23.1:
   version "3.23.1"
@@ -1238,11 +1236,6 @@ universalify@^0.1.0:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/universalify/-/universalify-0.1.2.tgz#b646f69be3942dabcecc9d6639c80dc105efaa66"
   integrity sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==
-
-url-params-parser@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/url-params-parser/-/url-params-parser-1.0.2.tgz#2076afda890c804c692152d6b42e07f4ba1049fc"
-  integrity sha512-0jXbXQBZlyQxIF/kwZ4nu5sOU+jNioXRXlxLgyT+XxG9mQ4nLmxV8zBaR/66bmH0zDIO9cWazK33MTHBIGQwMg==
 
 which@^2.0.1:
   version "2.0.2"

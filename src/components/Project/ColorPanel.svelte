@@ -2,18 +2,18 @@
   import { produce } from 'immer'
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
-  import { navigateTo } from 'svelte-router-spa'
+  import { navigate, useParams } from 'svelte-navigator'
   import { state } from '@/store/state'
   import { debounce, removeAndInsertElement } from '@/utils/common'
   import ColorTab from './ColorTab.svelte'
 
-  export let currentRoute
+  const params = useParams()
 
   let canDrag = false
   let draggedColorId
   let dropIndex
 
-  $: projectId = currentRoute.namedParams.projectid
+  $: projectId = $params.projectId
 
   $: colors = $state.projects.find((v) => v.id === projectId).colors
 
@@ -65,7 +65,7 @@
     <div class="opacity-70">Palette</div>
     <button
       class="button button--outline button--small"
-      on:click={() => navigateTo(`project/${projectId}/new`)}
+      on:click={() => navigate(`/project/${projectId}/new`)}
     >
       Add color
     </button>
@@ -86,7 +86,6 @@
           <div transition:fade={{ duration: 200 }} class="absolute w-full">
             <ColorTab
               colorId={color.id}
-              {currentRoute}
               on:candrag={(e) => (canDrag = e.detail)}
             />
           </div>

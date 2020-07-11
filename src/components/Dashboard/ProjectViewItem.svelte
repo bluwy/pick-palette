@@ -1,5 +1,4 @@
 <script>
-  import { navigateTo } from 'svelte-router-spa'
   import { openedProjects } from '@/store/project'
   import { state } from '@/store/state'
   import ColorBox from '@/components/base/ColorBox.svelte'

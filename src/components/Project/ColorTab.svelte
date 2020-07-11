@@ -3,16 +3,17 @@
   import { faGripVertical } from '@fortawesome/free-solid-svg-icons'
   import { createEventDispatcher } from 'svelte'
   import Icon from 'svelte-fa'
-  import { navigateTo } from 'svelte-router-spa'
+  import { navigate, useLocation, useParams } from 'svelte-navigator'
   import { state } from '@/store/state'
   import ColorBox from '@/components/base/ColorBox.svelte'
-
-  export let currentRoute
 
   // Must exist in state data
   export let colorId
 
-  $: projectId = currentRoute.namedParams.projectid
+  const params = useParams()
+  const location = useLocation()
+
+  $: projectId = $params.projectId
 
   $: color = $state.projects
     .find((v) => v.id === projectId)
@@ -38,7 +39,11 @@
   }
 
   function handleClickShade(shadeIndex) {
-    navigateTo(`project/${projectId}/edit/${colorId}/${shadeIndex}`)
+    const isEditView = /project\/[^\/]*\/edit\//.test($location.pathname)
+    // If editing, we can just replace the link
+    navigate(`/project/${projectId}/edit/${colorId}/${shadeIndex}`, {
+      replace: isEditView
+    })
   }
 </script>
 

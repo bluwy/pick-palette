@@ -20,7 +20,7 @@
     "nanoid": "^3.1.10",
     "superstruct": "^0.10.12",
     "svelte-fa": "^2.1.1",
-    "svelte-router-spa": "^5.7.1"
+    "svelte-navigator": "^3.0.8"
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^3.1.1",
