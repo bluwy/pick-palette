@@ -1,26 +1,24 @@
 <script>
   import { Router, Route } from 'svelte-navigator'
+  import { shortcut } from './actions/shortcut'
   import { state } from './store/state'
+  import { app as press } from './utils/shortcuts'
   import Snackbar from './components/Snackbar.svelte'
   import Dashboard from './views/Dashboard.svelte'
   import Null from './views/Null.svelte'
   import Project from './views/Project.svelte'
 
-  const handleHistory = (e) => {
-    if (e.ctrlKey && e.key === 'z') {
-      state.undo()
-    } else if (
-      (e.ctrlKey && e.key == 'y') ||
-      (e.ctrlKey && e.shiftKey && e.key === 'Z')
-    ) {
-      state.redo()
-    }
+  function setupShortcuts(on) {
+    on(press.undo, () => state.undo())
+    on(press.redo, () => state.redo())
   }
 </script>
 
-<svelte:window on:keydown={handleHistory} />
-
-<main class="w-full h-screen overflow-hidden">
+<main
+  use:shortcut={setupShortcuts}
+  class="w-full h-screen overflow-hidden"
+  tabindex="0"
+>
   <Router primary={false}>
     <Route path="/dashboard">
       <Dashboard />

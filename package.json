@@ -17,6 +17,7 @@
     "@popperjs/core": "^2.4.2",
     "chroma-js": "^2.1.0",
     "immer": "^7.0.0",
+    "mousetrap": "^1.6.5",
     "nanoid": "^3.1.10",
     "superstruct": "^0.10.12",
     "svelte-fa": "^2.1.1",

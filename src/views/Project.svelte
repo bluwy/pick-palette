@@ -15,17 +15,20 @@
   // Watch for projectId changes
   const paramsUnsubscribe = params.subscribe((params) => {
     const prevProjectId = projectId
+    const newProjectId = params.projectId
 
-    // When switching projects, we remove the previous one from openedProjects
-    if (prevProjectId != null) {
-      openedProjects.remove(prevProjectId)
+    if (newProjectId !== prevProjectId) {
+      // When switching projects, we remove the previous one from openedProjects
+      if (prevProjectId != null) {
+        openedProjects.remove(prevProjectId)
+      }
+
+      openedProjects.add(newProjectId)
+      projectId = newProjectId
+
+      // Also clear history when switching project
+      state.clear()
     }
-
-    projectId = params.projectId
-    openedProjects.add(projectId)
-
-    // Also clear history when switching project
-    state.clear()
   })
 
   onDestroy(() => {
