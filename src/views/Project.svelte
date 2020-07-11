@@ -1,6 +1,7 @@
 <script>
   import { onDestroy, onMount, tick } from 'svelte'
   import { Route, navigate, useParams } from 'svelte-navigator'
+  import { shortcut } from '@/actions/shortcut'
   import { openedProjects } from '@/store/project'
   import { state } from '@/store/state'
   import ColorPanel from '@/components/Project/ColorPanel.svelte'
@@ -44,11 +45,24 @@
     // When user leaves page, remove from openedProjects
     openedProjects.remove(projectId)
   }
+
+  function setupShortcuts(on) {
+    // mod+n opens color at index n
+    for (let i = 1; i < 9; i++) {
+      on(`mod+${i}`, () => {
+        try {
+          const colorId = $state.projects.find((v) => v.id === projectId)
+            .colors[i - 1].id
+          navigate(`/project/${projectId}/edit/${colorId}/-1`)
+        } catch {}
+      })
+    }
+  }
 </script>
 
 <svelte:window on:beforeunload={handleBeforeUnload} />
 
-<div class="h-full flex flex-col">
+<div use:shortcut={setupShortcuts} class="h-full flex flex-col" tabindex="0">
   <Header />
   <div class="container flex-grow overflow-y-auto">
     <div class="h-full py-6 flex flex-col md:flex-row">
