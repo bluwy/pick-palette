@@ -20,6 +20,14 @@ export function historyStore(value, options = {}) {
   let historyStack = []
   let historyIndex = -1
 
+  /*
+    How merge works?
+
+    Updates that can be merged (`options.merge` flag) will place its patches in
+    a buffer first, once it's decided to break the merge, the patches will be
+    squashed and recorded into the historyStack.
+  */
+
   // Array of inversePatches (undos)
   let mergeBuffer = []
   let bufferName
@@ -60,7 +68,10 @@ export function historyStore(value, options = {}) {
 
           mergeBuffer.unshift(...inversePatches)
         } else {
-          // No buffer, we can directly add to historyStack
+          // If a non-mergeable update is called after a mergeable update, merge
+          mergeBufferIfExist()
+
+          // Add to historyStack as usual
           addHistory(name, inversePatches, patches)
         }
       }
