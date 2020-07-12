@@ -1,8 +1,8 @@
 <script>
   import { createEventDispatcher } from 'svelte'
-  import { addSnack } from '@/store/snackbar'
-  import { state } from '@/store/state'
-  import { Project } from '@/utils/validation-structs'
+  import { addSnack } from '/@/store/snackbar'
+  import { state } from '/@/store/state'
+  import { Project } from '/@/utils/validation-structs'
   import InputFile from './base/InputFile.svelte'
 
   const dispatch = createEventDispatcher()

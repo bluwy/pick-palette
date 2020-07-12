@@ -2,8 +2,8 @@
   import { faFileImport } from '@fortawesome/free-solid-svg-icons'
   import Icon from 'svelte-fa'
   import { navigate } from 'svelte-navigator'
-  import { state } from '@/store/state'
-  import InputProjectImport from '@/components/InputProjectImport.svelte'
+  import { state } from '/@/store/state'
+  import InputProjectImport from '/@/components/InputProjectImport.svelte'
   import ProjectViewItem from './ProjectViewItem.svelte'
 </script>
 

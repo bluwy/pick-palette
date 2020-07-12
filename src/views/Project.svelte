@@ -1,11 +1,11 @@
 <script>
   import { onDestroy, onMount, tick } from 'svelte'
   import { Route, navigate, useParams } from 'svelte-navigator'
-  import { shortcut } from '@/actions/shortcut'
-  import { openedProjects } from '@/store/project'
-  import { state } from '@/store/state'
-  import ColorPanel from '@/components/Project/ColorPanel.svelte'
-  import Header from '@/components/Project/Header.svelte'
+  import { shortcut } from '/@/actions/shortcut'
+  import { openedProjects } from '/@/store/project'
+  import { state } from '/@/store/state'
+  import ColorPanel from '/@/components/Project/ColorPanel.svelte'
+  import Header from '/@/components/Project/Header.svelte'
   import NewColor from './Project/NewColor.svelte'
   import EditColor from './Project/EditColor.svelte'
 

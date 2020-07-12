@@ -3,8 +3,8 @@
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
   import { navigate, useParams } from 'svelte-navigator'
-  import { state } from '@/store/state'
-  import { debounce, removeAndInsertElement } from '@/utils/common'
+  import { state } from '/@/store/state'
+  import { debounce, removeAndInsertElement } from '/@/utils/common'
   import ColorTab from './ColorTab.svelte'
 
   const params = useParams()

@@ -4,8 +4,8 @@
   import { createEventDispatcher } from 'svelte'
   import Icon from 'svelte-fa'
   import { navigate, useLocation, useParams } from 'svelte-navigator'
-  import { state } from '@/store/state'
-  import ColorBox from '@/components/base/ColorBox.svelte'
+  import { state } from '/@/store/state'
+  import ColorBox from '/@/components/base/ColorBox.svelte'
 
   // Must exist in state data
   export let colorId

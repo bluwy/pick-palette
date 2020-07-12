@@ -3,8 +3,8 @@
   import { produce } from 'immer'
   import Icon from 'svelte-fa'
   import { useParams } from 'svelte-navigator'
-  import { state } from '@/store/state'
-  import { download } from '@/utils/common'
+  import { state } from '/@/store/state'
+  import { download } from '/@/utils/common'
 
   const params = useParams()
 

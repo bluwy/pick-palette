@@ -2,15 +2,15 @@
   import chroma from 'chroma-js'
   import { nanoid } from 'nanoid/non-secure'
   import { navigate } from 'svelte-navigator'
-  import { state } from '@/store/state'
+  import { state } from '/@/store/state'
   import {
     getDefaultColorName,
     genShadeFunctions,
     supportedShadeCount
-  } from '@/utils/app'
-  import ColorBox from '@/components/base/ColorBox.svelte'
-  import ColorPicker from '@/components/base/ColorPicker/Index.svelte'
-  import SelectToolbar from '@/components/base/SelectToolbar.svelte'
+  } from '/@/utils/app'
+  import ColorBox from '/@/components/base/ColorBox.svelte'
+  import ColorPicker from '/@/components/base/ColorPicker/Index.svelte'
+  import SelectToolbar from '/@/components/base/SelectToolbar.svelte'
 
   export let projectId
 

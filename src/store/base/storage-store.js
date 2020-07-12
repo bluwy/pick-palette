@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store'
-import { storageGetItem } from '@/utils/common'
+import { storageGetItem } from '/@/utils/common'
 
 /**
  * Create a store that syncs with web storage

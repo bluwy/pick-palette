@@ -1,7 +1,7 @@
 <script>
-  import { openedProjects } from '@/store/project'
-  import { state } from '@/store/state'
-  import ColorBox from '@/components/base/ColorBox.svelte'
+  import { openedProjects } from '/@/store/project'
+  import { state } from '/@/store/state'
+  import ColorBox from '/@/components/base/ColorBox.svelte'
 
   export let projectId
 

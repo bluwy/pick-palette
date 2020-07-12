@@ -1,6 +1,6 @@
 import { assert, coerce } from 'superstruct'
-import { storageGetItem } from '@/utils/common'
-import { State } from '@/utils/validation-structs'
+import { storageGetItem } from '/@/utils/common'
+import { State } from '/@/utils/validation-structs'
 import { historyStore } from './base/history-store'
 
 // Maximum history records for state updates

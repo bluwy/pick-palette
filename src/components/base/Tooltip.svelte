@@ -1,6 +1,6 @@
 <script>
   import { fade } from 'svelte/transition'
-  import { clickOutside } from '@/actions/click-outside'
+  import { clickOutside } from '/@/actions/click-outside'
   import Popper from './Popper.svelte'
 
   export let text = ''

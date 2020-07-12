@@ -3,7 +3,7 @@
   import { fly } from 'svelte/transition'
   import { flip } from 'svelte/animate'
   import Icon from 'svelte-fa'
-  import { snacks, removeSnack } from '@/store/snackbar'
+  import { snacks, removeSnack } from '/@/store/snackbar'
 
   // List of snack ids that have been setTimeout to close.
   // NOTE: Use const to prevent Svelte from making this reactive since this is

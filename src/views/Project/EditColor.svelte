@@ -4,10 +4,10 @@
   import { fly } from 'svelte/transition'
   import Icon from 'svelte-fa'
   import { navigate, useParams } from 'svelte-navigator'
-  import { state } from '@/store/state'
-  import { debounce } from '@/utils/common'
-  import ColorBox from '@/components/base/ColorBox.svelte'
-  import ColorPicker from '@/components/base/ColorPicker/Index.svelte'
+  import { state } from '/@/store/state'
+  import { debounce } from '/@/utils/common'
+  import ColorBox from '/@/components/base/ColorBox.svelte'
+  import ColorPicker from '/@/components/base/ColorPicker/Index.svelte'
 
   export let projectId
 

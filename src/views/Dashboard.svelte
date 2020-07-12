@@ -2,9 +2,9 @@
   import { nanoid } from 'nanoid/non-secure'
   import { onDestroy } from 'svelte'
   import { navigate } from 'svelte-navigator'
-  import { state } from '@/store/state'
-  import ProjectView from '@/components/Dashboard/ProjectView.svelte'
-  import InputProjectImport from '@/components/InputProjectImport.svelte'
+  import { state } from '/@/store/state'
+  import ProjectView from '/@/components/Dashboard/ProjectView.svelte'
+  import InputProjectImport from '/@/components/InputProjectImport.svelte'
 
   let newProjectName = ''
 

@@ -1,9 +1,9 @@
 <script>
   import chroma from 'chroma-js'
   import { createEventDispatcher } from 'svelte'
-  import { slidable } from '@/actions/slidable'
-  import { hueGradient } from '@/utils/app'
-  import { clamp, throttle } from '@/utils/common'
+  import { slidable } from '/@/actions/slidable'
+  import { hueGradient } from '/@/utils/app'
+  import { clamp, throttle } from '/@/utils/common'
 
   // Two-way bind
   /** @type {'r'|'g'|'b'|'h'|'s'|'v'}  */

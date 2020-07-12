@@ -5,8 +5,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "rollup -c --environment NODE_ENV:production",
-    "dev": "rollup -cw --environment NODE_ENV:development",
+    "dev": "vite",
+    "build": "vite build",
     "lint": "prettier --check \"**/*.{html,css,js,md,svelte}\"",
     "lint:fix": "prettier --write \"**/*.{html,css,js,md,svelte}\""
   },
@@ -20,28 +20,20 @@
     "mousetrap": "^1.6.5",
     "nanoid": "^3.1.10",
     "superstruct": "^0.10.12",
+    "svelte": "^3.24.0",
     "svelte-fa": "^2.1.1",
     "svelte-navigator": "^3.0.8"
   },
   "devDependencies": {
-    "@rollup/plugin-alias": "^3.1.1",
-    "@rollup/plugin-commonjs": "^13.0.0",
-    "@rollup/plugin-node-resolve": "^8.0.1",
-    "@rollup/plugin-replace": "^2.3.3",
-    "@rollup/pluginutils": "^3.1.0",
     "autoprefixer": "^9.8.0",
     "postcss": "^7.0.32",
     "postcss-load-config": "^2.1.0",
     "prettier": "^2.0.5",
     "prettier-plugin-svelte": "^1.1.0",
-    "rollup": "^2.15.0",
-    "rollup-plugin-livereload": "^1.3.0",
-    "rollup-plugin-serve": "^1.0.1",
-    "rollup-plugin-svelte": "^5.2.2",
-    "rollup-plugin-terser": "^6.1.0",
-    "svelte": "^3.23.1",
     "svelte-preprocess": "^3.9.6",
-    "tailwindcss": "^1.4.6"
+    "svite": "^0.2.1",
+    "tailwindcss": "^1.4.6",
+    "vite": "^1.0.0-beta.11"
   },
   "browserslist": [
     "> 1%",
