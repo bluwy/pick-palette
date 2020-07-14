@@ -56,7 +56,8 @@ export function genShadeTint(color: string, shadeCount: number) {
     chroma(lerp(r, 255, t), lerp(g, 255, t), lerp(b, 255, t)).hex()
 
   // Shade makes darker (Reference term)
-  const shade = (t: number) => chroma(lerp(r, 0, t), lerp(g, 0, t), lerp(b, 0, t)).hex()
+  const shade = (t: number) =>
+    chroma(lerp(r, 0, t), lerp(g, 0, t), lerp(b, 0, t)).hex()
 
   // Create tint and shade values from center to outer
   // and remove first element since it's 0

@@ -4,7 +4,11 @@ import { Color, Project } from '/@/utils/types'
 import { HistoryUpdateOptions } from '/@/store/base/record-history'
 
 // Wrap projects update for current project
-export function updateProject(name: string, fn: (store: Project) => void, options?: HistoryUpdateOptions) {
+export function updateProject(
+  name: string,
+  fn: (store: Project) => void,
+  options?: HistoryUpdateOptions
+) {
   projects.history.update(
     name,
     (projects) => {
@@ -23,7 +27,12 @@ export function updateProject(name: string, fn: (store: Project) => void, option
   )
 }
 
-export function updateColor(colorId: string, name: string, fn: (store: Color) => void, options?: HistoryUpdateOptions) {
+export function updateColor(
+  colorId: string,
+  name: string,
+  fn: (store: Color) => void,
+  options?: HistoryUpdateOptions
+) {
   updateProject(
     name,
     (project) => {

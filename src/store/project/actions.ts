@@ -129,7 +129,11 @@ export function updateColorName(colorId: string, name: string) {
   })
 }
 
-export function updateColorShade(colorId: string, shadeIndex: number, newShade: string) {
+export function updateColorShade(
+  colorId: string,
+  shadeIndex: number,
+  newShade: string
+) {
   updateColor(
     colorId,
     `Update shade ${colorId}`,

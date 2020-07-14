@@ -4,9 +4,9 @@ import { readonly } from '/@/utils/common'
 
 export type SnackType = 'info' | 'success' | 'warning' | 'error'
 export type Snack = {
-  id: string,
-  type: SnackType,
-  message: string,
+  id: string
+  type: SnackType
+  message: string
   timeout: number
 }
 
@@ -26,7 +26,7 @@ export function addSnack(snack: Snack) {
     message: snack.message,
     timeout: snack.timeout != null ? snack.timeout : defaultTimeout
   }
-  
+
   internalSnacks.update((v) => v.concat([realSnack]))
 
   return snackId

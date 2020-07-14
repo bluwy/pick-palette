@@ -8,8 +8,8 @@ export interface HistoryStoreOptions {
 }
 
 export interface HistoryRecord {
-  name: string,
-  undo: Patch[],
+  name: string
+  undo: Patch[]
   redo: Patch[]
 }
 
@@ -22,7 +22,10 @@ export interface HistoryUpdateOptions {
 }
 
 /** Record store history for undo/redo actions */
-export function recordHistory<T>(store: Writable<T>, options: HistoryStoreOptions = {}) {
+export function recordHistory<T>(
+  store: Writable<T>,
+  options: HistoryStoreOptions = {}
+) {
   const { limit } = options
 
   let historyStack: HistoryRecord[] = []
@@ -50,7 +53,11 @@ export function recordHistory<T>(store: Writable<T>, options: HistoryStoreOption
    *
    * How to mutate data: https://immerjs.github.io/immer/docs/update-patterns
    */
-  function update(name: string, fn: (store: T) => void, options: HistoryUpdateOptions = {}) {
+  function update(
+    name: string,
+    fn: (store: T) => void,
+    options: HistoryUpdateOptions = {}
+  ) {
     const { merge = false } = options
 
     store.update((store) => {

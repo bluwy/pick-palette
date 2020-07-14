@@ -52,7 +52,10 @@ export const ProjectStruct = object({
  * @param S Struct
  * @param Array of allowed lengths
  */
-function lengthOneOf<T extends { length: number }>(S: Struct<T>, arr: number[]) {
+function lengthOneOf<T extends { length: number }>(
+  S: Struct<T>,
+  arr: number[]
+) {
   return refinement(
     S,
     `${S.type} & LengthOneOf<[${arr.join(', ')}]>`,
