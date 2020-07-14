@@ -2,8 +2,14 @@
   import { onDestroy, onMount, tick } from 'svelte'
   import { Route, navigate, useParams } from 'svelte-navigator'
   import { shortcut } from '/@/actions/shortcut'
-  import { openedProjects } from '/@/store/project'
-  import { state } from '/@/store/state'
+  import {
+    addOpenedProject,
+    currentProject,
+    currentProjectId,
+    projectRedo,
+    projectUndo,
+    removeOpenedProject
+  } from '/@/store/project'
   import ColorPanel from '/@/components/Project/ColorPanel.svelte'
   import Header from '/@/components/Project/Header.svelte'
   import NewColor from './Project/NewColor.svelte'
@@ -11,58 +17,58 @@
 
   const params = useParams()
 
-  let projectId
-
-  // Watch for projectId changes
+  // TODO: Use different router that provides a global active route store
   const paramsUnsubscribe = params.subscribe((params) => {
-    const prevProjectId = projectId
+    const prevProjectId = $currentProjectId
     const newProjectId = params.projectId
 
     if (newProjectId !== prevProjectId) {
       // When switching projects, we remove the previous one from openedProjects
       if (prevProjectId != null) {
-        openedProjects.remove(prevProjectId)
+        removeOpenedProject(prevProjectId)
       }
 
-      openedProjects.add(newProjectId)
-      projectId = newProjectId
-
-      // Also clear history when switching project
-      state.clear()
+      addOpenedProject(newProjectId)
+      $currentProjectId = newProjectId
     }
   })
 
   onDestroy(() => {
-    state.clear()
+    removeOpenedProject($currentProjectId)
     paramsUnsubscribe()
   })
 
-  if ($state.projects.find((v) => v.id === projectId) == null) {
+  if ($currentProject == null) {
     tick().then(() => navigate('/dashboard', { replace: true }))
   }
 
   function handleBeforeUnload() {
     // When user leaves page, remove from openedProjects
-    openedProjects.remove(projectId)
+    removeOpenedProject($currentProjectId)
   }
 
   function setupShortcuts(on) {
-    // mod+n opens color at index n
+    on('mod+z', () => projectUndo())
+    on(['mod+y', 'mod+shift+z'], () => projectRedo())
+
+    // mod+n opens color at index n-1
     for (let i = 1; i < 9; i++) {
       on(`mod+${i}`, () => {
         try {
-          const colorId = $state.projects.find((v) => v.id === projectId)
-            .colors[i - 1].id
-          navigate(`/project/${projectId}/edit/${colorId}/-1`)
+          const colorId = $currentProject.colors[i - 1].id
+          navigate(`/project/${$currentProjectId}/edit/${colorId}/-1`)
         } catch {}
       })
     }
   }
 </script>
 
-<svelte:window on:beforeunload={handleBeforeUnload} />
+<svelte:window
+  use:shortcut={setupShortcuts}
+  on:beforeunload={handleBeforeUnload}
+/>
 
-<div use:shortcut={setupShortcuts} class="h-full flex flex-col" tabindex="0">
+<div class="h-full flex flex-col">
   <Header />
   <div class="container flex-grow overflow-y-auto">
     <div class="h-full py-6 flex flex-col md:flex-row">
@@ -75,10 +81,10 @@
       >
         <div class="opacity-70 mb-5">Editor</div>
         <Route path="/new">
-          <NewColor {projectId} />
+          <NewColor />
         </Route>
         <Route path="/edit/:colorId/:shadeIndex">
-          <EditColor {projectId} />
+          <EditColor />
         </Route>
       </div>
     </div>

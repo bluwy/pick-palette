@@ -1,33 +1,7 @@
 <script>
   import { faFileExport } from '@fortawesome/free-solid-svg-icons'
-  import { produce } from 'immer'
   import Icon from 'svelte-fa'
-  import { useParams } from 'svelte-navigator'
-  import { state } from '/@/store/state'
-  import { download } from '/@/utils/common'
-
-  const params = useParams()
-
-  $: projectId = $params.projectId
-
-  function exportProject() {
-    const project = $state.projects.find((v) => v.id === projectId)
-
-    // Remove ids to reduce output size
-    const projectData = produce(project, (project) => {
-      delete project.id
-
-      for (let i = 0; i < project.colors.length; i++) {
-        delete project.colors[i].id
-      }
-    })
-
-    const finalText = JSON.stringify(projectData)
-    const fileName = project.name + '.json'
-    const fileType = 'application/json'
-
-    download(finalText, fileName, fileType)
-  }
+  import { exportProject } from '/@/store/project'
 </script>
 
 <header class="shadow-md">

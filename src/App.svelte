@@ -1,24 +1,12 @@
 <script>
   import { Router, Route } from 'svelte-navigator'
-  import { shortcut } from './actions/shortcut'
-  import { state } from './store/state'
-  import { app as press } from './utils/shortcuts'
   import Snackbar from './components/Snackbar.svelte'
   import Dashboard from './views/Dashboard.svelte'
   import Null from './views/Null.svelte'
   import Project from './views/Project.svelte'
-
-  function setupShortcuts(on) {
-    on(press.undo, () => state.undo())
-    on(press.redo, () => state.redo())
-  }
 </script>
 
-<main
-  use:shortcut={setupShortcuts}
-  class="w-full h-screen overflow-hidden"
-  tabindex="0"
->
+<main class="w-full h-screen overflow-hidden">
   <Router primary={false}>
     <Route path="/dashboard">
       <Dashboard />

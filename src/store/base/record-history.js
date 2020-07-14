@@ -1,5 +1,5 @@
 import { applyPatches, produceWithPatches } from 'immer'
-import { writable, get } from 'svelte/store'
+import { uget } from '/@/utils/common'
 
 /**
  * @typedef {Object} HistoryStoreOptions
@@ -7,14 +7,13 @@ import { writable, get } from 'svelte/store'
  */
 
 /**
- * Create a store with undo/redo feature
- * @param {T} value
+ * Record store history for undo/redo actions
+ * @param {import('svelte/store').Writable} store
  * @param {HistoryStoreOptions} options
  * @template T
  */
-export function historyStore(value, options = {}) {
+export function recordHistory(store, options = {}) {
   const { limit } = options
-  const internalStore = writable(value)
 
   // Array of { name, undo, redo }
   let historyStack = []
@@ -45,6 +44,15 @@ export function historyStore(value, options = {}) {
    */
 
   /**
+   * Updates the store. Use this instead of the usual store update function so
+   * that store mutations can be recorded. This uses Immer under the hood so
+   * usual mutations will work.
+   *
+   * It's best to mutate as much as possible so Immer can generate the mutation
+   * data at a minimal size.
+   *
+   * How to mutate data: https://immerjs.github.io/immer/docs/update-patterns
+   *
    * @param {string} name
    * @param {UpdateFn} fn
    * @param {UpdateOptions} options
@@ -52,7 +60,7 @@ export function historyStore(value, options = {}) {
   function update(name, fn, options = {}) {
     const { merge = false } = options
 
-    internalStore.update((store) => {
+    store.update((store) => {
       const [newStore, patches, inversePatches] = produceWithPatches(store, fn)
 
       // If name exist, record history
@@ -85,18 +93,16 @@ export function historyStore(value, options = {}) {
     mergeBufferIfExist()
 
     if (canUndo()) {
-      internalStore.update((store) =>
-        applyPatches(store, historyStack[historyIndex].undo)
-      )
+      const undoPacthes = historyStack[historyIndex].undo
+      store.update((store) => applyPatches(store, undoPacthes))
       historyIndex--
     }
   }
 
   function redo() {
     if (canRedo()) {
-      internalStore.update((store) =>
-        applyPatches(store, historyStack[historyIndex + 1].redo)
-      )
+      const redoPatches = historyStack[historyIndex + 1].redo
+      store.update((store) => applyPatches(store, redoPatches))
       historyIndex++
     }
   }
@@ -121,11 +127,12 @@ export function historyStore(value, options = {}) {
       return
     }
 
-    const store = get(internalStore)
-
-    const [, patches, inversePatches] = produceWithPatches(store, (store) => {
-      applyPatches(store, mergeBuffer)
-    })
+    const [, patches, inversePatches] = produceWithPatches(
+      uget(store),
+      (store) => {
+        applyPatches(store, mergeBuffer)
+      }
+    )
 
     // Finally add to historyStack
     addHistory(bufferName, patches, inversePatches)
@@ -133,6 +140,8 @@ export function historyStore(value, options = {}) {
     // Clear up for next buffer
     clearBuffer()
   }
+
+  //#region Private functions
 
   function addHistory(name, undo, redo) {
     if (undo.length <= 0 && redo.length <= 0) {
@@ -163,8 +172,9 @@ export function historyStore(value, options = {}) {
     bufferName = undefined
   }
 
+  //#endregion
+
   return {
-    subscribe: internalStore.subscribe,
     update,
     undo,
     redo,

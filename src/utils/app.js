@@ -13,23 +13,6 @@ export const hueGradient = [
   '#ff0000'
 ]
 
-/**
- * Create color name, e.g. Color 1, Color 2...
- * @param {Object} project
- */
-export function getDefaultColorName(project) {
-  // Initial color suffix number
-  let nameNumber = 1
-
-  while (true) {
-    const name = 'Color ' + nameNumber++
-
-    if (!project.colors.some((v) => v.name === name)) {
-      return name
-    }
-  }
-}
-
 export const genShadeFunctions = [
   {
     name: 'Luminance',

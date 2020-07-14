@@ -3,71 +3,44 @@
   import { tick } from 'svelte'
   import { fly } from 'svelte/transition'
   import Icon from 'svelte-fa'
-  import { navigate, useParams } from 'svelte-navigator'
-  import { state } from '/@/store/state'
-  import { debounce } from '/@/utils/common'
+  import { useNavigate, useParams } from 'svelte-navigator'
+  import {
+    currentProject,
+    currentProjectId,
+    updateColorShade
+  } from '/@/store/project'
   import ColorBox from '/@/components/base/ColorBox.svelte'
   import ColorPicker from '/@/components/base/ColorPicker/Index.svelte'
 
-  export let projectId
-
-  // Break merge after 500ms of inactivity
-  const debounceBreakMerge = debounce(state.breakMerge, 500)
-
+  const navigate = useNavigate()
   const params = useParams()
 
+  // Function bound from color picker
   let resetColorPicker
-  let computedShadeIndex
 
   $: colorId = $params.colorId
   $: shadeIndex = +$params.shadeIndex
 
-  $: currentColor = $state.projects
-    .find((v) => v.id === projectId)
-    .colors.find((v) => v.id === colorId)
+  $: currentColor = $currentProject.colors.find((v) => v.id === colorId)
 
+  // Check null in case color got deleted, if so go to empty view
   $: if (currentColor == null) {
-    // May be null because deleted, if so go to empty view
-    navigate(`project/${projectId}`)
+    navigate(`/project/${$currentProjectId}`)
   }
 
-  $: if (
-    currentColor &&
-    currentColor.shades &&
-    shadeIndex >= 0 &&
-    shadeIndex < currentColor.shades.length
-  ) {
-    computedShadeIndex = shadeIndex
-  } else {
-    computedShadeIndex = -1
-  }
+  // May be undefined if out of bounds
+  $: currentShade = currentColor?.shades[shadeIndex]
 
-  $: currentShade = currentColor && currentColor.shades[computedShadeIndex]
-
-  // Reset color picker whenver color or shade change
+  // Reset color picker whenever color or shade change
   $: if (currentColor && currentShade && resetColorPicker) {
     // Wait for changes to be reflected in ColorPicker prop, then reset
     tick().then(() => resetColorPicker())
   }
 
   function updateShade(newShade) {
-    if (computedShadeIndex < 0) {
-      return
+    if (shadeIndex >= 0 && shadeIndex < currentColor.shades.length) {
+      updateColorShade(colorId, shadeIndex, newShade)
     }
-
-    state.update(
-      'Update shade',
-      (state) => {
-        const color = state.projects
-          .find((v) => v.id === projectId)
-          .colors.find((v) => v.id === colorId)
-
-        color.shades[computedShadeIndex] = newShade
-      },
-      { merge: true }
-    )
-
-    debounceBreakMerge()
   }
 </script>
 
@@ -79,14 +52,14 @@
           <div class="flex flex-col justify-center items-center">
             <button
               on:click={() => navigate(
-                  `/project/${projectId}/edit/${colorId}/${i}`,
+                  `/project/${$currentProjectId}/edit/${colorId}/${i}`,
                   { replace: true }
                 )}
             >
               <ColorBox color={shade} />
             </button>
             <div class="h-8">
-              {#if i === computedShadeIndex}
+              {#if i === shadeIndex}
                 <div
                   transition:fly={{ y: 10 }}
                   class="text-gray-900 opacity-70 pt-3"

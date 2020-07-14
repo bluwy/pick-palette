@@ -1,11 +1,11 @@
 import { nanoid } from 'nanoid/non-secure'
 import {
-  object,
-  number,
   array,
-  string,
   defaulted,
-  refinement
+  number,
+  object,
+  refinement,
+  string
 } from 'superstruct'
 import { supportedShadeCount } from './app'
 
@@ -40,14 +40,10 @@ export const Color = object({
 })
 
 export const Project = object({
+  version: number(),
   id: ID,
   name: string(),
   colors: defaulted(array(Color), () => [])
-})
-
-export const State = object({
-  version: number(),
-  projects: defaulted(array(Project), () => [])
 })
 
 /**
@@ -61,8 +57,6 @@ function lengthOneOf(S, arr) {
   return refinement(
     S,
     `${S.type} & LengthOneOf<[${arr.join(', ')}]>`,
-    (value) => {
-      return arr.includes(value.length)
-    }
+    (value) => arr.includes(value.length)
   )
 }

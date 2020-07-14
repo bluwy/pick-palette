@@ -1,13 +1,12 @@
 <script>
-  import { openedProjects } from '/@/store/project'
-  import { state } from '/@/store/state'
+  import { openedProjectIds, projects } from '/@/store/project'
   import ColorBox from '/@/components/base/ColorBox.svelte'
 
   export let projectId
 
-  $: project = $state.projects.find((v) => v.id === projectId)
+  $: project = $projects.find((v) => v.id === projectId)
 
-  $: isOpened = $openedProjects.includes(projectId)
+  $: isOpened = $openedProjectIds.includes(projectId)
 
   $: href = isOpened ? '' : `project/${projectId}`
 

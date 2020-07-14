@@ -64,31 +64,10 @@ export function lerp(a, b, t) {
 }
 
 /**
- * @param {Storage} storage
- * @param {string} key
- * @param {T} [defaultValue]
- * @returns {T}
- * @template T
- */
-export function storageGetItem(storage, key, defaultValue) {
-  const value = storage.getItem(key)
-
-  if (value != null) {
-    return JSON.parse(value)
-  }
-
-  if (defaultValue != null) {
-    // Doesn't exist in storage, set default value
-    storage.setItem(key, JSON.stringify(defaultValue))
-    return defaultValue
-  }
-
-  return undefined
-}
-
-/**
  * Download a text as a file
+ *
  * Reference: https://stackoverflow.com/a/43388258/13265944
+ *
  * @param {string} text The text to download
  * @param {string} name The file name
  * @param {string} type The MIME type
@@ -102,4 +81,17 @@ export function download(text, name, type) {
   a.style.display = 'none'
   a.click()
   a.remove()
+}
+
+/**
+ * Alternative to Svelte's get function that uses store update function
+ * @param {any} writableStore
+ */
+export function uget({ update }) {
+  let value
+  update((v) => {
+    value = v
+    return v
+  })
+  return value
 }

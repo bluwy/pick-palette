@@ -1,18 +1,11 @@
 <script>
   import chroma from 'chroma-js'
-  import { nanoid } from 'nanoid/non-secure'
   import { navigate } from 'svelte-navigator'
-  import { state } from '/@/store/state'
-  import {
-    getDefaultColorName,
-    genShadeFunctions,
-    supportedShadeCount
-  } from '/@/utils/app'
+  import { createColor, currentProjectId } from '/@/store/project'
+  import { genShadeFunctions, supportedShadeCount } from '/@/utils/app'
   import ColorBox from '/@/components/base/ColorBox.svelte'
   import ColorPicker from '/@/components/base/ColorPicker/Index.svelte'
   import SelectToolbar from '/@/components/base/SelectToolbar.svelte'
-
-  export let projectId
 
   const shadeChoices = supportedShadeCount.map((v) => ({ label: v, value: v }))
 
@@ -25,20 +18,10 @@
   }))
 
   function create(shades) {
-    const colorId = nanoid(6)
-
-    state.update('Create new color', (state) => {
-      const currentProject = state.projects.find((v) => v.id === projectId)
-
-      currentProject.colors.push({
-        id: colorId,
-        name: getDefaultColorName(currentProject),
-        shades
-      })
-    })
+    const colorId = createColor(shades)
 
     // Open color edit view
-    navigate(`/project/${projectId}/edit/${colorId}`)
+    navigate(`/project/${$currentProjectId}/edit/${colorId}`)
   }
 </script>
 
