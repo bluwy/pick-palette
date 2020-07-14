@@ -1,8 +1,5 @@
-# Depedencies
+# Dependencies
 node_modules
-
-# Build artifacts
-public/build
 
 # IDE
 *.code-workspace
