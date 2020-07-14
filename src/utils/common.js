@@ -1,4 +1,9 @@
 /**
+ * @typedef {import('svelte/store').Writable<T>} Writable<T>
+ * @template T
+ */
+
+/**
  * @param {number} value
  * @param {number} min
  * @param {number} max
@@ -85,7 +90,9 @@ export function download(text, name, type) {
 
 /**
  * Alternative to Svelte's get function that uses store update function
- * @param {any} writableStore
+ * @param {{ update: Writable<T>['update'] }} store
+ * @template T
+ * @returns {T}
  */
 export function uget({ update }) {
   let value
@@ -94,4 +101,13 @@ export function uget({ update }) {
     return v
   })
   return value
+}
+
+/**
+ * Makes writable store readonly
+ * @param {{ subscribe: Writable<T>['subscribe'] }} store
+ * @template T
+ */
+export function readonly({ subscribe }) {
+  return { subscribe }
 }
