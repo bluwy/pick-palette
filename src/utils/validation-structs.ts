@@ -34,17 +34,17 @@ import { supportedShadeCount } from './app'
 
 const ID = defaulted(string(), () => nanoid(6))
 
-export const Color = object({
+export const ColorStruct = object({
   id: ID,
   name: string(),
   shades: lengthOneOf(array(string()), supportedShadeCount)
 })
 
-export const Project = object({
+export const ProjectStruct = object({
   version: number(),
   id: ID,
   name: string(),
-  colors: defaulted(array(Color), () => [])
+  colors: defaulted(array(ColorStruct), () => [])
 })
 
 /**

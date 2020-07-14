@@ -1,12 +1,13 @@
-import { assert, array, StructType } from 'superstruct'
+import { assert, array } from 'superstruct'
 import { derived, writable, Readable } from 'svelte/store'
 import { synchronize } from '/@/store/base/synchronize'
 import { recordHistory } from '/@/store/base/record-history'
-import { Project } from '/@/utils/validation-structs'
+import { Project } from '/@/utils/types'
+import { ProjectStruct } from '/@/utils/validation-structs'
 
 //#region Projects
 
-const _projects = writable([] as StructType<typeof Project>[])
+const _projects = writable([] as Project[])
 
 export const projects = {
   ..._projects,
@@ -17,7 +18,7 @@ export const projects = {
 // Run state validation in development
 if (process.env.NODE_ENV !== 'production') {
   projects.subscribe((state) => {
-    assert(state, array(Project))
+    assert(state, array(ProjectStruct))
   })
 }
 
@@ -38,7 +39,7 @@ export const currentProject = derived(
   ([$projects, $currentProjectId]) => {
     return $projects.find((v) => v.id === $currentProjectId)
   }
-) as Readable<StructType<typeof Project>>
+) as Readable<Project>
 
 //#endregion
 

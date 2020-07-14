@@ -1,6 +1,6 @@
 import { produce } from 'immer'
 import { nanoid } from 'nanoid/non-secure'
-import { coerce, StructType } from 'superstruct'
+import { coerce } from 'superstruct'
 import { get } from 'svelte/store'
 import {
   debounce,
@@ -8,7 +8,8 @@ import {
   removeAndInsertElement,
   uget
 } from '/@/utils/common'
-import { Project } from '/@/utils/validation-structs'
+import { Project } from '/@/utils/types'
+import { ProjectStruct } from '/@/utils/validation-structs'
 import { openedProjectIds, projects, currentProject } from './state'
 import {
   updateColor,
@@ -63,7 +64,7 @@ export function createProject(name: string) {
 }
 
 export function importProject(data: Object) {
-  const projectData = coerce(data, Project)
+  const projectData = coerce(data, ProjectStruct)
   const $projects = uget(projects)
 
   // Make sure there's no duplicate id, if the user supplied one
@@ -83,7 +84,7 @@ export function importProject(data: Object) {
 
 export function exportProject() {
   // Remove ids to reduce output size
-  const projectData = produce(get(currentProject) as StructType<typeof Project>, (project) => {
+  const projectData = produce(get(currentProject) as Project, (project) => {
     delete project.id
 
     for (let i = 0; i < project.colors.length; i++) {
