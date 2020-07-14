@@ -7,6 +7,7 @@
   export let steps
   export let currentStep = 0
 
+  let fillRatio: number
   $: fillRatio = clamp(currentStep / (steps - 1), 0, 1)
 </script>
 

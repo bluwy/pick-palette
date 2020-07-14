@@ -1,22 +1,31 @@
-import { applyPatches, produceWithPatches } from 'immer'
+import { applyPatches, produceWithPatches, Patch } from 'immer'
 import { uget } from '/@/utils/common'
+import { Writable } from 'svelte/store'
 
-/**
- * @typedef {Object} HistoryStoreOptions
- * @property {number} [limit] Max history record count
- */
+export interface HistoryStoreOptions {
+  /** Max history record count */
+  limit?: number
+}
 
-/**
- * Record store history for undo/redo actions
- * @param {import('svelte/store').Writable} store
- * @param {HistoryStoreOptions} options
- * @template T
- */
-export function recordHistory(store, options = {}) {
+export interface HistoryRecord {
+  name: string,
+  undo: Patch[],
+  redo: Patch[]
+}
+
+export interface HistoryUpdateOptions {
+  /**
+   * Whether to merge consecutive calls into one record. Useful to reduce
+   * history record spam.
+   */
+  merge?: boolean
+}
+
+/** Record store history for undo/redo actions */
+export function recordHistory<T>(store: Writable<T>, options: HistoryStoreOptions = {}) {
   const { limit } = options
 
-  // Array of { name, undo, redo }
-  let historyStack = []
+  let historyStack: HistoryRecord[] = []
   let historyIndex = -1
 
   /*
@@ -28,20 +37,8 @@ export function recordHistory(store, options = {}) {
   */
 
   // Array of inversePatches (undos)
-  let mergeBuffer = []
-  let bufferName
-
-  /**
-   * @callback UpdateFn
-   * @param {T} store
-   * @return {void}
-   */
-
-  /**
-   * @typedef {Object} UpdateOptions
-   * @property {boolean} [merge] Whether to merge consecutive calls into one
-   *     record. Useful to reduce history record spam.
-   */
+  let mergeBuffer: Patch[] = []
+  let bufferName: string | undefined
 
   /**
    * Updates the store. Use this instead of the usual store update function so
@@ -52,12 +49,8 @@ export function recordHistory(store, options = {}) {
    * data at a minimal size.
    *
    * How to mutate data: https://immerjs.github.io/immer/docs/update-patterns
-   *
-   * @param {string} name
-   * @param {UpdateFn} fn
-   * @param {UpdateOptions} options
    */
-  function update(name, fn, options = {}) {
+  function update(name: string, fn: (store: T) => void, options: HistoryUpdateOptions = {}) {
     const { merge = false } = options
 
     store.update((store) => {
@@ -143,7 +136,7 @@ export function recordHistory(store, options = {}) {
 
   //#region Private functions
 
-  function addHistory(name, undo, redo) {
+  function addHistory(name: string, undo: Patch[], redo: Patch[]) {
     if (undo.length <= 0 && redo.length <= 0) {
       return
     }

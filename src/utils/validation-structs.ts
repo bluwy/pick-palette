@@ -5,7 +5,8 @@ import {
   number,
   object,
   refinement,
-  string
+  string,
+  Struct
 } from 'superstruct'
 import { supportedShadeCount } from './app'
 
@@ -48,12 +49,10 @@ export const Project = object({
 
 /**
  * Validate value length to be one of allowed lengths
- * @param {import('superstruct').Struct<T>} S Struct
- * @param {number[]} arr Array of allowed lengths
- * @returns Struct<T>
- * @template T
+ * @param S Struct
+ * @param Array of allowed lengths
  */
-function lengthOneOf(S, arr) {
+function lengthOneOf<T extends { length: number }>(S: Struct<T>, arr: number[]) {
   return refinement(
     S,
     `${S.type} & LengthOneOf<[${arr.join(', ')}]>`,

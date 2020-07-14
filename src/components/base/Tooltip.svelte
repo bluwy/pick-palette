@@ -5,7 +5,7 @@
 
   export let text = ''
 
-  let show
+  let show = false
 </script>
 
 <div use:clickOutside on:clickoutside={() => (show = false)}>

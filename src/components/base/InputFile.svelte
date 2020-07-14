@@ -1,5 +1,5 @@
 <script>
-  export let files = []
+  export let files: FileList
   export let multiple = false
 </script>
 

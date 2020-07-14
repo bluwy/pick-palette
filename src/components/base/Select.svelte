@@ -1,8 +1,8 @@
 <script>
-  export let value
+  export let value: string
   export let props = {}
   // Accepts array of objects with label and value keys
-  export let choices
+  export let choices: { label: string; value: string }[]
 </script>
 
 <select

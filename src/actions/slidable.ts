@@ -1,11 +1,10 @@
-/**
- * Emits `slide` event when sliding on node
- * @param {HTMLElement} node
- */
-export function slidable(node) {
-  const dispatchSlide = (e) => node.dispatchEvent(new MouseEvent('slide', e))
+/** Emits `slide` event when sliding on node */
+export function slidable(node: HTMLElement) {
+  const dispatchSlide = (e: MouseEvent | TouchEvent) => {
+    node.dispatchEvent(new MouseEvent('slide', e))
+  }
 
-  const handlePointerDown = (e) => {
+  const handlePointerDown = (e: MouseEvent | TouchEvent) => {
     dispatchSlide(e)
     document.addEventListener('mousemove', dispatchSlide)
     document.addEventListener('touchmove', dispatchSlide)
@@ -13,7 +12,7 @@ export function slidable(node) {
     document.addEventListener('touchend', handlePointerUp)
   }
 
-  const handlePointerUp = (e) => {
+  const handlePointerUp = (e: MouseEvent | TouchEvent) => {
     dispatchSlide(e)
     document.removeEventListener('mousemove', dispatchSlide)
     document.removeEventListener('touchmove', dispatchSlide)

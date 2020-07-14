@@ -5,64 +5,63 @@
   import { hueGradient } from '/@/utils/app'
   import { clamp, throttle } from '/@/utils/common'
 
-  /** @type {'r'|'g'|'b'|'h'|'s'|'v'}  */
-  export let mode
+  export let mode: 'r' | 'g' | 'b' | 'h' | 's' | 'v'
 
   // Readonly
-  export let r
-  export let g
-  export let b
-  export let h
-  export let s
-  export let v
+  export let r: number
+  export let g: number
+  export let b: number
+  export let h: number
+  export let s: number
+  export let v: number
 
   const dispatch = createEventDispatcher()
 
   // Pointer coordinate is normaized
   let pointerX = 0
   let bgStyle = ''
-  let slideHandler
+  let slideHandler: (x: number) => void
 
   $: switch (mode) {
     case 'r':
       pointerX = r / 255
       bgStyle = `linear-gradient(to right, black, red)`
-      slideHandler = (x) => {
+      slideHandler = (x: number) => {
         dispatch('update', { type: 'r', value: x * 255 })
       }
       break
     case 'g':
       pointerX = g / 255
       bgStyle = `linear-gradient(to right, black, green)`
-      slideHandler = (x) => {
+      slideHandler = (x: number) => {
         dispatch('update', { type: 'g', value: x * 255 })
       }
       break
     case 'b':
       pointerX = b / 255
       bgStyle = `linear-gradient(to right, black, blue)`
-      slideHandler = (x) => {
+      slideHandler = (x: number) => {
         dispatch('update', { type: 'b', value: x * 255 })
       }
       break
     case 'h':
       pointerX = h / 360
       bgStyle = `linear-gradient(to right, ${hueGradient.join(', ')})`
-      slideHandler = (x) => {
+      slideHandler = (x: number) => {
         dispatch('update', { type: 'h', value: x * 360 })
       }
       break
     case 's':
       pointerX = s
       bgStyle = `linear-gradient(to right, black, white)`
-      slideHandler = (x) => {
+      slideHandler = (x: number) => {
         dispatch('update', { type: 's', value: x })
       }
       break
     case 'v':
       pointerX = v
       bgStyle = `linear-gradient(to right, black, white)`
-      slideHandler = (x) => {
+      slideHandler = (x: number) => {
         dispatch('update', { type: 'v', value: x })
       }
       break

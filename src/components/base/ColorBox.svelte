@@ -1,7 +1,8 @@
 <script>
-  export let color
+  export let color: string
   export let small = false
 
+  let sizeClass: string
   $: sizeClass = small ? 'w-4 h-4 rounded' : 'w-8 h-8 rounded-lg'
 </script>
 

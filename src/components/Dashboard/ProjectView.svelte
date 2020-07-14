@@ -6,13 +6,14 @@
   import ProjectViewItem from './ProjectViewItem.svelte'
   import InputFile from '../base/InputFile.svelte'
 
-  let importFiles
+  let importFiles: FileList = [] as any
 
   $: if (importFiles && importFiles[0]) {
     const reader = new FileReader()
 
     reader.onload = (e) => {
-      const projectId = importProject(JSON.parse(e.target.result))
+      const text = e.target.result as string
+      const projectId = importProject(JSON.parse(text))
       navigate(`/project/${projectId}`)
     }
 

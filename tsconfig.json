@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["ES2017", "DOM"],
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "/@/*": ["./src/*"],
+      "svelte-fa": ["stub.d.ts"]
+    },
+    "types": ["svelte", "node"],
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules"]
+}

@@ -1,7 +1,7 @@
 <script>
-  export let value
+  export let value: string
   // Accepts array of objects with label and value keys
-  export let choices
+  export let choices: { label: string; value: string }[]
 </script>
 
 <div
@@ -12,7 +12,7 @@
     <label
       class="inline-block cursor-pointer px-3 py-1 bg-primary-500 bg-opacity-0
       transition-colors duration-200 {choice.value === value ? 'bg-opacity-100 text-white hover:bg-opacity-80 focus:bg-opacity-80' : 'hover:bg-opacity-30 focus:bg-opacity-30'}"
-      tabindex="0"
+      tabindex={0}
     >
       <span>{choice.label}</span>
       <input

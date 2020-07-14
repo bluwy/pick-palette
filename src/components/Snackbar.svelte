@@ -54,7 +54,7 @@
           <div>
             <button
               class="button--transparent text-black"
-              on:click={closeSnack(snack.id)}
+              on:click={() => closeSnack(snack.id)}
             >
               <Icon icon={faTimes} />
             </button>

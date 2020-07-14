@@ -4,14 +4,15 @@
   import ProjectView from '/@/components/Dashboard/ProjectView.svelte'
   import InputFile from '/@/components/base/InputFile.svelte'
 
-  let newProjectName
-  let importFiles
+  let newProjectName = ''
+  let importFiles: FileList = [] as any
 
   $: if (importFiles && importFiles[0]) {
     const reader = new FileReader()
 
     reader.onload = (e) => {
-      const projectId = importProject(JSON.parse(e.target.result))
+      const text = e.target.result as string
+      const projectId = importProject(JSON.parse(text))
       navigate(`/project/${projectId}`)
     }
 
@@ -37,7 +38,7 @@
         bind:value={newProjectName}
         class="input"
         type="text"
-        size="15"
+        size={15}
         placeholder="Project name"
       />
       <button class="button" type="submit">Create</button>

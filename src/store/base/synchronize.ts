@@ -1,9 +1,7 @@
-/**
- * Sync store across tabs
- * @param {import('svelte/store').Writable} store
- * @param {string} key
- */
-export function synchronize(store, key) {
+import { Writable } from 'svelte/store'
+
+/** Sync store across tabs */
+export function synchronize<T>(store: Writable<T>, key: string) {
   const storageValue = localStorage.getItem(key)
 
   // If have existing value, use it

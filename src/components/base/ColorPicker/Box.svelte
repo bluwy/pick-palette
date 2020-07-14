@@ -5,16 +5,15 @@
   import { hueGradient } from '/@/utils/app'
   import { clamp, throttle } from '/@/utils/common'
 
-  /** @type {'r'|'g'|'b'|'h'|'s'|'v'}  */
-  export let mode
+  export let mode: 'r' | 'g' | 'b' | 'h' | 's' | 'v'
 
   // Readonly
-  export let r
-  export let g
-  export let b
-  export let h
-  export let s
-  export let v
+  export let r: number
+  export let g: number
+  export let b: number
+  export let h: number
+  export let s: number
+  export let v: number
 
   const dispatch = createEventDispatcher()
 
@@ -22,7 +21,7 @@
   let pointerX = 0
   let pointerY = 0
   let bgStyle = ''
-  let slideHandler
+  let slideHandler: (x: number, y: number) => void
 
   $: switch (mode) {
     case 'r':
@@ -32,7 +31,7 @@
         linear-gradient(to top, transparent, blue),
         linear-gradient(to right, ${chroma(r, 0, 0).hex()}, green)
       `
-      slideHandler = (x, y) => {
+      slideHandler = (x: number, y: number) => {
         dispatch('update', { type: 'g', value: x * 255 })
         dispatch('update', { type: 'b', value: y * 255 })
       }
@@ -44,7 +43,7 @@
         linear-gradient(to top, transparent, blue),
         linear-gradient(to right, ${chroma(0, g, 0).hex()}, red)
       `
-      slideHandler = (x, y) => {
+      slideHandler = (x: number, y: number) => {
         dispatch('update', { type: 'r', value: x * 255 })
         dispatch('update', { type: 'b', value: y * 255 })
       }
@@ -56,7 +55,7 @@
         linear-gradient(to top, transparent, green),
         linear-gradient(to right, ${chroma(0, 0, b).hex()}, red)
       `
-      slideHandler = (x, y) => {
+      slideHandler = (x: number, y: number) => {
         dispatch('update', { type: 'r', value: x * 255 })
         dispatch('update', { type: 'g', value: y * 255 })
       }
@@ -68,7 +67,7 @@
         linear-gradient(to top, black, transparent),
         linear-gradient(to right, transparent, ${chroma.hsv(h, 1, 1).hex()})
       `
-      slideHandler = (x, y) => {
+      slideHandler = (x: number, y: number) => {
         dispatch('update', { type: 's', value: x })
         dispatch('update', { type: 'v', value: y })
       }
@@ -80,7 +79,7 @@
         linear-gradient(to top, black, transparent),
         linear-gradient(to right, ${hueGradient.join(', ')})
       `
-      slideHandler = (x, y) => {
+      slideHandler = (x: number, y: number) => {
         dispatch('update', { type: 'h', value: x * 360 })
         dispatch('update', { type: 'v', value: y })
       }
@@ -92,7 +91,7 @@
         linear-gradient(to top, white, transparent),
         linear-gradient(to right, ${hueGradient.join(', ')})
       `
-      slideHandler = (x, y) => {
+      slideHandler = (x: number, y: number) => {
         dispatch('update', { type: 'h', value: x * 360 })
         dispatch('update', { type: 's', value: y })
       }

@@ -19,6 +19,7 @@
     h = 0
   }
 
+  let r: number, g: number, b: number
   $: [r, g, b] = chroma.hsv(h, s, v).rgb()
 
   function handleUpdate(e) {
@@ -55,7 +56,7 @@
 
   function updateValue() {
     // Always use hex for value
-    const hex = chroma({ h, s, v }).hex()
+    const hex = chroma.hsv(h, s, v).hex()
     // Update value for two-way binding
     value = hex
     // Emit input for event binding

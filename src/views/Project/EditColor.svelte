@@ -18,7 +18,10 @@
   // Function bound from color picker
   let resetColorPicker
 
+  let colorId: string
   $: colorId = $params.colorId
+
+  let shadeIndex: number
   $: shadeIndex = +$params.shadeIndex
 
   $: currentColor = $currentProject.colors.find((v) => v.id === colorId)
@@ -29,6 +32,7 @@
   }
 
   // May be undefined if out of bounds
+  let currentShade: string
   $: currentShade = currentColor?.shades[shadeIndex]
 
   // Reset color picker whenever color or shade change
@@ -41,6 +45,10 @@
     if (shadeIndex >= 0 && shadeIndex < currentColor.shades.length) {
       updateColorShade(colorId, shadeIndex, newShade)
     }
+  }
+
+  function handleColorPickerInput(e: CustomEvent) {
+    updateShade(e.detail)
   }
 </script>
 
@@ -78,7 +86,7 @@
           <ColorPicker
             value={currentShade}
             bind:reset={resetColorPicker}
-            on:input={(e) => updateShade(e.detail)}
+            on:input={handleColorPickerInput}
           />
         </div>
       {/if}

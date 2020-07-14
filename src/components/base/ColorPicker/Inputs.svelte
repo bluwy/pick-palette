@@ -1,24 +1,25 @@
 <script>
   import chroma from 'chroma-js'
+  import type { Color } from 'chroma-js'
   import { createEventDispatcher } from 'svelte'
   import { slidable } from '/@/actions/slidable'
   import { hueGradient } from '/@/utils/app'
   import { clamp, throttle } from '/@/utils/common'
 
   // Two-way bind
-  /** @type {'r'|'g'|'b'|'h'|'s'|'v'}  */
-  export let mode
+  export let mode: 'r' | 'g' | 'b' | 'h' | 's' | 'v'
 
   // Readonly
-  export let r
-  export let g
-  export let b
-  export let h
-  export let s
-  export let v
+  export let r: number
+  export let g: number
+  export let b: number
+  export let h: number
+  export let s: number
+  export let v: number
 
   const dispatch = createEventDispatcher()
 
+  let color: Color
   $: color = chroma.hsv(h, s, v)
 
   $: inputs = [
@@ -30,8 +31,9 @@
       value: Math.round(r),
       min: 0,
       max: 255,
-      onInput: (v) => dispatch('update', { type: 'r', value: v }),
-      slideHandler: (x) => dispatch('update', { type: 'r', value: x * 255 })
+      onInput: (v: number) => dispatch('update', { type: 'r', value: v }),
+      slideHandler: (x: number) =>
+        dispatch('update', { type: 'r', value: x * 255 })
     },
     {
       type: 'g',
@@ -41,8 +43,9 @@
       value: Math.round(g),
       min: 0,
       max: 255,
-      onInput: (v) => dispatch('update', { type: 'g', value: v }),
-      slideHandler: (x) => dispatch('update', { type: 'g', value: x * 255 })
+      onInput: (v: number) => dispatch('update', { type: 'g', value: v }),
+      slideHandler: (x: number) =>
+        dispatch('update', { type: 'g', value: x * 255 })
     },
     {
       type: 'b',
@@ -52,8 +55,9 @@
       value: Math.round(b),
       min: 0,
       max: 255,
-      onInput: (v) => dispatch('update', { type: 'b', value: v }),
-      slideHandler: (x) => dispatch('update', { type: 'b', value: x * 255 })
+      onInput: (v: number) => dispatch('update', { type: 'b', value: v }),
+      slideHandler: (x: number) =>
+        dispatch('update', { type: 'b', value: x * 255 })
     },
     {
       type: 'h',
@@ -63,8 +67,9 @@
       value: Math.round(h),
       min: 0,
       max: 360,
-      onInput: (v) => dispatch('update', { type: 'h', value: v }),
-      slideHandler: (x) => dispatch('update', { type: 'h', value: x * 360 })
+      onInput: (v: number) => dispatch('update', { type: 'h', value: v }),
+      slideHandler: (x: number) =>
+        dispatch('update', { type: 'h', value: x * 360 })
     },
     {
       type: 's',
@@ -74,8 +79,8 @@
       value: Math.round(s * 100),
       min: 0,
       max: 100,
-      onInput: (v) => dispatch('update', { type: 's', value: v / 100 }),
-      slideHandler: (x) => dispatch('update', { type: 's', value: x })
+      onInput: (v: number) => dispatch('update', { type: 's', value: v / 100 }),
+      slideHandler: (x: number) => dispatch('update', { type: 's', value: x })
     },
     {
       type: 'v',
@@ -85,8 +90,8 @@
       value: Math.round(v * 100),
       min: 0,
       max: 100,
-      onInput: (v) => dispatch('update', { type: 'v', value: v / 100 }),
-      slideHandler: (x) => dispatch('update', { type: 'v', value: x })
+      onInput: (v: number) => dispatch('update', { type: 'v', value: v / 100 }),
+      slideHandler: (x: number) => dispatch('update', { type: 'v', value: x })
     }
   ]
 
@@ -124,7 +129,7 @@
     <input
       class="input input--small"
       type="number"
-      size="4"
+      size={4}
       value={input.value}
       min={input.min}
       max={input.max}
@@ -137,7 +142,7 @@
     id="cp-hex"
     class="input input--small mt-2"
     type="text"
-    size="4"
+    size={4}
     value={color.hex().slice(1)}
     on:input={(e) => dispatch('update', {
         type: 'hex',

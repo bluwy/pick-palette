@@ -6,11 +6,11 @@
   import ColorPicker from './ColorPicker/Index.svelte'
   import Popper from './Popper.svelte'
 
-  export let value
+  export let value: string
   export let vertical = false
   export let disabled = false
 
-  let show
+  let show = false
 
   // Set white by default
   if (!chroma.valid(value)) {
@@ -50,7 +50,7 @@
         bind:value
         class="input"
         type="text"
-        size="4"
+        size={4}
         {disabled}
         on:change={setValueAsHex}
       />

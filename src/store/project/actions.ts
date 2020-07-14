@@ -1,6 +1,6 @@
 import { produce } from 'immer'
 import { nanoid } from 'nanoid/non-secure'
-import { coerce } from 'superstruct'
+import { coerce, StructType } from 'superstruct'
 import { get } from 'svelte/store'
 import {
   debounce,
@@ -47,7 +47,7 @@ const debounceProjectsHistoryBreakMerge = debounce(
 export const projectUndo = projects.history.undo
 export const projectRedo = projects.history.redo
 
-export function createProject(name) {
+export function createProject(name: string) {
   const projectId = nanoid(6)
 
   projects.history.update('Create new project', (projects) => {
@@ -62,7 +62,7 @@ export function createProject(name) {
   return projectId
 }
 
-export function importProject(data) {
+export function importProject(data: Object) {
   const projectData = coerce(data, Project)
   const $projects = uget(projects)
 
@@ -83,7 +83,7 @@ export function importProject(data) {
 
 export function exportProject() {
   // Remove ids to reduce output size
-  const projectData = produce(get(currentProject), (project) => {
+  const projectData = produce(get(currentProject) as StructType<typeof Project>, (project) => {
     delete project.id
 
     for (let i = 0; i < project.colors.length; i++) {
@@ -102,10 +102,7 @@ export function exportProject() {
 
 //#region Color
 
-/**
- * @param {string[]} shades
- */
-export function createColor(shades) {
+export function createColor(shades: string[]) {
   const colorId = nanoid(6)
 
   updateProject('Create new color', (project) => {
@@ -119,19 +116,19 @@ export function createColor(shades) {
   return colorId
 }
 
-export function sortColor(removeIndex, insertIndex) {
+export function sortColor(removeIndex: number, insertIndex: number) {
   updateProject('Sort color order', (project) => {
     removeAndInsertElement(project.colors, removeIndex, insertIndex)
   })
 }
 
-export function updateColorName(colorId, name) {
+export function updateColorName(colorId: string, name: string) {
   updateColor(colorId, 'Update color name', (color) => {
     color.name = name
   })
 }
 
-export function updateColorShade(colorId, shadeIndex, newShade) {
+export function updateColorShade(colorId: string, shadeIndex: number, newShade: string) {
   updateColor(
     colorId,
     `Update shade ${colorId}`,
@@ -144,7 +141,7 @@ export function updateColorShade(colorId, shadeIndex, newShade) {
   debounceProjectsHistoryBreakMerge()
 }
 
-export function removeColor(colorId) {
+export function removeColor(colorId: string) {
   updateProject('Remove color', (project) => {
     const index = project.colors.findIndex((v) => v.id === colorId)
     project.colors.splice(index, 1)
@@ -155,11 +152,11 @@ export function removeColor(colorId) {
 
 //#region Opened projects
 
-export function addOpenedProject(id) {
+export function addOpenedProject(id: string) {
   openedProjectIds.update((v) => v.concat([id]))
 }
 
-export function removeOpenedProject(id) {
+export function removeOpenedProject(id: string) {
   openedProjectIds.update((v) => v.filter((u) => u !== id))
 }
 

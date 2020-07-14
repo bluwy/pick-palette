@@ -54,6 +54,10 @@
     draggedColorId = undefined
     dropIndex = undefined
   }
+
+  function handleCanDrag(e: CustomEvent) {
+    canDrag = e.detail
+  }
 </script>
 
 <div class="flex flex-col h-full">
@@ -80,10 +84,7 @@
       >
         {#if color.id !== draggedColorId}
           <div transition:fade={{ duration: 200 }} class="absolute w-full">
-            <ColorTab
-              colorId={color.id}
-              on:candrag={(e) => (canDrag = e.detail)}
-            />
+            <ColorTab colorId={color.id} on:candrag={handleCanDrag} />
           </div>
         {/if}
       </li>
