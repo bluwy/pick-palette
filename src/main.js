@@ -1,6 +1,6 @@
 import { enablePatches } from 'immer'
 import App from './App.svelte'
-import './tailwind.css'
+import './main.css'
 
 // For undo/redo
 enablePatches()
