@@ -2,7 +2,7 @@
   import { faFileImport } from '@fortawesome/free-solid-svg-icons'
   import Icon from 'svelte-fa'
   import { navigate } from 'svelte-navigator'
-  import { importProject, projects } from '/@/store/project'
+  import { importProject, projects } from '/@/store/projects'
   import ProjectViewItem from './ProjectViewItem.svelte'
   import InputFile from '../base/InputFile.svelte'
 

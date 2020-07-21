@@ -2,19 +2,17 @@
   import { onDestroy, onMount, tick } from 'svelte'
   import { Route, navigate, useParams } from 'svelte-navigator'
   import { shortcut } from '/@/actions/shortcut'
+  import { addOpenedProject, removeOpenedProject } from '/@/store/opened'
   import {
-    addOpenedProject,
     currentProject,
     currentProjectId,
-    projectRedo,
-    projectUndo,
-    removeOpenedProject
+    setCurrentProjectId
   } from '/@/store/project'
+  import { projectRedo, projectUndo } from '/@/store/projects'
   import ColorPanel from '/@/components/Project/ColorPanel.svelte'
   import Header from '/@/components/Project/Header.svelte'
   import NewColor from './Project/NewColor.svelte'
   import EditColor from './Project/EditColor.svelte'
-
   const params = useParams()
 
   // TODO: Use different router that provides a global active route store
@@ -29,7 +27,7 @@
       }
 
       addOpenedProject(newProjectId)
-      $currentProjectId = newProjectId
+      setCurrentProjectId(newProjectId)
     }
   })
 

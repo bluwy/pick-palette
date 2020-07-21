@@ -1,7 +1,8 @@
-import { currentProjectId, projects } from './state'
+import { HistoryUpdateOptions } from '/@/store/base/record-history'
+import { _projects } from '/@/store/projects/state'
 import { uget } from '/@/utils/common'
 import { Color, Project } from '/@/utils/types'
-import { HistoryUpdateOptions } from '/@/store/base/record-history'
+import { _currentProjectId } from './state'
 
 // Wrap projects update for current project
 export function updateProject(
@@ -9,10 +10,10 @@ export function updateProject(
   fn: (store: Project) => void,
   options?: HistoryUpdateOptions
 ) {
-  projects.history.update(
+  _projects.history.update(
     name,
     (projects) => {
-      const $currentProjectId = uget(currentProjectId)
+      const $currentProjectId = uget(_currentProjectId)
       const project = projects.find((v) => v.id === $currentProjectId)
 
       if (project == null) {
@@ -62,27 +63,5 @@ export function getDefaultColorName(project: Project) {
     if (!project.colors.some((v) => v.name === name)) {
       return name
     }
-  }
-}
-
-/**
- * Make sure project name is unique and return final name
- * @param {Object[]} projects
- * @param {string} name
- */
-export function coerceProjectName(projects: Project[], name: string) {
-  // Yes ugly code ahead
-  if (projects.some((v) => v.name === name)) {
-    let nameNumber = 1
-
-    while (true) {
-      const newName = `${name} (${nameNumber++})`
-
-      if (!projects.some((v) => v.name === name)) {
-        return newName
-      }
-    }
-  } else {
-    return name
   }
 }

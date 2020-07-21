@@ -1,5 +1,6 @@
 <script>
-  import { openedProjectIds, projects } from '/@/store/project'
+  import { openedProjectIds } from '/@/store/opened'
+  import { projects } from '/@/store/projects'
   import ColorBox from '/@/components/base/ColorBox.svelte'
 
   export let projectId

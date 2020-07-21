@@ -1,6 +1,6 @@
 <script>
   import { navigate } from 'svelte-navigator'
-  import { createProject, importProject, projects } from '/@/store/project'
+  import { createProject, importProject, projects } from '/@/store/projects'
   import ProjectView from '/@/components/Dashboard/ProjectView.svelte'
   import InputFile from '/@/components/base/InputFile.svelte'
 
