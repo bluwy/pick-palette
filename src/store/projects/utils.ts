@@ -13,7 +13,7 @@ export function coerceProjectName(projects: Project[], name: string) {
     while (true) {
       const newName = `${name} (${nameNumber++})`
 
-      if (!projects.some((v) => v.name === name)) {
+      if (!projects.some((v) => v.name === newName)) {
         return newName
       }
     }
