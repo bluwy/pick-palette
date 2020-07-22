@@ -5,11 +5,6 @@ import { Project } from '/@/utils/types'
 // TODO: Use different router that provides a global active route store
 export const _currentProjectId = writable(undefined)
 
-// Whenever current project changes, clear history
-_currentProjectId.subscribe(() => {
-  _projects.history.clear()
-})
-
 export const _currentProject = derived(
   [_projects, _currentProjectId],
   ([$_projects, $currentProjectId]) => {
