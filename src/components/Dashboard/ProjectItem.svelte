@@ -2,6 +2,7 @@
   import type { Project } from '/@/utils/types'
   import { faTrashAlt, faUpload } from '@fortawesome/free-solid-svg-icons'
   import Icon from 'svelte-fa'
+  import { link } from 'svelte-navigator'
   import { openedProjectIds } from '/@/store/opened'
   import { exportProject, renameProject } from '/@/store/project'
   import { projects, removeProject } from '/@/store/projects'
@@ -30,7 +31,6 @@
 </script>
 
 {#if project != null}
-
   <div
     class="inline-block w-full h-full px-3 py-2 rounded bg-white border
     border-gray-300"
@@ -47,6 +47,7 @@
       <div class="flex-shrink flex">
         {#if !isOpened}
           <a
+            use:link
             class="button button--small button--outline mr-1 opacity-60
             hover:opacity-100"
             href={`project/${projectId}`}
