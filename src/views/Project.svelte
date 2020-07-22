@@ -11,9 +11,9 @@
   } from '/@/store/project'
   import { projectRedo, projectUndo } from '/@/store/projects'
   import ColorPanel from '/@/components/Project/ColorPanel.svelte'
-  import Header from '/@/components/Project/Header.svelte'
   import NewColor from './Project/NewColor.svelte'
   import EditColor from './Project/EditColor.svelte'
+
   const params = useParams()
 
   // TODO: Use different router that provides a global active route store
@@ -68,7 +68,6 @@
 />
 
 <div class="h-full flex flex-col">
-  <Header />
   <div class="container flex-grow overflow-y-auto">
     <div class="h-full py-6 flex flex-col md:flex-row">
       <div class="w-full h-full md:w-1/3 pb-3 md:pb-0 md:pr-6">
