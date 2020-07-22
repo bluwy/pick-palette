@@ -8,12 +8,13 @@ import { _currentProjectId } from './state'
 export function updateProject(
   name: string,
   fn: (store: Project) => void,
-  options?: HistoryUpdateOptions
+  options?: HistoryUpdateOptions,
+  projectId?: string
 ) {
   _projects.history.update(
     name,
     (projects) => {
-      const $currentProjectId = uget(_currentProjectId)
+      const $currentProjectId = projectId ?? uget(_currentProjectId)
       const project = projects.find((v) => v.id === $currentProjectId)
 
       if (project == null) {

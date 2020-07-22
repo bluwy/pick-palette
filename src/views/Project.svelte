@@ -1,4 +1,5 @@
 <script>
+  import type { SetupFunction } from '/@/actions/shortcut'
   import { onDestroy, onMount, tick } from 'svelte'
   import { Route, navigate, useParams } from 'svelte-navigator'
   import { shortcut } from '/@/actions/shortcut'
@@ -45,7 +46,7 @@
     removeOpenedProject($currentProjectId)
   }
 
-  function setupShortcuts(on) {
+  const setupShortcuts: SetupFunction = (on) => {
     on('mod+z', () => projectUndo())
     on(['mod+y', 'mod+shift+z'], () => projectRedo())
 

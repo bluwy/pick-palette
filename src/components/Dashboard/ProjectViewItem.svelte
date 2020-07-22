@@ -1,46 +1,83 @@
 <script>
+  import type { Project } from '/@/utils/types'
+  import { faTrashAlt, faUpload } from '@fortawesome/free-solid-svg-icons'
+  import Icon from 'svelte-fa'
   import { openedProjectIds } from '/@/store/opened'
-  import { projects } from '/@/store/projects'
+  import { exportProject, renameProject } from '/@/store/project'
+  import { projects, removeProject } from '/@/store/projects'
   import ColorBox from '/@/components/base/ColorBox.svelte'
+  import EditableText from '/@/components/base/EditableText.svelte'
 
-  export let projectId
+  export let projectId: string
 
+  let project: Project
   $: project = $projects.find((v) => v.id === projectId)
 
+  let isOpened: boolean
   $: isOpened = $openedProjectIds.includes(projectId)
 
-  $: href = isOpened ? '' : `project/${projectId}`
+  function handleNameChange(e: Event) {
+    renameProject((e.target as HTMLInputElement).value, projectId)
+  }
 
-  $: title = isOpened
-    ? "Cannot open project. It's already opened in another tab."
-    : `Open '${project.name}'`
+  function handleExportClick() {
+    exportProject(projectId)
+  }
+
+  function handleTrashClick() {
+    removeProject(projectId)
+  }
 </script>
 
-<a class="item" class:disabled={isOpened} {href} {title} disabled={isOpened}>
-  <div class="font-medium textlg mb-1">{project.name}</div>
-  <ul class="space-x-1">
-    {#each project.colors as color (color.id)}
-      <li class="inline-block">
-        <ColorBox
-          color={color.shades[Math.floor(color.shades.length / 2)]}
-          small
+{#if project != null}
+
+  <div
+    class="inline-block w-full h-full px-3 py-2 rounded bg-white border
+    border-gray-300"
+    title={isOpened ? "Cannot open project. It's already opened in another tab." : ''}
+  >
+    <div class="flex justify-between items-center mb-3">
+      <div class="flex-grow font-medium truncate">
+        <EditableText
+          value={project.name}
+          class="w-full"
+          on:change={handleNameChange}
         />
-      </li>
-    {/each}
-  </ul>
-</a>
-
-<style lang="postcss">
-  .item {
-    @apply inline-block w-full h-full px-3 py-2 rounded bg-primary-200 bg-opacity-20 text-primary-700 border border-primary-500 transition-colors duration-200;
-  }
-
-  .item:hover,
-  .item:focus {
-    @apply bg-opacity-40;
-  }
-
-  .item.disabled {
-    @apply bg-gray-200 text-gray-700 border-gray-500 cursor-not-allowed;
-  }
-</style>
+      </div>
+      <div class="flex-shrink flex">
+        {#if !isOpened}
+          <a
+            class="button button--small button--outline mr-1 opacity-60
+            hover:opacity-100"
+            href={`project/${projectId}`}
+            title={`Open "${project.name}"`}
+          >
+            Open
+          </a>
+        {/if}
+        <button
+          class="button button--small button--icon mr-1"
+          on:click={handleExportClick}
+        >
+          <Icon icon={faUpload} />
+        </button>
+        <button
+          class="button button--small button--icon"
+          on:click={handleTrashClick}
+        >
+          <Icon icon={faTrashAlt} />
+        </button>
+      </div>
+    </div>
+    <ul class="space-x-1">
+      {#each project.colors as color (color.id)}
+        <li class="inline-block">
+          <ColorBox
+            color={color.shades[Math.floor(color.shades.length / 2)]}
+            small
+          />
+        </li>
+      {/each}
+    </ul>
+  </div>
+{/if}

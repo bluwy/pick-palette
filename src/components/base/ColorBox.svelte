@@ -3,7 +3,7 @@
   export let small = false
 
   let sizeClass: string
-  $: sizeClass = small ? 'w-4 h-4 rounded' : 'w-8 h-8 rounded-lg'
+  $: sizeClass = small ? 'w-6 h-6 rounded' : 'w-8 h-8 rounded-lg'
 </script>
 
 <div

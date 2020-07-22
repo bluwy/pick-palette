@@ -59,3 +59,12 @@ export function importProject(data: Object) {
 
   return projectData.id
 }
+
+export function removeProject(projectId: string) {
+  _projects.history.update('Remove project', (projects) => {
+    const index = projects.findIndex((v) => v.id === projectId)
+    if (index > 0) {
+      projects.splice(index, 1)
+    }
+  })
+}

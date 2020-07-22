@@ -1,7 +1,12 @@
 import { produce } from 'immer'
 import { nanoid } from 'nanoid/non-secure'
 import { get } from 'svelte/store'
-import { debounce, download, removeAndInsertElement } from '/@/utils/common'
+import {
+  debounce,
+  download,
+  removeAndInsertElement,
+  uget
+} from '/@/utils/common'
 import { Project } from '/@/utils/types'
 import { updateColor, updateProject, getDefaultColorName } from './utils'
 import { _projects } from '/@/store/projects/state'
@@ -18,9 +23,28 @@ export function setCurrentProjectId(id: string) {
   _currentProjectId.set(id)
 }
 
-export function exportProject() {
+export function renameProject(name: string, projectId?: string) {
+  updateProject(
+    'Rename project',
+    (project) => {
+      project.name = name
+    },
+    undefined,
+    projectId
+  )
+}
+
+export function exportProject(projectId?: string) {
+  let project: Project
+
+  if (projectId != null) {
+    project = uget(_projects).find((v) => v.id === projectId)
+  } else {
+    project = get(_currentProject)
+  }
+
   // Remove ids to reduce output size
-  const projectData = produce(get(_currentProject) as Project, (project) => {
+  const projectData = produce(project, (project) => {
     delete project.id
 
     for (let i = 0; i < project.colors.length; i++) {
