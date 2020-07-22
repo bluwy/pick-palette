@@ -50,8 +50,8 @@
 
 <ImportProject bind:show={showImportProject} />
 
-<div class="container py-12 w-full h-full">
-  <div class="flex flex-col">
+<div class="container py-3 sm:py-6 md:py-12 w-full h-full">
+  <div class="flex flex-col h-full">
     <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-2">
       <div class="text-xl text-center sm:text-left">My Projects</div>
       <div class="flex my-3 sm:my-0">
@@ -79,7 +79,7 @@
         </button>
       </div>
     </div>
-    <ul class="flex flex-row flex-wrap -mx-2">
+    <ul class="flex flex-row flex-wrap -mx-2 overflow-y-auto">
       {#each showProjects as project (project.id)}
         <li
           animate:flip={{ duration: 250, delay: 100 }}
