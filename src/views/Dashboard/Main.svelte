@@ -15,7 +15,7 @@
     projects
   } from '/@/store/projects'
   import { debounce } from '/@/utils/common'
-  import ProjectViewItem from '/@/components/Dashboard/ProjectViewItem.svelte'
+  import ProjectItem from '/@/components/Dashboard/ProjectItem.svelte'
   import ImportProject from '/@/components/ImportProject.svelte'
 
   let search = ''
@@ -87,7 +87,7 @@
           out:fade={{ duration: 200 }}
           class="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2"
         >
-          <ProjectViewItem projectId={project.id} />
+          <ProjectItem projectId={project.id} />
         </li>
       {/each}
     </ul>
