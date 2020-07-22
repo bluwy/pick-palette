@@ -1,6 +1,7 @@
 <script>
   import type { Project } from '/@/utils/types'
   import { faDownload, faPlus } from '@fortawesome/free-solid-svg-icons'
+  import { tick } from 'svelte'
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
   import Icon from 'svelte-fa'
@@ -27,7 +28,9 @@
 
   function handleCreateProject() {
     const projectId = createProject()
-    navigate(`/project/${projectId}`)
+    // Without tick, the url path change but page becomes half-transitioned.
+    // Not sure why it happened here, but tick works.
+    tick().then(() => navigate(`/project/${projectId}`))
   }
 </script>
 
