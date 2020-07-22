@@ -1,6 +1,6 @@
 import Mousetrap from 'mousetrap'
 
-type SetupFunction = (on: MousetrapStatic['bind']) => void
+export type SetupFunction = (on: MousetrapStatic['bind']) => void
 
 /** Capture key bindings */
 export function shortcut(node: HTMLElement, setup: SetupFunction) {

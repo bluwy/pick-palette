@@ -5,7 +5,8 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "/@/*": ["./src/*"]
+      "/@/*": ["./src/*"],
+      "svelte-fa": ["./stub.d.ts"]
     },
     "types": ["svelte", "node"],
     "allowSyntheticDefaultImports": true,
