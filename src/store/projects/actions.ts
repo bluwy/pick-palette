@@ -1,6 +1,5 @@
 import { nanoid } from 'nanoid/non-secure'
 import { coerce } from 'superstruct'
-import { uget } from '/@/utils/common'
 import { ProjectStruct } from '/@/utils/validation-structs'
 import { _projects } from './state'
 import { coerceProjectName } from './utils'
@@ -28,14 +27,14 @@ import { coerceProjectName } from './utils'
 export const projectUndo = _projects.history.undo
 export const projectRedo = _projects.history.redo
 
-export function createProject(name: string) {
+export function createProject(name?: string) {
   const projectId = nanoid(6)
 
   _projects.history.update('Create new project', (projects) => {
     projects.push({
       id: projectId,
       version: 1,
-      name,
+      name: coerceProjectName(projects, name ?? 'Untitled'),
       colors: []
     })
   })
@@ -45,17 +44,16 @@ export function createProject(name: string) {
 
 export function importProject(data: Object) {
   const projectData = coerce(data, ProjectStruct)
-  const $projects = uget(_projects)
-
-  // Make sure there's no duplicate id, if the user supplied one
-  if ($projects.some((v) => v.id === projectData.id)) {
-    projectData.id = nanoid(6)
-  }
-
-  // Make sure name is unique, will generate a new name if name clash
-  projectData.name = coerceProjectName($projects, projectData.name)
 
   _projects.history.update('Import project', (projects) => {
+    // Make sure there's no duplicate id, if the user supplied one
+    if (projects.some((v) => v.id === projectData.id)) {
+      projectData.id = nanoid(6)
+    }
+
+    // Make sure name is unique, will generate a new name if name clash
+    projectData.name = coerceProjectName(projects, projectData.name)
+
     projects.push(projectData)
   })
 

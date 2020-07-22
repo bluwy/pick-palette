@@ -70,3 +70,12 @@ svg {
 .button--outline:disabled {
   @apply text-gray-800 bg-opacity-30;
 }
+
+.button--icon {
+  @apply px-2 py-1 text-primary-600 bg-opacity-10 border-none;
+}
+
+.button--icon:not(:disabled):hover,
+.button--icon:not(:disabled):focus {
+  @apply bg-opacity-40;
+}
