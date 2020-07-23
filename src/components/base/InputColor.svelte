@@ -7,6 +7,7 @@
   import Popper from './Popper.svelte'
 
   export let value: string
+  export let hideInput = false
   export let vertical = false
   export let disabled = false
 
@@ -39,21 +40,19 @@
       slot="reference"
       class="flex items-center {vertical ? 'flex-col' : 'flex-row'}"
     >
-      <button
-        class={vertical ? 'mb-2' : 'mr-2'}
-        {disabled}
-        on:click={() => (show = !disabled)}
-      >
+      <button {disabled} on:click={() => (show = !disabled)}>
         <ColorBox color={value} />
       </button>
-      <input
-        bind:value
-        class="input"
-        type="text"
-        size={4}
-        {disabled}
-        on:change={setValueAsHex}
-      />
+      {#if !hideInput}
+        <input
+          bind:value
+          class={`input ${vertical ? 'mt-2' : 'ml-2'}}`}
+          type="text"
+          size={4}
+          {disabled}
+          on:change={setValueAsHex}
+        />
+      {/if}
     </div>
     <div
       transition:fly={{ y: 10, duration: 250 }}
