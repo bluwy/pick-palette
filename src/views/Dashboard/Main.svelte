@@ -73,7 +73,7 @@
         <button
           class="button button--icon ml-1"
           title="Import project"
-          on:click={() => (showImportProject = true)}
+          on:click={() => (showImportProject = !showImportProject)}
         >
           <Icon icon={faDownload} />
         </button>

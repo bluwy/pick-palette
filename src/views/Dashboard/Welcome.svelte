@@ -63,7 +63,7 @@
     <button
       class="mt-2 opacity-80 hover:opacity-100 focus:opacity-100
       transition-opacity duration-200"
-      on:click={() => (showImportProject = true)}
+      on:click={() => (showImportProject = !showImportProject)}
     >
       <Icon class="opacity-40 mr-2" icon={faDownload} />
       Import a project
