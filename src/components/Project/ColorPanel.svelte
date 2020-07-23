@@ -1,21 +1,23 @@
 <script>
+  import type { Color } from '/@/utils/types'
   import { produce } from 'immer'
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
-  import { useNavigate } from 'svelte-navigator'
   import { sortColor, currentProject, renameProject } from '/@/store/project'
   import { debounce, removeAndInsertElement } from '/@/utils/common'
   import EditableText from '/@/components/base/EditableText.svelte'
   import ColorTab from './ColorTab.svelte'
+  import NewColor from './NewColor.svelte'
 
-  const navigate = useNavigate()
-
+  let showNewColorDialog = false
   let canDrag = false
-  let draggedColorId
-  let dropIndex
+  let draggedColorId: string
+  let dropIndex: number
 
+  let colors: Color[]
   $: colors = $currentProject.colors
 
+  let orderedColors: Color[]
   $: orderedColors = produce(colors, (colors) => {
     if (draggedColorId != null && dropIndex != null) {
       const dragIndex = colors.findIndex((v) => v.id === draggedColorId)
@@ -23,13 +25,13 @@
     }
   })
 
-  function handleDragStart(colorId) {
+  function handleDragStart(colorId: string) {
     draggedColorId = colorId
     dropIndex = colors.findIndex((v) => v.id === colorId)
   }
 
-  const handleDragEnter = debounce((colorId, e) => {
-    const targetTab = e.target.closest('[draggable="true"]')
+  const handleDragEnter = debounce((colorId: string, e: DragEvent) => {
+    const targetTab = (e.target as Element).closest('[draggable="true"]')
 
     if (targetTab == null) {
       return
@@ -76,12 +78,14 @@
       />
     </div>
     <div class="flex-shrink">
-      <button
-        class="button button--outline button--small"
-        on:click={() => navigate('new')}
-      >
-        Add color
-      </button>
+      <NewColor bind:show={showNewColorDialog}>
+        <button
+          class="button button--outline button--small"
+          on:click={() => (showNewColorDialog = !showNewColorDialog)}
+        >
+          Add color
+        </button>
+      </NewColor>
     </div>
   </div>
   <ul class="flex-grow overflow-y-auto">

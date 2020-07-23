@@ -13,37 +13,6 @@ export const hueGradient = [
   '#ff0000'
 ]
 
-export const genShadeFunctions = [
-  {
-    name: 'Luminance',
-    fn: genShadeLuminance
-  },
-  {
-    name: 'Tint',
-    fn: genShadeTint
-  },
-  {
-    name: 'None',
-    fn: genShadeNone
-  }
-]
-
-export function genShadeNone(color: string, shadeCount: number) {
-  return Array(shadeCount).fill(color)
-}
-
-export function genShadeLuminance(color: string, shadeCount: number) {
-  const c = chroma(color)
-  const minLuminance = 0.1
-  const maxLuminance = 0.9
-
-  const luminances = Array.from({ length: shadeCount }, (_, k) =>
-    lerp(maxLuminance, minLuminance, k / (shadeCount - 1))
-  )
-
-  return luminances.map((v) => c.luminance(v).hex())
-}
-
 // Reference: https://maketintsandshades.com/
 export function genShadeTint(color: string, shadeCount: number) {
   // Color is the base/center color
