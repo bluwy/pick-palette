@@ -63,7 +63,10 @@
       type: 'h',
       pointerX: h / 360,
       // prettier-ignore
-      bgStyle: `linear-gradient(to right, ${hueGradient.join(', ')})`,
+      bgStyle: `
+        linear-gradient(to right, rgba(255, 255, 255, ${(1 - s)}), rgba(255, 255, 255, ${(1 - s)})),
+        linear-gradient(to right, ${hueGradient.join(', ')})
+      `,
       value: Math.round(h),
       min: 0,
       max: 360,

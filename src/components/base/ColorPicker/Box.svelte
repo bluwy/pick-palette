@@ -27,9 +27,12 @@
     case 'r':
       pointerX = g / 255
       pointerY = b / 255
+      // prettier-ignore
       bgStyle = `
-        linear-gradient(to top, transparent, blue),
-        linear-gradient(to right, ${chroma(r, 0, 0).hex()}, green)
+        radial-gradient(ellipse at top left, ${chroma(r, 0, 255).hex()}, transparent 55%),
+        radial-gradient(ellipse at top right, ${chroma(r, 255, 255).hex()}, transparent 55%),
+        radial-gradient(ellipse at bottom left, ${chroma(r, 0, 0).hex()}, transparent 55%),
+        radial-gradient(ellipse at bottom right, ${chroma(r, 255, 0).hex()}, transparent 55%)
       `
       slideHandler = (x: number, y: number) => {
         dispatch('update', { type: 'g', value: x * 255 })
@@ -39,9 +42,12 @@
     case 'g':
       pointerX = r / 255
       pointerY = b / 255
+      // prettier-ignore
       bgStyle = `
-        linear-gradient(to top, transparent, blue),
-        linear-gradient(to right, ${chroma(0, g, 0).hex()}, red)
+        radial-gradient(ellipse at top left, ${chroma(0, g, 255).hex()}, transparent 55%),
+        radial-gradient(ellipse at top right, ${chroma(255, g, 255).hex()}, transparent 55%),
+        radial-gradient(ellipse at bottom left, ${chroma(0, g, 0).hex()}, transparent 55%),
+        radial-gradient(ellipse at bottom right, ${chroma(255, g, 0).hex()}, transparent 55%)
       `
       slideHandler = (x: number, y: number) => {
         dispatch('update', { type: 'r', value: x * 255 })
@@ -51,9 +57,12 @@
     case 'b':
       pointerX = r / 255
       pointerY = g / 255
+      // prettier-ignore
       bgStyle = `
-        linear-gradient(to top, transparent, green),
-        linear-gradient(to right, ${chroma(0, 0, b).hex()}, red)
+        radial-gradient(ellipse at top left, ${chroma(0, 255, b).hex()}, transparent 55%),
+        radial-gradient(ellipse at top right, ${chroma(255, 255, b).hex()}, transparent 55%),
+        radial-gradient(ellipse at bottom left, ${chroma(0, 0, b).hex()}, transparent 55%),
+        radial-gradient(ellipse at bottom right, ${chroma(255, 0, b).hex()}, transparent 55%)
       `
       slideHandler = (x: number, y: number) => {
         dispatch('update', { type: 'r', value: x * 255 })
@@ -107,7 +116,8 @@
 </script>
 
 <div
-  class="relative w-full h-full cursor-crosshair"
+  class="box-blend relative w-full h-full cursor-crosshair"
+  class:box-blend={mode === 'r' || mode === 'g' || mode === 'b'}
   style="background-image: {bgStyle};"
   use:slidable
   on:slide|preventDefault={handleSlide}
@@ -120,6 +130,10 @@
 </div>
 
 <style>
+  .box-blend {
+    background-blend-mode: lighten;
+  }
+
   .pointer {
     box-shadow: inset 0 0 0 1px white, 0 0 0 1px black;
   }
