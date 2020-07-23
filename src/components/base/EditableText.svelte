@@ -1,21 +1,31 @@
 <script>
+  import { tick } from 'svelte'
+
   export let value: string
   export let isEditing = false
+
+  let input: HTMLInputElement
+
+  function open() {
+    isEditing = true
+    tick().then(() => input.select())
+  }
+
+  function close() {
+    isEditing = false
+  }
 </script>
 
 {#if isEditing}
   <input
     type="text"
+    bind:this={input}
     bind:value
     on:change
-    on:change={() => {
-      isEditing = false
-    }}
-    on:blur={() => {
-      isEditing = false
-    }}
+    on:change={close}
+    on:blur={close}
     {...$$restProps}
   />
 {:else}
-  <span on:click={() => (isEditing = true)}>{value}</span>
+  <span on:click={open}>{value}</span>
 {/if}

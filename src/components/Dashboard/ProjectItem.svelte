@@ -39,8 +39,8 @@
     <div class="flex justify-between items-center mb-3">
       <div class="flex-grow font-medium truncate">
         <EditableText
-          value={project.name}
           class="w-full"
+          value={project.name}
           on:change={handleNameChange}
         />
       </div>

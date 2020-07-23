@@ -10,8 +10,9 @@
     updateColorName
   } from '/@/store/project'
   import ColorBox from '/@/components/base/ColorBox.svelte'
+  import EditableText from '/@/components/base/EditableText.svelte'
 
-  export let colorId
+  export let colorId: string
 
   const location = useLocation()
   const navigate = useNavigate()
@@ -29,20 +30,19 @@
     // If editing, we can just replace the link
     navigate(`edit/${colorId}/${shadeIndex}`, { replace: isEditView })
   }
+
+  function handleNameChange(e: Event) {
+    updateColorName(colorId, (e.target as HTMLInputElement).value)
+  }
 </script>
 
-<div
-  class="rounded px-3 py-2 bg-gray-500 bg-opacity-0 transition-colors
-  duration-200 hover:bg-opacity-10"
->
+<div class="px-3 py-2">
   <div class="flex flex-row justify-between mb-2">
-    <div class="flex-grow">
-      <input
-        class="input input--small input--transparent w-full truncate -mx-2
-        -my-sm"
-        type="text"
+    <div class="flex-grow text-sm truncate">
+      <EditableText
+        class="w-full"
         value={color.name}
-        on:change={(e) => updateColorName(colorId, e.target.value)}
+        on:change={handleNameChange}
       />
     </div>
     <div class="flex-shrink">

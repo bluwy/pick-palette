@@ -3,8 +3,9 @@
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
   import { useNavigate } from 'svelte-navigator'
-  import { sortColor, currentProject } from '/@/store/project'
+  import { sortColor, currentProject, renameProject } from '/@/store/project'
   import { debounce, removeAndInsertElement } from '/@/utils/common'
+  import EditableText from '/@/components/base/EditableText.svelte'
   import ColorTab from './ColorTab.svelte'
 
   const navigate = useNavigate()
@@ -58,23 +59,37 @@
   function handleCanDrag(e: CustomEvent) {
     canDrag = e.detail
   }
+
+  function handleNameChange(e: Event) {
+    renameProject((e.target as HTMLInputElement).value)
+  }
 </script>
 
 <div class="flex flex-col h-full">
   <div class="flex flex-row justify-between items-center mb-5">
-    <div class="opacity-70">Palette</div>
-    <button
-      class="button button--outline button--small"
-      on:click={() => navigate('new')}
-    >
-      Add color
-    </button>
+    <div class="flex-grow text-xl truncate">
+      <EditableText
+        class="w-full"
+        value={$currentProject.name}
+        size={7}
+        on:change={handleNameChange}
+      />
+    </div>
+    <div class="flex-shrink">
+      <button
+        class="button button--outline button--small"
+        on:click={() => navigate('new')}
+      >
+        Add color
+      </button>
+    </div>
   </div>
-  <ul class="flex-grow overflow-y-auto space-y-2">
+  <ul class="flex-grow overflow-y-auto">
     {#each orderedColors as color (color.id)}
       <li
-        transition:fade={{ duration: 200 }}
         animate:flip={{ duration: 250, delay: 100 }}
+        in:fade={{ duration: 200, delay: 200 }}
+        out:fade={{ duration: 200 }}
         class="h-20 relative flex justify-center items-center"
         draggable={canDrag}
         on:dragstart={() => handleDragStart(color.id)}
