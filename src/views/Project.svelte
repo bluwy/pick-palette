@@ -7,8 +7,8 @@
   import {
     currentProject,
     currentProjectId,
-    setCurrentProjectId
-  } from '/@/store/project'
+    currentColorId
+  } from '/@/store/projects'
   import { projectRedo, projectUndo } from '/@/store/projects'
   import ColorPanel from '/@/components/Project/ColorPanel.svelte'
   import EditColor from './Project/EditColor.svelte'
@@ -18,21 +18,16 @@
   // Manually set current project id store since svelte-navigator doesn't have
   // a global params store
   const paramsUnsubscribe = params.subscribe((params) => {
-    setCurrentProjectId(params.projectId)
+    $currentProjectId = params.projectId
   })
 
   onDestroy(() => {
-    setCurrentProjectId(undefined)
+    $currentProjectId = undefined
     paramsUnsubscribe()
   })
 
   if ($currentProject == null) {
     tick().then(() => navigate('/dashboard', { replace: true }))
-  }
-
-  function handleBeforeUnload() {
-    // When user leaves page, remove from openedProjects
-    removeOpenedProject($currentProjectId)
   }
 
   const setupShortcuts: SetupFunction = (on) => {
@@ -41,20 +36,12 @@
 
     // mod+n opens color at index n-1
     for (let i = 1; i < 9; i++) {
-      on(`mod+${i}`, () => {
-        try {
-          const colorId = $currentProject.colors[i - 1].id
-          navigate(`/project/${$currentProjectId}/edit/${colorId}/-1`)
-        } catch {}
-      })
+      on(`mod+${i}`, () => ($currentColorId = $currentProject.colors[i - 1].id))
     }
   }
 </script>
 
-<svelte:window
-  use:shortcut={setupShortcuts}
-  on:beforeunload={handleBeforeUnload}
-/>
+<svelte:window use:shortcut={setupShortcuts} />
 
 {#if $currentProject != null}
   <div class="h-full flex flex-col">
@@ -68,9 +55,7 @@
           border-t border-gray-500 border-opacity-50 md:border-t-0 border-l"
         >
           <div class="opacity-70 mb-5">Editor</div>
-          <Route path="/edit/:colorId/:shadeIndex">
-            <EditColor />
-          </Route>
+          <EditColor />
         </div>
       </div>
     </div>

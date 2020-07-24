@@ -13,6 +13,16 @@ export const hueGradient = [
   '#ff0000'
 ]
 
+export function findById<T extends { id: string }>(arr: T[], id: string) {
+  const found = arr.find((v) => v.id === id)
+
+  if (found == null) {
+    throw new Error(`Id of "${id}" not found.`)
+  }
+
+  return found
+}
+
 // Reference: https://maketintsandshades.com/
 export function genShadeTint(color: string, shadeCount: number) {
   // Color is the base/center color

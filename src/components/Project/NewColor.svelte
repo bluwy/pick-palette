@@ -1,9 +1,12 @@
 <script>
   import chroma from 'chroma-js'
   import { fly } from 'svelte/transition'
-  import { navigate } from 'svelte-navigator'
   import { clickOutside } from '/@/actions/click-outside'
-  import { createColor, currentProjectId } from '/@/store/project'
+  import {
+    createColor,
+    currentProjectId,
+    currentColorId
+  } from '/@/store/projects'
   import { genShadeTint } from '/@/utils/app'
   import ColorPicker from '/@/components/base/ColorPicker/Index.svelte'
   import Popper from '/@/components/base/Popper.svelte'
@@ -16,7 +19,7 @@
     // Opinionated shade generation. Maybe expand this in the future?
     const shades = genShadeTint(color, 9)
     const colorId = createColor(shades)
-    navigate(`/project/${$currentProjectId}/edit/${colorId}`)
+    $currentColorId = colorId
     show = false
   }
 </script>

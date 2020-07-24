@@ -7,9 +7,10 @@
   import { useLocation, useNavigate } from 'svelte-navigator'
   import {
     currentProject,
+    currentShadeIndex,
     removeColor,
     updateColorName
-  } from '/@/store/project'
+  } from '/@/store/projects'
   import ColorBox from '/@/components/base/ColorBox.svelte'
   import EditableText from '/@/components/base/EditableText.svelte'
 
@@ -26,16 +27,8 @@
   let shades: string[]
   $: shades = color?.shades ?? []
 
-  function handleClickShade(shadeIndex) {
-    // This is very hacky, though in the future I might switch router where
-    // I can directly access route info.
-    const isEditView = /project\/[^\/]*\/edit\//.test($location.pathname)
-    // If editing, we can just replace the link
-    navigate(`edit/${colorId}/${shadeIndex}`, { replace: isEditView })
-  }
-
   function handleNameChange(e: Event) {
-    updateColorName(colorId, (e.target as HTMLInputElement).value)
+    updateColorName((e.target as HTMLInputElement).value, { colorId })
   }
 </script>
 
@@ -50,7 +43,7 @@
         />
       </div>
       <div class="flex-shrink">
-        <button on:click={() => removeColor(colorId)}>
+        <button on:click={() => removeColor({ colorId })}>
           <Icon
             class="text-gray-700 text-opacity-50 transition-colors duration-200
             hover:text-error-500 focus:text-error-500 hover:text-opacity-100
@@ -73,7 +66,7 @@
     <ol class="flex flex-row justify-between">
       {#each shades as color, i}
         <li>
-          <button on:click={() => handleClickShade(i)}>
+          <button on:click={() => ($currentShadeIndex = i)}>
             <ColorBox {color} />
           </button>
         </li>

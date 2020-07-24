@@ -4,8 +4,12 @@
   import Icon from 'svelte-fa'
   import { link } from 'svelte-navigator'
   import { openedProjectIds } from '/@/store/opened'
-  import { exportProject, renameProject } from '/@/store/project'
-  import { projects, removeProject } from '/@/store/projects'
+  import {
+    exportProject,
+    projects,
+    removeProject,
+    renameProject
+  } from '/@/store/projects'
   import ColorBox from '/@/components/base/ColorBox.svelte'
   import EditableText from '/@/components/base/EditableText.svelte'
 
@@ -18,15 +22,15 @@
   $: isOpened = $openedProjectIds.includes(projectId)
 
   function handleNameChange(e: Event) {
-    renameProject((e.target as HTMLInputElement).value, projectId)
+    renameProject((e.target as HTMLInputElement).value, { projectId })
   }
 
   function handleExportClick() {
-    exportProject(projectId)
+    exportProject({ projectId })
   }
 
   function handleTrashClick() {
-    removeProject(projectId)
+    removeProject({ projectId })
   }
 </script>
 

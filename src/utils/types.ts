@@ -1,5 +1,16 @@
-import { StructType } from 'superstruct'
-import { ColorStruct, ProjectStruct } from './validation-structs'
+import { Writable } from 'svelte/store'
 
-export type Color = StructType<typeof ColorStruct>
-export type Project = StructType<typeof ProjectStruct>
+export type WritableId = Writable<string | undefined>
+
+export interface Color {
+  id: string
+  name: string
+  shades: string[]
+}
+
+export interface Project {
+  id: string
+  name: string
+  version: number
+  colors: Color[]
+}

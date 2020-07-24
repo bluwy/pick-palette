@@ -1,54 +1,33 @@
 <script>
+  import type { Color } from '/@/utils/types'
   import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
   import { tick } from 'svelte'
   import { fly } from 'svelte/transition'
   import Icon from 'svelte-fa'
-  import { useNavigate, useParams } from 'svelte-navigator'
   import {
+    currentColorId,
     currentProject,
     currentProjectId,
+    currentShadeIndex,
     updateColorShade
-  } from '/@/store/project'
+  } from '/@/store/projects'
   import ColorBox from '/@/components/base/ColorBox.svelte'
   import ColorPicker from '/@/components/base/ColorPicker/Index.svelte'
 
-  const navigate = useNavigate()
-  const params = useParams()
-
   // Function bound from color picker
-  let resetColorPicker
+  let resetColorPicker: Function
 
-  let colorId: string
-  $: colorId = $params.colorId
-
-  let shadeIndex: number
-  $: shadeIndex = +$params.shadeIndex
-
-  $: currentColor = $currentProject.colors.find((v) => v.id === colorId)
-
-  // Check null in case color got deleted, if so go to empty view
-  $: if (currentColor == null) {
-    navigate(`/project/${$currentProjectId}`)
-  }
+  let currentColor: Color
+  $: currentColor = $currentProject.colors.find((v) => v.id === $currentColorId)
 
   // May be undefined if out of bounds
   let currentShade: string
-  $: currentShade = currentColor?.shades[shadeIndex]
+  $: currentShade = currentColor?.shades[$currentShadeIndex]
 
   // Reset color picker whenever color or shade change
   $: if (currentColor && currentShade && resetColorPicker) {
     // Wait for changes to be reflected in ColorPicker prop, then reset
     tick().then(() => resetColorPicker())
-  }
-
-  function updateShade(newShade) {
-    if (shadeIndex >= 0 && shadeIndex < currentColor.shades.length) {
-      updateColorShade(colorId, shadeIndex, newShade)
-    }
-  }
-
-  function handleColorPickerInput(e: CustomEvent) {
-    updateShade(e.detail)
   }
 </script>
 
@@ -58,16 +37,11 @@
       <div class="flex flex-row space-x-2 py-5">
         {#each currentColor.shades as shade, i}
           <div class="flex flex-col justify-center items-center">
-            <button
-              on:click={() => navigate(
-                  `/project/${$currentProjectId}/edit/${colorId}/${i}`,
-                  { replace: true }
-                )}
-            >
+            <button on:click={() => ($currentShadeIndex = i)}>
               <ColorBox color={shade} />
             </button>
             <div class="h-8">
-              {#if i === shadeIndex}
+              {#if i === $currentShadeIndex}
                 <div
                   transition:fly={{ y: 10 }}
                   class="text-gray-900 opacity-70 pt-3"
@@ -86,7 +60,7 @@
           <ColorPicker
             value={currentShade}
             bind:reset={resetColorPicker}
-            on:input={handleColorPickerInput}
+            on:input={(e) => updateColorShade(e.detail)}
           />
         </div>
       {/if}

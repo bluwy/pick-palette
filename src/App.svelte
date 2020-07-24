@@ -11,7 +11,7 @@
     <Route path="/dashboard">
       <Dashboard />
     </Route>
-    <Route path="/project/:projectId/*">
+    <Route path="/project/:projectId">
       <Project />
     </Route>
     <Route path="/*">

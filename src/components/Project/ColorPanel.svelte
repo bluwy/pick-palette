@@ -3,7 +3,7 @@
   import { produce } from 'immer'
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
-  import { sortColor, currentProject, renameProject } from '/@/store/project'
+  import { sortColor, currentProject, renameProject } from '/@/store/projects'
   import { debounce, removeAndInsertElement } from '/@/utils/common'
   import EditableText from '/@/components/base/EditableText.svelte'
   import ColorTab from './ColorTab.svelte'
