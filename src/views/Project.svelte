@@ -1,13 +1,13 @@
 <script>
   import type { SetupFunction } from '/@/actions/shortcut'
   import { onDestroy, tick } from 'svelte'
-  import { Route, navigate, useParams } from 'svelte-navigator'
+  import { navigate, useParams } from 'svelte-navigator'
   import { shortcut } from '/@/actions/shortcut'
   import { removeOpenedProject } from '/@/store/opened'
   import {
     currentProject,
-    currentProjectId,
-    currentColorId
+    setCurrentColorId,
+    setCurrentProjectId
   } from '/@/store/projects'
   import { projectRedo, projectUndo } from '/@/store/projects'
   import ColorPanel from '/@/components/Project/ColorPanel.svelte'
@@ -15,15 +15,14 @@
 
   const params = useParams()
 
-  // Manually set current project id store since svelte-navigator doesn't have
-  // a global params store
-  const paramsUnsubscribe = params.subscribe((params) => {
-    $currentProjectId = params.projectId
+  // Update currentProjectId based on route param
+  const unsubscribeParams = params.subscribe((params) => {
+    setCurrentProjectId(params.projectId)
   })
 
   onDestroy(() => {
-    $currentProjectId = undefined
-    paramsUnsubscribe()
+    unsubscribeParams()
+    setCurrentProjectId(undefined)
   })
 
   if ($currentProject == null) {
@@ -36,7 +35,7 @@
 
     // mod+n opens color at index n-1
     for (let i = 1; i < 9; i++) {
-      on(`mod+${i}`, () => ($currentColorId = $currentProject.colors[i - 1].id))
+      on(`mod+${i}`, () => setCurrentColorId($currentProject.colors[i - 1].id))
     }
   }
 </script>

@@ -1,6 +1,6 @@
+import { derived } from 'svelte/store'
 import { readonly } from '/@/utils/common'
 import {
-  _currentProject,
   _currentProjectId,
   _currentColorId,
   _currentShadeIndex,
@@ -9,8 +9,15 @@ import {
 import './effects'
 
 export const projects = readonly(_projects)
-export const currentProject = readonly(_currentProject)
-export const currentProjectId = _currentProjectId
-export const currentColorId = _currentColorId
-export const currentShadeIndex = _currentShadeIndex
+export const currentProjectId = readonly(_currentProjectId)
+export const currentColorId = readonly(_currentColorId)
+export const currentShadeIndex = readonly(_currentShadeIndex)
+
+export const currentProject = derived(
+  [_projects, _currentProjectId],
+  ([$_projects, $currentProjectId]) => {
+    return $_projects.find((v) => v.id === $currentProjectId)
+  }
+)
+
 export * from './actions'

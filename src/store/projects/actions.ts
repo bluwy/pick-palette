@@ -10,7 +10,12 @@ import {
 } from '/@/utils/common'
 import { Project } from '/@/utils/types'
 import { ProjectStruct } from '/@/utils/validation-structs'
-import { _currentColorId, _currentProjectId, _projects } from './state'
+import {
+  _projects,
+  _currentProjectId,
+  _currentColorId,
+  _currentShadeIndex
+} from './state'
 import {
   coerceProjectName,
   computeColorIdOptions,
@@ -49,6 +54,18 @@ const debounceProjectsHistoryBreakMerge = debounce(
 
 export const projectUndo = _projects.history.undo
 export const projectRedo = _projects.history.redo
+
+export function setCurrentProjectId(v: string | undefined) {
+  _currentProjectId.set(v)
+}
+
+export function setCurrentColorId(v: string | undefined) {
+  _currentColorId.set(v)
+}
+
+export function setCurrentShadeIndex(v: number) {
+  _currentShadeIndex.set(v)
+}
 
 //#region Project
 

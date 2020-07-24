@@ -7,9 +7,9 @@
   import {
     currentColorId,
     currentProject,
-    currentProjectId,
     currentShadeIndex,
-    updateColorShade
+    updateColorShade,
+    setCurrentShadeIndex
   } from '/@/store/projects'
   import ColorBox from '/@/components/base/ColorBox.svelte'
   import ColorPicker from '/@/components/base/ColorPicker/Index.svelte'
@@ -37,7 +37,7 @@
       <div class="flex flex-row space-x-2 py-5">
         {#each currentColor.shades as shade, i}
           <div class="flex flex-col justify-center items-center">
-            <button on:click={() => ($currentShadeIndex = i)}>
+            <button on:click={() => setCurrentShadeIndex(i)}>
               <ColorBox color={shade} />
             </button>
             <div class="h-8">

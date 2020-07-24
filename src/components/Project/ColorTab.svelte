@@ -4,20 +4,18 @@
   import { faGripVertical } from '@fortawesome/free-solid-svg-icons'
   import { createEventDispatcher } from 'svelte'
   import Icon from 'svelte-fa'
-  import { useLocation, useNavigate } from 'svelte-navigator'
   import {
     currentProject,
-    currentShadeIndex,
     removeColor,
-    updateColorName
+    updateColorName,
+    setCurrentColorId,
+    setCurrentShadeIndex
   } from '/@/store/projects'
   import ColorBox from '/@/components/base/ColorBox.svelte'
   import EditableText from '/@/components/base/EditableText.svelte'
 
   export let colorId: string
 
-  const location = useLocation()
-  const navigate = useNavigate()
   const dispatch = createEventDispatcher()
 
   // Maybe be undefined if deleted
@@ -26,6 +24,11 @@
 
   let shades: string[]
   $: shades = color?.shades ?? []
+
+  function clickColorBox(index: number) {
+    setCurrentColorId(colorId)
+    setCurrentShadeIndex(index)
+  }
 
   function handleNameChange(e: Event) {
     updateColorName((e.target as HTMLInputElement).value, { colorId })
@@ -66,7 +69,7 @@
     <ol class="flex flex-row justify-between">
       {#each shades as color, i}
         <li>
-          <button on:click={() => ($currentShadeIndex = i)}>
+          <button on:click={() => clickColorBox(i)}>
             <ColorBox {color} />
           </button>
         </li>
