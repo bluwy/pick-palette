@@ -11,7 +11,7 @@
   } from '/@/store/projects'
   import { projectRedo, projectUndo } from '/@/store/projects'
   import ColorPanel from '/@/components/Project/ColorPanel.svelte'
-  import EditColor from './Project/EditColor.svelte'
+  import Editor from '/@/components/Project/Editor.svelte'
 
   const params = useParams()
 
@@ -54,7 +54,7 @@
           border-t border-gray-500 border-opacity-50 md:border-t-0 border-l"
         >
           <div class="opacity-70 mb-5">Editor</div>
-          <EditColor />
+          <Editor />
         </div>
       </div>
     </div>
