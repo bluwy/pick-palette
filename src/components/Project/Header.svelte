@@ -3,8 +3,6 @@
   import EditableText from '/@/components/base/EditableText.svelte'
   import NewColor from './NewColor.svelte'
 
-  let showNewColorDialog = false
-
   function handleNameChange(e: Event) {
     renameProject((e.target as HTMLInputElement).value)
   }
@@ -22,13 +20,8 @@
     />
   </div>
   <div class="flex-shrink">
-    <NewColor bind:show={showNewColorDialog}>
-      <button
-        class="button button--outline button--small"
-        on:click={() => (showNewColorDialog = !showNewColorDialog)}
-      >
-        Add color
-      </button>
+    <NewColor>
+      <button class="button button--outline button--small">Add color</button>
     </NewColor>
   </div>
 </div>

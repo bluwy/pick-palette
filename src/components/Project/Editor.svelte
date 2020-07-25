@@ -10,20 +10,28 @@
   import Icon from 'svelte-fa'
   import {
     currentColor,
+    currentProject,
     currentShade,
     currentShadeIndex,
     updateColorShade,
     setCurrentShadeIndex,
     goNextColorId,
     goPrevColorId,
-    renameColor
+    renameColor,
+    setCurrentColorId
   } from '/@/store/projects'
   import ColorBox from '/@/components/base/ColorBox.svelte'
   import ColorPicker from '/@/components/base/ColorPicker/Index.svelte'
   import EditableText from '/@/components/base/EditableText.svelte'
+  import NewColor from './NewColor.svelte'
 
   // Function bound from color picker
   let resetColorPicker: Function
+
+  // Set a default color if none
+  $: if ($currentColor == null && $currentProject.colors.length > 0) {
+    setCurrentColorId($currentProject.colors[0].id)
+  }
 
   // Reset color picker whenever color or shade change
   $: if ($currentColor && $currentShade && resetColorPicker) {
@@ -97,6 +105,11 @@
       {/if}
     </div>
   {:else}
-    <div>No</div>
+    <div class="flex flex-col h-full justify-center items-center">
+      <p class="text-xl mb-3">Welcome to a new project</p>
+      <NewColor>
+        <button class="button">Pick a color</button>
+      </NewColor>
+    </div>
   {/if}
 </div>

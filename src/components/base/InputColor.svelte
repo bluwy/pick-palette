@@ -56,7 +56,7 @@
     </div>
     <div
       transition:fly={{ y: 10, duration: 250 }}
-      class="inline-block mt-2 shadow-lg"
+      class="inline-block m-2 shadow-lg"
     >
       <ColorPicker bind:value />
     </div>

@@ -43,7 +43,7 @@
     on:click={() => setCurrentColorId(colorId)}
   >
     <div class="flex flex-row justify-between items-center my-1">
-      <div class="text-sm truncate" on:click|stopPropagation>
+      <div class="text-sm cursor-text truncate" on:click|stopPropagation>
         <EditableText
           class="w-full"
           value={color.name}
@@ -86,10 +86,13 @@
 
 <style lang="postcss">
   .tab {
-    @apply px-2 py-1 rounded-lg bg-transparent transition-colors duration-300;
+    @apply px-2 py-1 rounded-lg bg-transparent cursor-pointer transition-colors duration-300;
   }
 
-  .tab:hover,
+  .tab:hover {
+    @apply bg-gray-200 bg-opacity-50;
+  }
+
   .tab--active {
     @apply bg-gray-200 bg-opacity-80;
   }
