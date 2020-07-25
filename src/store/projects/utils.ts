@@ -1,6 +1,12 @@
 import { Project } from '/@/utils/types'
-import { uget } from '/@/utils/common'
-import { _currentProjectId, _currentColorId, _currentShadeIndex } from './state'
+import { findById } from '/@/utils/app'
+import { mod, uget } from '/@/utils/common'
+import {
+  _currentProjectId,
+  _currentColorId,
+  _currentShadeIndex,
+  _projects
+} from './state'
 
 export interface ProjectIdOptions {
   projectId?: string
@@ -66,4 +72,25 @@ export function getDefaultColorName(project: Project) {
       return name
     }
   }
+}
+
+export function goColorId(by: number) {
+  const project = findById(uget(_projects), uget(_currentProjectId))
+
+  if (project.colors.length < 0) {
+    return
+  }
+
+  const currentColorId = uget(_currentColorId)
+  const currentColorIndex = project.colors.findIndex(
+    (v) => v.id === currentColorId
+  )
+
+  if (currentColorIndex < 0) {
+    _currentColorId.set(project.colors[0].id)
+    return
+  }
+
+  const nextIndex = mod(currentColorIndex + by, project.colors.length)
+  _currentColorId.set(project.colors[nextIndex].id)
 }

@@ -1,5 +1,10 @@
 import { Writable, Readable } from 'svelte/store'
 
+/** Proper math modulus implementation that handles negative `val` */
+export function mod(val: number, by: number) {
+  return ((val % by) + by) % by
+}
+
 export function clamp(value: number, min: number, max: number) {
   return Math.max(min, Math.min(value, max))
 }

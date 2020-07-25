@@ -22,6 +22,7 @@ import {
   computeProjectIdOptions,
   computeShadeIdOptions,
   getDefaultColorName,
+  goColorId,
   ColorIdOptions,
   ProjectIdOptions,
   ShadeIdOptions
@@ -61,6 +62,14 @@ export function setCurrentProjectId(v: string | undefined) {
 
 export function setCurrentColorId(v: string | undefined) {
   _currentColorId.set(v)
+}
+
+export function goPrevColorId() {
+  goColorId(-1)
+}
+
+export function goNextColorId() {
+  goColorId(1)
 }
 
 export function setCurrentShadeIndex(v: number) {
@@ -175,10 +184,10 @@ export function sortColor(
   })
 }
 
-export function updateColorName(name: string, options?: ColorIdOptions) {
+export function renameColor(name: string, options?: ColorIdOptions) {
   const { projectId, colorId } = computeColorIdOptions(options)
 
-  _projects.history.update('Update color name', (projects) => {
+  _projects.history.update('Rename color', (projects) => {
     const project = findById(projects, projectId)
     const color = findById(project.colors, colorId)
     color.name = name

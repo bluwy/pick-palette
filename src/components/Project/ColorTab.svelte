@@ -8,7 +8,7 @@
     currentColorId,
     currentProject,
     removeColor,
-    updateColorName,
+    renameColor,
     setCurrentColorId,
     setCurrentShadeIndex
   } from '/@/store/projects'
@@ -32,7 +32,7 @@
   }
 
   function handleNameChange(e: Event) {
-    updateColorName((e.target as HTMLInputElement).value, { colorId })
+    renameColor((e.target as HTMLInputElement).value, { colorId })
   }
 </script>
 

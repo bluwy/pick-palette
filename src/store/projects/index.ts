@@ -14,9 +14,23 @@ export const currentColorId = readonly(_currentColorId)
 export const currentShadeIndex = readonly(_currentShadeIndex)
 
 export const currentProject = derived(
-  [_projects, _currentProjectId],
-  ([$_projects, $currentProjectId]) => {
-    return $_projects.find((v) => v.id === $currentProjectId)
+  [projects, currentProjectId],
+  ([$projects, $currentProjectId]) => {
+    return $projects.find((v) => v.id === $currentProjectId)
+  }
+)
+
+export const currentColor = derived(
+  [currentProject, currentColorId],
+  ([$currentProject, $currentColorId]) => {
+    return $currentProject?.colors.find((v) => v.id === $currentColorId)
+  }
+)
+
+export const currentShade = derived(
+  [currentColor, currentShadeIndex],
+  ([$currentColor, $currentShadeIndex]) => {
+    return $currentColor?.shades[$currentShadeIndex]
   }
 )
 
