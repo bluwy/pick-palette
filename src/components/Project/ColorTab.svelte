@@ -5,6 +5,7 @@
   import { createEventDispatcher } from 'svelte'
   import Icon from 'svelte-fa'
   import {
+    currentColorId,
     currentProject,
     removeColor,
     updateColorName,
@@ -36,9 +37,13 @@
 </script>
 
 {#if color != null}
-  <div class="px-3 py-2">
-    <div class="flex flex-row justify-between items-center mb-2">
-      <div class="flex-grow text-sm truncate">
+  <div
+    class="tab"
+    class:tab--active={colorId === $currentColorId}
+    on:click={() => setCurrentColorId(colorId)}
+  >
+    <div class="flex flex-row justify-between items-center my-1">
+      <div class="text-sm truncate" on:click|stopPropagation>
         <EditableText
           class="w-full"
           value={color.name}
@@ -46,7 +51,7 @@
         />
       </div>
       <div class="flex-shrink">
-        <button on:click={() => removeColor({ colorId })}>
+        <button on:click|stopPropagation={() => removeColor({ colorId })}>
           <Icon
             class="text-gray-700 text-opacity-50 transition-colors duration-200
             hover:text-error-500 focus:text-error-500 hover:text-opacity-100
@@ -56,6 +61,7 @@
         </button>
         <div
           class="inline-block px-2 cursor-grab"
+          on:click|stopPropagation
           on:mousedown={() => dispatch('candrag', true)}
         >
           <Icon
@@ -69,7 +75,7 @@
     <ol class="flex flex-row justify-between">
       {#each shades as color, i}
         <li>
-          <button on:click={() => clickColorBox(i)}>
+          <button on:click|stopPropagation={() => clickColorBox(i)}>
             <ColorBox {color} />
           </button>
         </li>
@@ -77,3 +83,14 @@
     </ol>
   </div>
 {/if}
+
+<style lang="postcss">
+  .tab {
+    @apply px-2 py-1 rounded-lg bg-transparent transition-colors duration-300;
+  }
+
+  .tab:hover,
+  .tab--active {
+    @apply bg-gray-200 bg-opacity-80;
+  }
+</style>
