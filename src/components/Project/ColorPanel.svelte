@@ -61,10 +61,10 @@
 </script>
 
 <div class="panel-width flex flex-col h-full bg-white border-r border-gray-400">
-  <div class="flex items-center p-3">
+  <div class="flex items-center mx-5 my-3">
     <div class="text-sm opacity-70">Colors</div>
   </div>
-  <ul class="flex-grow p-3 overflow-y-auto">
+  <ul class="flex-grow px-3 overflow-y-auto">
     {#each orderedColors as color (color.id)}
       <li
         animate:flip={{ duration: 250, delay: 100 }}

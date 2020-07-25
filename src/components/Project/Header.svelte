@@ -11,7 +11,7 @@
 </script>
 
 <div
-  class="flex justify-between items-center px-3 py-2 border-b border-gray-500"
+  class="flex justify-between items-center px-5 py-2 border-b border-gray-500"
 >
   <div class="flex-grow text-xl truncate">
     <EditableText
