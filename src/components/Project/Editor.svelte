@@ -31,7 +31,7 @@
   }
 </script>
 
-<div class="text-center">
+<div class="h-full text-center bg-gray-100 overflow-y-auto">
   {#if currentColor != null}
     <div class="inline-block">
       <div class="flex flex-row space-x-2 py-5">

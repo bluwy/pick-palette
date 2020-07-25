@@ -3,13 +3,10 @@
   import { produce } from 'immer'
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
-  import { sortColor, currentProject, renameProject } from '/@/store/projects'
+  import { sortColor, currentProject } from '/@/store/projects'
   import { debounce, removeAndInsertElement } from '/@/utils/common'
-  import EditableText from '/@/components/base/EditableText.svelte'
   import ColorTab from './ColorTab.svelte'
-  import NewColor from './NewColor.svelte'
 
-  let showNewColorDialog = false
   let canDrag = false
   let draggedColorId: string
   let dropIndex: number
@@ -61,34 +58,13 @@
   function handleCanDrag(e: CustomEvent) {
     canDrag = e.detail
   }
-
-  function handleNameChange(e: Event) {
-    renameProject((e.target as HTMLInputElement).value)
-  }
 </script>
 
-<div class="flex flex-col h-full">
-  <div class="flex flex-row justify-between items-center mb-5">
-    <div class="flex-grow text-xl truncate">
-      <EditableText
-        class="w-full"
-        value={$currentProject.name}
-        size={7}
-        on:change={handleNameChange}
-      />
-    </div>
-    <div class="flex-shrink">
-      <NewColor bind:show={showNewColorDialog}>
-        <button
-          class="button button--outline button--small"
-          on:click={() => (showNewColorDialog = !showNewColorDialog)}
-        >
-          Add color
-        </button>
-      </NewColor>
-    </div>
+<div class="panel-width flex flex-col h-full bg-white border-r border-gray-400">
+  <div class="flex items-center p-3">
+    <div class="text-sm opacity-70">Colors</div>
   </div>
-  <ul class="flex-grow overflow-y-auto">
+  <ul class="flex-grow p-3 overflow-y-auto">
     {#each orderedColors as color (color.id)}
       <li
         animate:flip={{ duration: 250, delay: 100 }}
@@ -114,3 +90,9 @@
     {/each}
   </ul>
 </div>
+
+<style>
+  .panel-width {
+    width: 370px;
+  }
+</style>

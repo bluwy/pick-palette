@@ -37,7 +37,7 @@
 
 {#if color != null}
   <div class="px-3 py-2">
-    <div class="flex flex-row justify-between mb-2">
+    <div class="flex flex-row justify-between items-center mb-2">
       <div class="flex-grow text-sm truncate">
         <EditableText
           class="w-full"

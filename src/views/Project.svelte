@@ -3,15 +3,17 @@
   import { onDestroy, tick } from 'svelte'
   import { navigate, useParams } from 'svelte-navigator'
   import { shortcut } from '/@/actions/shortcut'
-  import { removeOpenedProject } from '/@/store/opened'
   import {
     currentProject,
     setCurrentColorId,
-    setCurrentProjectId
+    setCurrentProjectId,
+    projectRedo,
+    projectUndo
   } from '/@/store/projects'
-  import { projectRedo, projectUndo } from '/@/store/projects'
+  import Header from '/@/components/Project/Header.svelte'
   import ColorPanel from '/@/components/Project/ColorPanel.svelte'
   import Editor from '/@/components/Project/Editor.svelte'
+  import IdeaPanel from '/@/components/Project/IdeaPanel.svelte'
 
   const params = useParams()
 
@@ -43,19 +45,19 @@
 <svelte:window use:shortcut={setupShortcuts} />
 
 {#if $currentProject != null}
-  <div class="h-full flex flex-col">
-    <div class="container flex-grow overflow-y-auto">
-      <div class="h-full py-6 flex flex-col md:flex-row">
-        <div class="w-full h-full md:w-1/3 pb-3 md:pb-0 md:pr-6">
-          <ColorPanel />
-        </div>
-        <div
-          class="flex flex-col w-full h-full md:w-2/3 pt-3 md:pt-0 md:pl-6
-          border-t border-gray-500 border-opacity-50 md:border-t-0 border-l"
-        >
-          <div class="opacity-70 mb-5">Editor</div>
-          <Editor />
-        </div>
+  <div class="flex flex-col h-full">
+    <div class="flex-shrink">
+      <Header />
+    </div>
+    <div class="flex-grow flex overflow-y-auto">
+      <div class="flex-shrink">
+        <ColorPanel />
+      </div>
+      <div class="flex-grow">
+        <Editor />
+      </div>
+      <div class="flex-shrink">
+        <IdeaPanel />
       </div>
     </div>
   </div>
