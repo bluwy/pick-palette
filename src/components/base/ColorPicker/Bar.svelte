@@ -76,7 +76,7 @@
 
 <div
   use:slidable
-  class="relative h-3 cursor-crosshair flex-grow"
+  class="relative h-4 sm:h-3 cursor-crosshair flex-grow"
   style="background-image: {bgStyle};"
   on:slide={handleSlide}
 >

@@ -161,7 +161,7 @@
   .inputs-grid {
     display: grid;
     grid-template-columns: repeat(3, auto);
-    gap: 0.2rem;
+    gap: 0.3rem;
   }
 
   @screen sm {

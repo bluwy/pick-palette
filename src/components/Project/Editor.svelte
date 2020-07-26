@@ -74,7 +74,9 @@
         <Icon icon={faChevronRight} />
       </button>
     </div>
-    <ol class="flex justify-center items-center space-x-3 mt-8 mb-12">
+    <ol
+      class="flex justify-center items-center space-x-2 sm:space-x-3 mt-8 mb-12"
+    >
       {#each $currentColor.shades as shade, i}
         <li class="flex flex-col justify-center items-center">
           <button

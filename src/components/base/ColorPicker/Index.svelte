@@ -70,7 +70,7 @@
 
 <div class="flex p-2 border border-gray-500 rounded bg-white">
   <div>
-    <div class="w-48 h-48 sm:w-56 sm:h-56" on:mousedown|preventDefault>
+    <div class="w-40 h-40 sm:w-56 sm:h-56" on:mousedown|preventDefault>
       <Box {mode} {r} {g} {b} {h} {s} {v} on:update={handleUpdate} />
     </div>
     <div class="pt-2" on:mousedown|preventDefault>

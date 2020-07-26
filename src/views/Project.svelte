@@ -62,7 +62,7 @@
         <ColorPanel />
       </div>
     {/if}
-    <div class="flex flex-col w-full h-full max-w-xl lg:pl-6">
+    <div class="flex flex-col w-full h-full max-w-lg lg:max-w-xl lg:pl-6">
       <div class="flex-shrink">
         <Header />
       </div>
