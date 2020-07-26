@@ -33,6 +33,11 @@
     setCurrentColorId($currentProject.colors[0].id)
   }
 
+  // Set default shade if none
+  $: if ($currentShadeIndex < 0 && $currentColor?.shades.length > 0) {
+    setCurrentShadeIndex(Math.floor($currentColor?.shades.length / 2))
+  }
+
   // Reset color picker whenever color or shade change
   $: if ($currentColor && $currentShade && resetColorPicker) {
     // Wait for changes to be reflected in ColorPicker prop, then reset
@@ -50,15 +55,18 @@
   </div>
   <div class="flex-grow text-center overflow-y-auto">
     {#if $currentColor != null}
-      <div class="flex justify-center items-center w-full max-w-xs mx-auto">
+      <div
+        class="flex justify-center items-center w-full max-w-xs mx-auto my-6"
+      >
         <button
           class="flex-shrink p-4 opacity-30 transition-opacity duration-200
           hover:opacity-50 focus:opacity-50"
+          class:hidden={$currentProject.colors.length <= 0}
           on:click={() => goPrevColorId()}
         >
           <Icon icon={faChevronLeft} />
         </button>
-        <div class="flex-grow">
+        <div class="flex-grow py-4">
           <EditableText
             class="text-center bg-transparent"
             value={$currentColor.name}
@@ -69,12 +77,13 @@
         <button
           class="flex-shrink p-4 opacity-30 transition-opacity duration-200
           hover:opacity-50 focus:opacity-50"
+          class:hidden={$currentProject.colors.length <= 0}
           on:click={() => goNextColorId()}
         >
           <Icon icon={faChevronRight} />
         </button>
       </div>
-      <ol class="flex justify-center items-center space-x-3 mt-3 mb-8">
+      <ol class="flex justify-center items-center space-x-3 mt-8 mb-12">
         {#each $currentColor.shades as shade, i}
           <li class="flex flex-col justify-center items-center">
             <button
