@@ -1,7 +1,6 @@
 <script>
   import type { Color } from '/@/utils/types'
   import {
-    faChevronUp,
     faChevronLeft,
     faChevronRight
   } from '@fortawesome/free-solid-svg-icons'
@@ -51,7 +50,7 @@
   </div>
   <div class="flex-grow text-center overflow-y-auto">
     {#if $currentColor != null}
-      <div class="flex justify-center items-center w-full max-w-sm mx-auto">
+      <div class="flex justify-center items-center w-full max-w-xs mx-auto">
         <button
           class="flex-shrink p-4 opacity-30 transition-opacity duration-200
           hover:opacity-50 focus:opacity-50"
@@ -75,27 +74,18 @@
           <Icon icon={faChevronRight} />
         </button>
       </div>
-      <div class="inline-block">
-        <div class="flex flex-row space-x-2 py-5">
-          {#each $currentColor.shades as shade, i}
-            <div class="flex flex-col justify-center items-center">
-              <button on:click={() => setCurrentShadeIndex(i)}>
-                <ColorBox color={shade} />
-              </button>
-              <div class="h-8">
-                {#if i === $currentShadeIndex}
-                  <div
-                    transition:fly={{ y: 10 }}
-                    class="text-gray-900 opacity-70 pt-3"
-                  >
-                    <Icon icon={faChevronUp} />
-                  </div>
-                {/if}
-              </div>
-            </div>
-          {/each}
-        </div>
-      </div>
+      <ol class="flex justify-center items-center space-x-3 mt-3 mb-8">
+        {#each $currentColor.shades as shade, i}
+          <li class="flex flex-col justify-center items-center">
+            <button
+              class="transition-a;; duration-100 transform {i === $currentShadeIndex ? 'mx-2 scale-150' : 'hover:scale-125'}"
+              on:click={() => setCurrentShadeIndex(i)}
+            >
+              <ColorBox color={shade} />
+            </button>
+          </li>
+        {/each}
+      </ol>
       <div>
         {#if $currentShade != null}
           <div class="inline-block">
