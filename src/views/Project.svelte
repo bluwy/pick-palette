@@ -35,7 +35,13 @@
 
     // mod+n opens color at index n-1
     for (let i = 1; i < 9; i++) {
-      on(`mod+${i}`, () => setCurrentColorId($currentProject.colors[i - 1].id))
+      on(`mod+${i}`, () => {
+        const color = $currentProject.colors[i - 1]
+
+        if (color != null) {
+          setCurrentColorId(color.id)
+        }
+      })
     }
   }
 </script>
