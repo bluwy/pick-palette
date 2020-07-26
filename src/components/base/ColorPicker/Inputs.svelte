@@ -3,6 +3,7 @@
   import type { Color } from 'chroma-js'
   import { createEventDispatcher } from 'svelte'
   import { slidable } from '/@/actions/slidable'
+  import { breakpointSm } from '/@/store/breakpoint'
   import { hueGradient } from '/@/utils/app'
   import { clamp, throttle } from '/@/utils/common'
 
@@ -27,7 +28,7 @@
       type: 'r',
       pointerX: r / 255,
       // prettier-ignore
-      bgStyle: `linear-gradient(to right, ${color.set('rgb.r', 0).hex()}, ${color.set('rgb.r', 255).hex()})`,
+      bgStyle: $breakpointSm ? `linear-gradient(to right, ${color.set('rgb.r', 0).hex()}, ${color.set('rgb.r', 255).hex()})` : '',
       value: Math.round(r),
       min: 0,
       max: 255,
@@ -39,7 +40,7 @@
       type: 'g',
       pointerX: g / 255,
       // prettier-ignore
-      bgStyle: `linear-gradient(to right, ${color.set('rgb.g', 0).hex()}, ${color.set('rgb.g', 255).hex()})`,
+      bgStyle: $breakpointSm ? `linear-gradient(to right, ${color.set('rgb.g', 0).hex()}, ${color.set('rgb.g', 255).hex()})` : '',
       value: Math.round(g),
       min: 0,
       max: 255,
@@ -51,7 +52,7 @@
       type: 'b',
       pointerX: b / 255,
       // prettier-ignore
-      bgStyle: `linear-gradient(to right, ${color.set('rgb.b', 0).hex()}, ${color.set('rgb.b', 255).hex()})`,
+      bgStyle: $breakpointSm ? `linear-gradient(to right, ${color.set('rgb.b', 0).hex()}, ${color.set('rgb.b', 255).hex()})` : '',
       value: Math.round(b),
       min: 0,
       max: 255,
@@ -63,10 +64,10 @@
       type: 'h',
       pointerX: h / 360,
       // prettier-ignore
-      bgStyle: `
+      bgStyle: $breakpointSm ? `
         linear-gradient(to right, rgba(255, 255, 255, ${(1 - s)}), rgba(255, 255, 255, ${(1 - s)})),
         linear-gradient(to right, ${hueGradient.join(', ')})
-      `,
+      ` : '',
       value: Math.round(h),
       min: 0,
       max: 360,
@@ -78,7 +79,7 @@
       type: 's',
       pointerX: s,
       // prettier-ignore
-      bgStyle: `linear-gradient(to right, ${color.set('hsv.s', 0).hex()}, ${color.set('hsv.s', 1).hex()})`,
+      bgStyle: $breakpointSm ? `linear-gradient(to right, ${color.set('hsv.s', 0).hex()}, ${color.set('hsv.s', 1).hex()})` : '',
       value: Math.round(s * 100),
       min: 0,
       max: 100,
@@ -89,7 +90,7 @@
       type: 'v',
       pointerX: v,
       // prettier-ignore
-      bgStyle: `linear-gradient(to right, ${color.set('hsv.v', 0).hex()}, ${color.set('hsv.v', 1).hex()})`,
+      bgStyle: $breakpointSm ? `linear-gradient(to right, ${color.set('hsv.v', 0).hex()}, ${color.set('hsv.v', 1).hex()})` : '',
       value: Math.round(v * 100),
       min: 0,
       max: 100,
@@ -118,9 +119,9 @@
       {input.type.toUpperCase()}
     </label>
     <div
-      class="relative w-20 h-3 cursor-crosshair"
-      style="background-image: {input.bgStyle};"
       use:slidable
+      class="hidden sm:block relative w-20 h-3 cursor-crosshair"
+      style="background-image: {input.bgStyle};"
       on:slide={(e) => handleSlide(e, input.slideHandler)}
       on:mousedown|preventDefault
     >
@@ -132,7 +133,7 @@
     <input
       class="input input--small"
       type="number"
-      size={4}
+      size={3}
       value={input.value}
       min={input.min}
       max={input.max}
@@ -140,12 +141,14 @@
     />
   {/each}
 
-  <label for="cp-hex" class="col-start-3 text-right mt-2">#</label>
+  <label for="cp-hex" class="col-start-2 sm:col-start-3 text-right mt-2">
+    #
+  </label>
   <input
     id="cp-hex"
     class="input input--small mt-2"
     type="text"
-    size={4}
+    size={3}
     value={color.hex().slice(1)}
     on:input={(e) => dispatch('update', {
         type: 'hex',
@@ -154,11 +157,18 @@
   />
 </div>
 
-<style>
+<style lang="postcss">
   .inputs-grid {
     display: grid;
-    grid-template-columns: repeat(4, auto);
-    gap: 0.5rem;
+    grid-template-columns: repeat(3, auto);
+    gap: 0.2rem;
+  }
+
+  @screen sm {
+    .inputs-grid {
+      grid-template-columns: repeat(4, auto);
+      gap: 0.5rem;
+    }
   }
 
   .pointer::before,

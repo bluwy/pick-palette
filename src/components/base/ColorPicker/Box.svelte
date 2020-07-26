@@ -116,10 +116,10 @@
 </script>
 
 <div
+  use:slidable
   class="box-blend relative w-full h-full cursor-crosshair"
   class:box-blend={mode === 'r' || mode === 'g' || mode === 'b'}
   style="background-image: {bgStyle};"
-  use:slidable
   on:slide|preventDefault={handleSlide}
 >
   <div
