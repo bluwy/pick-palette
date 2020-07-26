@@ -1,8 +1,10 @@
 <script>
   import type { SetupFunction } from '/@/actions/shortcut'
   import { onDestroy, tick } from 'svelte'
+  import { fly } from 'svelte/transition'
   import { navigate, useParams } from 'svelte-navigator'
   import { shortcut } from '/@/actions/shortcut'
+  import { breakpointLg } from '/@/store/breakpoint'
   import {
     currentProject,
     setCurrentColorId,
@@ -14,6 +16,8 @@
   import Editor from '/@/components/Project/Editor.svelte'
 
   const params = useParams()
+
+  let showColorPanels = false
 
   // Update currentProjectId based on route param
   const unsubscribeParams = params.subscribe((params) => {
@@ -50,9 +54,14 @@
 
 {#if $currentProject != null}
   <div class="flex justify-center h-full py-6 overflow-y-auto">
-    <div>
-      <ColorPanel />
-    </div>
+    {#if $breakpointLg || showColorPanels}
+      <div
+        transition:fly={{ duration: 200, x: -10 }}
+        class="fixed top-0 left-0 max-w-full p-2 z-10 lg:static lg:w-auto lg:p-0"
+      >
+        <ColorPanel on:close={() => (showColorPanels = !showColorPanels)} />
+      </div>
+    {/if}
     <div class="w-full max-w-xl">
       <Editor />
     </div>

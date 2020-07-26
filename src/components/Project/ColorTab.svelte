@@ -73,7 +73,7 @@
         </div>
       </div>
     </div>
-    <ol class="flex flex-row justify-between">
+    <ol class="flex space-x-1 sm:space-x-2">
       {#each shades as color, i}
         <li>
           <button on:click|stopPropagation={() => clickColorBox(i)}>

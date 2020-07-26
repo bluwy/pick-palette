@@ -1,11 +1,16 @@
 <script>
   import type { Color } from '/@/utils/types'
+  import { faTimes } from '@fortawesome/free-solid-svg-icons'
   import { produce } from 'immer'
+  import { createEventDispatcher } from 'svelte'
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
+  import Icon from 'svelte-fa'
   import { sortColor, currentProject } from '/@/store/projects'
   import { debounce, removeAndInsertElement } from '/@/utils/common'
   import ColorTab from './ColorTab.svelte'
+
+  const dispatch = createEventDispatcher()
 
   let canDrag = false
   let draggedColorId: string
@@ -61,11 +66,17 @@
 </script>
 
 <div
-  class="panel-width flex flex-col h-full border border-gray-300 rounded-lg
+  class="flex flex-col h-full bg-white border border-gray-300 rounded-lg
   shadow-xl"
 >
-  <div class="flex items-center mx-5 my-3">
-    <div class="text-sm opacity-70">Color Palette</div>
+  <div class="flex justify-between items-center mx-5 my-2">
+    <div class="text-sm py-1 opacity-70">Color Palette</div>
+    <button
+      class="lg:hidden button button--small button--icon"
+      on:click={() => dispatch('close')}
+    >
+      <Icon icon={faTimes} />
+    </button>
   </div>
   <ul class="flex-grow px-3 mb-3 overflow-y-auto">
     {#each orderedColors as color (color.id)}
@@ -73,7 +84,7 @@
         animate:flip={{ duration: 250, delay: 100 }}
         in:fade={{ duration: 200, delay: 200 }}
         out:fade={{ duration: 200 }}
-        class="h-20 relative flex justify-center items-center"
+        class="h-20 flex justify-center items-center"
         draggable={canDrag}
         on:dragstart={() => handleDragStart(color.id)}
         on:dragenter={(e) => color.id !== draggedColorId && handleDragEnter(color.id, e)}
@@ -81,7 +92,7 @@
         on:dragend={handleDragEnd}
       >
         {#if color.id !== draggedColorId}
-          <div transition:fade={{ duration: 200 }} class="absolute w-full">
+          <div transition:fade={{ duration: 200 }}>
             <ColorTab colorId={color.id} on:candrag={handleCanDrag} />
           </div>
         {/if}
@@ -93,9 +104,3 @@
     {/each}
   </ul>
 </div>
-
-<style>
-  .panel-width {
-    width: 370px;
-  }
-</style>
