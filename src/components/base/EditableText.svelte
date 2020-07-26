@@ -27,5 +27,5 @@
     {...$$restProps}
   />
 {:else}
-  <span on:click={open}>{value}</span>
+  <button on:click={open}>{value}</button>
 {/if}
