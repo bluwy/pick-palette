@@ -104,6 +104,13 @@
     const xValue = clamp((e.clientX - rect.left) / rect.width, 0, 1)
     handler(xValue)
   }, 30)
+
+  function handleHexInput(e: Event) {
+    dispatch('update', {
+      type: 'hex',
+      value: (e.target as HTMLInputElement).value
+    })
+  }
 </script>
 
 <div class="inputs-grid items-center pl-2">
@@ -141,19 +148,20 @@
     />
   {/each}
 
-  <label for="cp-hex" class="col-start-2 sm:col-start-3 text-right mt-2">
-    #
-  </label>
+  <div class="col-span-2 sm:col-span-3 mt-2 flex justify-end items-center">
+    <label
+      for="cp-hex"
+      class="inline-block w-6 h-6 border border-gray-300 rounded-full"
+      style="background-color: {color.hex()};"
+    />
+  </div>
   <input
     id="cp-hex"
     class="input input--small mt-2"
     type="text"
     size={3}
-    value={color.hex().slice(1)}
-    on:input={(e) => dispatch('update', {
-        type: 'hex',
-        value: '#' + e.target.value
-      })}
+    value={color.hex()}
+    on:input={handleHexInput}
   />
 </div>
 
