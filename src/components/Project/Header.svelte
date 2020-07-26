@@ -4,7 +4,9 @@
     faHome,
     faUndo,
     faRedo,
-    faPalette
+    faPalette,
+    faFill,
+    faPlus
   } from '@fortawesome/free-solid-svg-icons'
   import Icon from 'svelte-fa'
   import { link } from 'svelte-navigator'
@@ -63,7 +65,14 @@
   </div>
   <div class="w-1/2 lg:w-1/3 lg:order-3 text-right">
     <NewColor>
-      <button class="button button--outline button--small">Add color</button>
+      <button class="button button--icon relative">
+        <Icon icon={faFill} />
+        <Icon
+          class="absolute bottom-0 right-0 p-sm m-sm"
+          icon={faPlus}
+          size="sm"
+        />
+      </button>
     </NewColor>
     <button class="button button--icon" on:click={() => exportProject()}>
       <Icon icon={faUpload} />

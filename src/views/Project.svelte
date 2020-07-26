@@ -53,7 +53,7 @@
 <svelte:window use:shortcut={setupShortcuts} />
 
 {#if $currentProject != null}
-  <div class="flex justify-center h-full py-6 overflow-y-auto">
+  <div class="flex justify-center h-full px-1 py-3 lg:py-6 overflow-y-auto">
     {#if $breakpointLg || $showColorPanel}
       <div
         transition:fly={{ duration: 200, x: -10 }}

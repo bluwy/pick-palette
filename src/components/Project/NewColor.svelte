@@ -34,8 +34,8 @@
       class="inline-block m-2 p-3 bg-white border border-gray-300 rounded-lg
       shadow-xl"
     >
-      <div class="flex justify-between items-center mb-2">
-        <div class="opacity-70">Pick a color</div>
+      <div class="flex justify-between items-center mb-2 px-2">
+        <div class="opacity-70">Add a new color</div>
         <button class="button button--small" on:click={handleOK}>OK</button>
       </div>
       <ColorPicker bind:value={color} />
