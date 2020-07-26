@@ -1,5 +1,12 @@
 <script>
-  import { currentProject, renameProject } from '/@/store/projects'
+  import { faUpload, faHome } from '@fortawesome/free-solid-svg-icons'
+  import Icon from 'svelte-fa'
+  import { link } from 'svelte-navigator'
+  import {
+    currentProject,
+    renameProject,
+    exportProject
+  } from '/@/store/projects'
   import EditableText from '/@/components/base/EditableText.svelte'
   import NewColor from './NewColor.svelte'
 
@@ -21,5 +28,11 @@
     <NewColor>
       <button class="button button--outline button--small">Add color</button>
     </NewColor>
+    <button class="button button--icon" on:click={() => exportProject()}>
+      <Icon icon={faUpload} />
+    </button>
+    <a use:link class="button button--icon" href="/dashboard">
+      <Icon icon={faHome} />
+    </a>
   </div>
 </div>
