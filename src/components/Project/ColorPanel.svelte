@@ -2,15 +2,13 @@
   import type { Color } from '/@/utils/types'
   import { faTimes } from '@fortawesome/free-solid-svg-icons'
   import { produce } from 'immer'
-  import { createEventDispatcher } from 'svelte'
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
   import Icon from 'svelte-fa'
+  import { setShowColorPanel } from '/@/store/app'
   import { sortColor, currentProject } from '/@/store/projects'
   import { debounce, removeAndInsertElement } from '/@/utils/common'
   import ColorTab from './ColorTab.svelte'
-
-  const dispatch = createEventDispatcher()
 
   let canDrag = false
   let draggedColorId: string
@@ -73,7 +71,7 @@
     <div class="text-sm py-1 opacity-70">Color Palette</div>
     <button
       class="lg:hidden button button--small button--icon"
-      on:click={() => dispatch('close')}
+      on:click={() => setShowColorPanel(false)}
     >
       <Icon icon={faTimes} />
     </button>

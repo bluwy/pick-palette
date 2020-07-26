@@ -13,9 +13,9 @@ export type Snack = {
 const defaultType: SnackType = 'info'
 const defaultTimeout = 5000
 
-const internalSnacks = writable([] as Snack[])
+const _snacks = writable([] as Snack[])
 
-export const snacks = readonly(internalSnacks)
+export const snacks = readonly(_snacks)
 
 export function addSnack(snack: Snack) {
   const snackId = nanoid(3)
@@ -27,11 +27,11 @@ export function addSnack(snack: Snack) {
     timeout: snack.timeout != null ? snack.timeout : defaultTimeout
   }
 
-  internalSnacks.update((v) => v.concat([realSnack]))
+  _snacks.update((v) => v.concat([realSnack]))
 
   return snackId
 }
 
 export function removeSnack(id: string) {
-  internalSnacks.update((v) => v.filter((u) => u.id !== id))
+  _snacks.update((v) => v.filter((u) => u.id !== id))
 }

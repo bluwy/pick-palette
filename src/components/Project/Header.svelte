@@ -3,10 +3,12 @@
     faUpload,
     faHome,
     faUndo,
-    faRedo
+    faRedo,
+    faPalette
   } from '@fortawesome/free-solid-svg-icons'
   import Icon from 'svelte-fa'
   import { link } from 'svelte-navigator'
+  import { setShowColorPanel } from '/@/store/app'
   import {
     currentProject,
     renameProject,
@@ -26,7 +28,7 @@
   }
 </script>
 
-<div class="flex flex-wrap items-center">
+<div class="flex flex-wrap items-center py-1">
   <div class="w-full lg:w-1/3 lg:order-2 text-xl text-center truncate">
     <EditableText
       class="w-full bg-transparent text-center"
@@ -36,6 +38,12 @@
     />
   </div>
   <div class="w-1/2 lg:w-1/3 lg:order-1">
+    <button
+      class="button button--icon lg:hidden"
+      on:click={() => setShowColorPanel(true)}
+    >
+      <Icon icon={faPalette} />
+    </button>
     <button
       class="button button--icon"
       disabled={!$canUndo}
