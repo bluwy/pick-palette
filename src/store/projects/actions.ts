@@ -81,7 +81,7 @@ export function setCurrentShadeIndex(v: number) {
 export function createProject(name?: string) {
   const projectId = nanoid(6)
 
-  _projects.history.update('Create new project', (projects) => {
+  _projects.history.update('create new project', (projects) => {
     projects.push({
       id: projectId,
       version: 1,
@@ -96,7 +96,7 @@ export function createProject(name?: string) {
 export function importProject(data: Object) {
   const projectData = coerce(data, ProjectStruct) as Project
 
-  _projects.history.update('Import project', (projects) => {
+  _projects.history.update('import project', (projects) => {
     // Make sure there's no duplicate id, if the user supplied one
     if (projects.some((v) => v.id === projectData.id)) {
       projectData.id = nanoid(6)
@@ -134,7 +134,7 @@ export function exportProject(options?: ProjectIdOptions) {
 export function renameProject(name: string, options?: ProjectIdOptions) {
   const { projectId } = computeProjectIdOptions(options)
 
-  _projects.history.update('Rename project', (projects) => {
+  _projects.history.update('rename project', (projects) => {
     const project = findById(projects, projectId)
     project.name = name
   })
@@ -143,7 +143,7 @@ export function renameProject(name: string, options?: ProjectIdOptions) {
 export function removeProject(options?: ProjectIdOptions) {
   const { projectId } = computeProjectIdOptions(options)
 
-  _projects.history.update('Remove project', (projects) => {
+  _projects.history.update('remove project', (projects) => {
     const index = projects.findIndex((v) => v.id === projectId)
     if (index > 0) {
       projects.splice(index, 1)
@@ -159,7 +159,7 @@ export function createColor(shades: string[], options?: ProjectIdOptions) {
   const { projectId } = computeProjectIdOptions(options)
   const colorId = nanoid(6)
 
-  _projects.history.update('Create new color', (projects) => {
+  _projects.history.update('create new color', (projects) => {
     const project = findById(projects, projectId)
     project.colors.push({
       id: colorId,
@@ -178,7 +178,7 @@ export function sortColor(
 ) {
   const { projectId } = computeProjectIdOptions(options)
 
-  _projects.history.update('Sort color order', (projects) => {
+  _projects.history.update('sort color order', (projects) => {
     const project = findById(projects, projectId)
     removeAndInsertElement(project.colors, removeIndex, insertIndex)
   })
@@ -187,7 +187,7 @@ export function sortColor(
 export function renameColor(name: string, options?: ColorIdOptions) {
   const { projectId, colorId } = computeColorIdOptions(options)
 
-  _projects.history.update('Rename color', (projects) => {
+  _projects.history.update('rename color', (projects) => {
     const project = findById(projects, projectId)
     const color = findById(project.colors, colorId)
     color.name = name
@@ -198,7 +198,7 @@ export function updateColorShade(newShade: string, options?: ShadeIdOptions) {
   const { projectId, colorId, shadeIndex } = computeShadeIdOptions(options)
 
   _projects.history.update(
-    `Update shade ${colorId}`,
+    `update shade ${colorId}`,
     (projects) => {
       const project = findById(projects, projectId)
       const color = findById(project.colors, colorId)
@@ -213,7 +213,7 @@ export function updateColorShade(newShade: string, options?: ShadeIdOptions) {
 export function removeColor(options?: ColorIdOptions) {
   const { projectId, colorId } = computeColorIdOptions(options)
 
-  _projects.history.update('Remove color', (projects) => {
+  _projects.history.update('remove color', (projects) => {
     const project = findById(projects, projectId)
     const index = project.colors.findIndex((v) => v.id === colorId)
     project.colors.splice(index, 1)
