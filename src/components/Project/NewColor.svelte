@@ -27,7 +27,7 @@
 >
   <Popper bind:show options={{ placement: 'auto' }}>
     <div slot="reference" on:click={() => (show = !show)}>
-      <slot />
+      <slot {show} />
     </div>
     <div
       transition:fly={{ y: 10, duration: 250 }}

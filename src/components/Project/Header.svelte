@@ -64,8 +64,11 @@
     </button>
   </div>
   <div class="w-1/2 lg:w-1/3 lg:order-3 text-right">
-    <NewColor>
-      <button class="button button--icon relative">
+    <NewColor let:show>
+      <button
+        class="button button--icon relative"
+        class:button--icon--active={show}
+      >
         <Icon icon={faFill} />
         <Icon
           class="absolute bottom-0 right-0 p-sm m-sm"

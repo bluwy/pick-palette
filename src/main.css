@@ -76,6 +76,7 @@ svg {
 }
 
 .button--icon:not(:disabled):hover,
-.button--icon:not(:disabled):focus {
+.button--icon:not(:disabled):focus,
+.button--icon--active {
   @apply bg-opacity-20;
 }
