@@ -43,11 +43,11 @@
 <svelte:window use:shortcut={setupShortcuts} />
 
 {#if $currentProject != null}
-  <div class="container flex h-full py-6 overflow-y-auto">
-    <div class="flex-shrink">
+  <div class="flex justify-center h-full py-6 overflow-y-auto">
+    <div>
       <ColorPanel />
     </div>
-    <div class="flex-grow">
+    <div class="w-full max-w-xl">
       <Editor />
     </div>
   </div>

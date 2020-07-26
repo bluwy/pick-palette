@@ -26,8 +26,16 @@
   }
 </script>
 
-<div class="flex items-center">
-  <div class="flex-shrink w-1/3">
+<div class="flex flex-wrap items-center">
+  <div class="w-full lg:w-1/3 lg:order-2 text-xl text-center truncate">
+    <EditableText
+      class="w-full bg-transparent text-center"
+      value={$currentProject.name}
+      size={7}
+      on:change={handleNameChange}
+    />
+  </div>
+  <div class="w-1/2 lg:w-1/3 lg:order-1">
     <button
       class="button button--icon"
       disabled={!$canUndo}
@@ -45,15 +53,7 @@
       <Icon icon={faRedo} />
     </button>
   </div>
-  <div class="flex-grow text-xl text-center truncate">
-    <EditableText
-      class="w-full bg-transparent text-center"
-      value={$currentProject.name}
-      size={7}
-      on:change={handleNameChange}
-    />
-  </div>
-  <div class="flex-shrink w-1/3 text-right">
+  <div class="w-1/2 lg:w-1/3 lg:order-3 text-right">
     <NewColor>
       <button class="button button--outline button--small">Add color</button>
     </NewColor>
