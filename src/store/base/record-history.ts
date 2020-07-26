@@ -1,6 +1,6 @@
 import { applyPatches, produceWithPatches, Patch } from 'immer'
 import { uget } from '/@/utils/common'
-import { Writable } from 'svelte/store'
+import { Writable, writable, derived } from 'svelte/store'
 
 export interface HistoryStoreOptions {
   /** Max history record count */
@@ -28,8 +28,33 @@ export function recordHistory<T>(
 ) {
   const { limit } = options
 
-  let historyStack: HistoryRecord[] = []
-  let historyIndex = -1
+  const historyStack = writable([] as HistoryRecord[])
+  const historyIndex = writable(-1)
+
+  const canUndo = derived(historyIndex, ($historyIndex) => {
+    return $historyIndex >= 0
+  })
+
+  const canRedo = derived(
+    [historyStack, historyIndex],
+    ([$historyStack, $historyIndex]) => {
+      return $historyIndex + 1 < $historyStack.length
+    }
+  )
+
+  const currentUndoName = derived(
+    [historyStack, historyIndex],
+    ([$historyStack, $historyIndex]) => {
+      return $historyStack[$historyIndex]?.name
+    }
+  )
+
+  const currentRedoName = derived(
+    [historyStack, historyIndex],
+    ([$historyStack, $historyIndex]) => {
+      return $historyStack[$historyIndex + 1]?.name
+    }
+  )
 
   /*
     How merge works?
@@ -92,27 +117,21 @@ export function recordHistory<T>(
     // Merge existing buffer for undo to revert to initial state
     mergeBufferIfExist()
 
-    if (canUndo()) {
-      const undoPacthes = historyStack[historyIndex].undo
-      store.update((store) => applyPatches(store, undoPacthes))
-      historyIndex--
+    const undoPatches = uget(historyStack)[uget(historyIndex)]?.undo
+
+    if (undoPatches != null) {
+      store.update((store) => applyPatches(store, undoPatches))
+      historyIndex.update((v) => v - 1)
     }
   }
 
   function redo() {
-    if (canRedo()) {
-      const redoPatches = historyStack[historyIndex + 1].redo
+    const redoPatches = uget(historyStack)[uget(historyIndex) + 1]?.redo
+
+    if (redoPatches != null) {
       store.update((store) => applyPatches(store, redoPatches))
-      historyIndex++
+      historyIndex.update((v) => v + 1)
     }
-  }
-
-  function canUndo() {
-    return historyIndex >= 0
-  }
-
-  function canRedo() {
-    return historyIndex + 1 < historyStack.length
   }
 
   /** Clears all history and buffer */
@@ -148,23 +167,25 @@ export function recordHistory<T>(
       return
     }
 
-    // If there's history ahead of now, remove it
-    if (canRedo()) {
-      historyStack.splice(historyIndex + 1)
-    }
+    historyStack.update(($historyStack) => {
+      // If there's history ahead of now, remove it
+      $historyStack.splice(uget(historyIndex) + 1)
 
-    historyStack.push({ name, undo, redo })
+      $historyStack.push({ name, undo, redo })
 
-    if (limit != null && historyStack.length >= limit) {
-      historyStack.shift()
-    } else {
-      historyIndex++
-    }
+      if (limit != null && $historyStack.length >= limit) {
+        $historyStack.shift()
+      } else {
+        historyIndex.update((v) => v + 1)
+      }
+
+      return $historyStack
+    })
   }
 
   function clearHistory() {
-    historyStack = []
-    historyIndex = -1
+    historyStack.set([])
+    historyIndex.set(-1)
   }
 
   function clearBuffer() {
@@ -178,9 +199,11 @@ export function recordHistory<T>(
     update,
     undo,
     redo,
+    clear,
+    breakMerge: mergeBufferIfExist,
     canUndo,
     canRedo,
-    clear,
-    breakMerge: mergeBufferIfExist
+    currentUndoName,
+    currentRedoName
   }
 }
