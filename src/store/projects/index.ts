@@ -8,6 +8,13 @@ import {
 } from './state'
 import './effects'
 
+export const {
+  canUndo,
+  canRedo,
+  currentUndoName,
+  currentRedoName
+} = _projects.history
+
 export const projects = readonly(_projects)
 export const currentProjectId = readonly(_currentProjectId)
 export const currentColorId = readonly(_currentColorId)

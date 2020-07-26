@@ -37,7 +37,7 @@ svg {
 }
 
 .button {
-  @apply text-white bg-primary-500 border-2 border-primary-500 rounded px-3 py-1 transition-colors duration-200;
+  @apply text-white bg-primary-500 border-2 border-primary-500 rounded px-3 py-1 transition-all duration-200;
 }
 
 .button--small {
@@ -55,7 +55,7 @@ svg {
 
 .button:disabled,
 .button--disabled {
-  @apply bg-gray-600 border-gray-600;
+  @apply opacity-20;
 }
 
 .button--outline {

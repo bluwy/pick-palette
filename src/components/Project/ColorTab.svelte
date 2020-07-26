@@ -45,7 +45,7 @@
     <div class="flex flex-row justify-between items-center my-1">
       <div class="text-sm cursor-text truncate" on:click|stopPropagation>
         <EditableText
-          class="w-full"
+          class="w-full bg-transparent"
           value={color.name}
           on:change={handleNameChange}
         />

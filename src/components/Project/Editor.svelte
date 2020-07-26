@@ -60,14 +60,12 @@
           <Icon icon={faChevronLeft} />
         </button>
         <div class="flex-grow">
-          <div>
-            <EditableText
-              class="text-center"
-              value={$currentColor.name}
-              size={7}
-              on:change={handleNameChange}
-            />
-          </div>
+          <EditableText
+            class="text-center bg-transparent"
+            value={$currentColor.name}
+            size={9}
+            on:change={handleNameChange}
+          />
         </div>
         <button
           class="flex-shrink p-4 opacity-30 transition-opacity duration-200
