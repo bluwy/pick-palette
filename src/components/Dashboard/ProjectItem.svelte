@@ -2,7 +2,7 @@
   import type { Project } from '/@/utils/types'
   import { faTrashAlt, faUpload } from '@fortawesome/free-solid-svg-icons'
   import Icon from 'svelte-fa'
-  import { link } from 'svelte-navigator'
+  import { navigate } from 'svelte-navigator'
   import { openedProjectIds } from '/@/store/opened'
   import {
     exportProject,
@@ -21,8 +21,19 @@
   let isOpened: boolean
   $: isOpened = $openedProjectIds.includes(projectId)
 
+  let itemTitle: string
+  $: itemTitle = isOpened
+    ? `${project.name} is already opened in another tab`
+    : `Open ${project.name}`
+
   function handleNameChange(e: Event) {
     renameProject((e.target as HTMLInputElement).value, { projectId })
+  }
+
+  function handleItemClick() {
+    if (!isOpened) {
+      navigate(`project/${projectId}`)
+    }
   }
 
   function handleExportClick() {
@@ -35,39 +46,33 @@
 </script>
 
 {#if project != null}
-  <div
-    class="inline-block w-full h-full px-3 py-2 rounded bg-white border
-    border-gray-300"
-    title={isOpened ? "Cannot open project. It's already opened in another tab." : ''}
+  <fieldset
+    class="item"
+    role="button"
+    disabled={isOpened}
+    title={itemTitle}
+    on:click={handleItemClick}
   >
     <div class="flex justify-between items-center mb-3">
       <div class="flex-grow font-medium truncate">
         <EditableText
-          class="w-full"
+          class="w-full bg-transparent"
           value={project.name}
+          size={9}
           on:change={handleNameChange}
         />
       </div>
-      <div class="flex-shrink flex">
-        {#if !isOpened}
-          <a
-            use:link
-            class="button button--small button--outline mr-1 opacity-60
-            hover:opacity-100"
-            href={`project/${projectId}`}
-            title={`Open "${project.name}"`}
-          >
-            Open
-          </a>
-        {/if}
+      <div class="flex-shrink">
         <button
-          class="button button--small button--icon mr-1"
+          class="button button--small button--icon"
+          title={`Export ${project.name}`}
           on:click={handleExportClick}
         >
           <Icon icon={faUpload} />
         </button>
         <button
           class="button button--small button--icon"
+          title={`Remove ${project.name}`}
           on:click={handleTrashClick}
         >
           <Icon icon={faTrashAlt} />
@@ -84,5 +89,20 @@
         </li>
       {/each}
     </ul>
-  </div>
+  </fieldset>
 {/if}
+
+<style lang="postcss">
+  .item {
+    @apply inline-block w-full h-full px-3 py-2 rounded bg-white border border-gray-300 transition-colors duration-200;
+  }
+
+  .item:not(:disabled):hover,
+  .item:not(:disabled):focus {
+    @apply bg-primary-300 bg-opacity-20;
+  }
+
+  .item:disabled {
+    @apply opacity-30;
+  }
+</style>

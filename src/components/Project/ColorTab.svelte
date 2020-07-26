@@ -40,6 +40,7 @@
   <div
     class="tab"
     class:tab--active={colorId === $currentColorId}
+    role="button"
     on:click={() => setCurrentColorId(colorId)}
   >
     <div class="flex flex-row justify-between items-center my-1">

@@ -72,10 +72,10 @@ svg {
 }
 
 .button--icon {
-  @apply px-2 py-1 text-primary-600 bg-opacity-10 border-none;
+  @apply px-2 py-1 text-primary-600 bg-opacity-0 border-none;
 }
 
 .button--icon:not(:disabled):hover,
 .button--icon:not(:disabled):focus {
-  @apply bg-opacity-40;
+  @apply bg-opacity-20;
 }
