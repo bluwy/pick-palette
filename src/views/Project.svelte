@@ -10,10 +10,8 @@
     projectRedo,
     projectUndo
   } from '/@/store/projects'
-  import Header from '/@/components/Project/Header.svelte'
   import ColorPanel from '/@/components/Project/ColorPanel.svelte'
   import Editor from '/@/components/Project/Editor.svelte'
-  import IdeaPanel from '/@/components/Project/IdeaPanel.svelte'
 
   const params = useParams()
 
@@ -45,20 +43,12 @@
 <svelte:window use:shortcut={setupShortcuts} />
 
 {#if $currentProject != null}
-  <div class="flex flex-col h-full">
+  <div class="container flex h-full py-6 overflow-y-auto">
     <div class="flex-shrink">
-      <Header />
+      <ColorPanel />
     </div>
-    <div class="flex-grow flex overflow-y-auto">
-      <div class="flex-shrink">
-        <ColorPanel />
-      </div>
-      <div class="flex-grow">
-        <Editor />
-      </div>
-      <div class="flex-shrink">
-        <IdeaPanel />
-      </div>
+    <div class="flex-grow">
+      <Editor />
     </div>
   </div>
 {/if}

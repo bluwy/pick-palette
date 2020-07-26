@@ -8,9 +8,7 @@
   }
 </script>
 
-<div
-  class="flex justify-between items-center px-5 py-2 border-b border-gray-500"
->
+<div class="flex justify-between items-center">
   <div class="flex-grow text-xl truncate">
     <EditableText
       class="w-full"
