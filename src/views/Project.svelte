@@ -1,10 +1,8 @@
 <script>
   import type { SetupFunction } from '/@/actions/shortcut'
   import { onDestroy, tick } from 'svelte'
-  import { fly } from 'svelte/transition'
   import { navigate, useParams } from 'svelte-navigator'
   import { shortcut } from '/@/actions/shortcut'
-  import { showColorPanel, setShowColorPanel } from '/@/store/app'
   import { breakpointLg } from '/@/store/breakpoint'
   import {
     currentProject,
@@ -54,13 +52,8 @@
 
 {#if $currentProject != null}
   <div class="flex justify-center h-full px-1 py-3 lg:py-6 overflow-y-auto">
-    {#if $breakpointLg || $showColorPanel}
-      <div
-        transition:fly={{ duration: 200, x: -10 }}
-        class="fixed top-0 left-0 max-w-full p-2 z-10 lg:static lg:w-auto lg:p-0"
-      >
-        <ColorPanel />
-      </div>
+    {#if $breakpointLg}
+      <ColorPanel />
     {/if}
     <div class="flex flex-col w-full h-full max-w-lg lg:max-w-xl lg:pl-6">
       <div class="flex-shrink">

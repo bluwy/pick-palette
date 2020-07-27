@@ -4,8 +4,6 @@
   import { produce } from 'immer'
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
-  import Icon from 'svelte-fa'
-  import { setShowColorPanel } from '/@/store/app'
   import { sortColor, currentProject } from '/@/store/projects'
   import { debounce, removeAndInsertElement } from '/@/utils/common'
   import ColorTab from './ColorTab.svelte'
@@ -31,6 +29,10 @@
   }
 
   const handleDragEnter = debounce((colorId: string, e: DragEvent) => {
+    if (colorId === draggedColorId) {
+      return
+    }
+
     const targetTab = (e.target as Element).closest('[draggable="true"]')
 
     if (targetTab == null) {
@@ -67,14 +69,8 @@
   class="flex flex-col h-full bg-white border border-gray-300 rounded-lg
   shadow-xl"
 >
-  <div class="flex justify-between items-center mx-5 my-2">
-    <div class="text-sm py-1 opacity-70">Color Palette</div>
-    <button
-      class="lg:hidden button button--small button--icon"
-      on:click={() => setShowColorPanel(false)}
-    >
-      <Icon icon={faTimes} />
-    </button>
+  <div class="flex justify-between items-center mx-5 mt-3 mb-2">
+    <div class="text-sm opacity-70">Color Palette</div>
   </div>
   <ul class="flex-grow px-3 mb-3 overflow-y-auto">
     {#each orderedColors as color (color.id)}
@@ -85,7 +81,7 @@
         class="h-20 flex justify-center items-center"
         draggable={canDrag}
         on:dragstart={() => handleDragStart(color.id)}
-        on:dragenter={(e) => color.id !== draggedColorId && handleDragEnter(color.id, e)}
+        on:dragenter={(e) => handleDragEnter(color.id, e)}
         on:dragover|preventDefault
         on:dragend={handleDragEnd}
       >
@@ -96,9 +92,21 @@
         {/if}
       </li>
     {:else}
-      <li class="text-center">
+      <li class="fake-tab-width text-center">
         <p class="text-sm opacity-50 my-6">No colors yet</p>
       </li>
     {/each}
   </ul>
 </div>
+
+<style lang="postcss">
+  .fake-tab-width {
+    width: 264px;
+  }
+
+  @screen lg {
+    .fake-tab-width {
+      width: 332px;
+    }
+  }
+</style>

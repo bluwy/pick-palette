@@ -10,7 +10,7 @@
   } from '@fortawesome/free-solid-svg-icons'
   import Icon from 'svelte-fa'
   import { link } from 'svelte-navigator'
-  import { setShowColorPanel } from '/@/store/app'
+  import { breakpointLg } from '/@/store/breakpoint'
   import {
     currentProject,
     renameProject,
@@ -24,6 +24,7 @@
   } from '/@/store/projects'
   import EditableText from '/@/components/base/EditableText.svelte'
   import NewColor from './NewColor.svelte'
+  import ToggleColorPanel from './ToggleColorPanel.svelte'
 
   function handleNameChange(e: Event) {
     renameProject((e.target as HTMLInputElement).value)
@@ -40,12 +41,9 @@
     />
   </div>
   <div class="w-1/2 lg:w-1/3 lg:order-1">
-    <button
-      class="button button--icon lg:hidden"
-      on:click={() => setShowColorPanel(true)}
-    >
-      <Icon icon={faPalette} />
-    </button>
+    <a use:link class="button button--icon" href="/dashboard">
+      <Icon icon={faHome} />
+    </a>
     <button
       class="button button--icon"
       disabled={!$canUndo}
@@ -80,8 +78,8 @@
     <button class="button button--icon" on:click={() => exportProject()}>
       <Icon icon={faUpload} />
     </button>
-    <a use:link class="button button--icon" href="/dashboard">
-      <Icon icon={faHome} />
-    </a>
+    {#if !$breakpointLg}
+      <ToggleColorPanel />
+    {/if}
   </div>
 </div>

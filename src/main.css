@@ -37,7 +37,7 @@ svg {
 }
 
 .button {
-  @apply text-white bg-primary-500 border-2 border-primary-500 rounded px-3 py-1 cursor-pointer transition-all duration-200;
+  @apply inline-block text-white bg-primary-500 border-2 border-primary-500 rounded px-3 py-1 cursor-pointer transition-all duration-200;
 }
 
 .button--small {
@@ -72,7 +72,7 @@ svg {
 }
 
 .button--icon {
-  @apply px-2 py-1 text-primary-600 bg-opacity-0 border-none;
+  @apply w-8 h-8 px-2 py-1 text-primary-600 bg-opacity-0 border-none;
 }
 
 .button--icon:not(:disabled):hover,
