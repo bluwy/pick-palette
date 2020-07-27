@@ -2,9 +2,11 @@
   import chroma from 'chroma-js'
   import { fly } from 'svelte/transition'
   import { clickOutside } from '/@/actions/click-outside'
+  import { createPopperActions } from '/@/actions/popper'
   import ColorBox from './ColorBox.svelte'
   import ColorPicker from './ColorPicker/Index.svelte'
-  import Popper from './Popper.svelte'
+
+  const [ref, content] = createPopperActions()
 
   export let value: string
   export let hideInput = false
@@ -32,33 +34,35 @@
   class="inline-block"
   on:clickoutside={() => (show = false)}
 >
-  <Popper
-    bind:show
-    options={{ placement: vertical ? 'bottom' : 'bottom-start' }}
+  <div
+    use:ref={show}
+    class="flex items-center {vertical ? 'flex-col' : 'flex-row'}"
   >
-    <div
-      slot="reference"
-      class="flex items-center {vertical ? 'flex-col' : 'flex-row'}"
-    >
-      <button {disabled} on:click={() => (show = !disabled)}>
-        <ColorBox color={value} />
-      </button>
-      {#if !hideInput}
-        <input
-          bind:value
-          class={`input ${vertical ? 'mt-2' : 'ml-2'}}`}
-          type="text"
-          size={4}
-          {disabled}
-          on:change={setValueAsHex}
-        />
-      {/if}
-    </div>
-    <div
-      transition:fly={{ y: 10, duration: 250 }}
-      class="inline-block m-2 shadow-lg"
-    >
-      <ColorPicker bind:value />
-    </div>
-  </Popper>
+    <button {disabled} on:click={() => (show = !disabled)}>
+      <ColorBox color={value} />
+    </button>
+    {#if !hideInput}
+      <input
+        bind:value
+        class={`input ${vertical ? 'mt-2' : 'ml-2'}}`}
+        type="text"
+        size={4}
+        {disabled}
+        on:change={setValueAsHex}
+      />
+    {/if}
+  </div>
+  <div
+    use:content={{ placement: vertical ? 'bottom' : 'bottom-start' }}
+    class="absolute z-10"
+  >
+    {#if show}
+      <div
+        transition:fly={{ y: 10, duration: 250 }}
+        class="inline-block m-2 shadow-lg"
+      >
+        <ColorPicker bind:value />
+      </div>
+    {/if}
+  </div>
 </div>

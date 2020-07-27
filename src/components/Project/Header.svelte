@@ -79,7 +79,14 @@
       <Icon icon={faUpload} />
     </button>
     {#if !$breakpointLg}
-      <ToggleColorPanel />
+      <ToggleColorPanel let:show>
+        <button
+          class="button button--icon lg:hidden"
+          class:button--icon--active={show}
+        >
+          <Icon icon={faPalette} />
+        </button>
+      </ToggleColorPanel>
     {/if}
   </div>
 </div>

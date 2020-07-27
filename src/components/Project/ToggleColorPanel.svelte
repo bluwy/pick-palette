@@ -1,10 +1,10 @@
 <script>
-  import { faPalette } from '@fortawesome/free-solid-svg-icons'
   import { fly } from 'svelte/transition'
-  import Icon from 'svelte-fa'
+  import { createPopperActions } from '/@/actions/popper'
   import { clickOutside } from '/@/actions/click-outside'
-  import Popper from '/@/components/base/Popper.svelte'
   import ColorPanel from './ColorPanel.svelte'
+
+  const [ref, content] = createPopperActions()
 
   export let show = false
 
@@ -27,22 +27,19 @@
   class="inline-block"
   on:clickoutside={() => (show = false)}
 >
-  <Popper bind:show>
-    <button
-      slot="reference"
-      class="button button--icon lg:hidden"
-      class:button--icon--active={show}
-      on:click={() => (show = !show)}
-    >
-      <Icon icon={faPalette} />
-    </button>
-    <div
-      bind:this={panel}
-      transition:fly={{ y: 10, duration: 250 }}
-      class="inline-block m-2 shadow-lg"
-      style="height: {maxPanelHeight}px;"
-    >
-      <ColorPanel />
-    </div>
-  </Popper>
+  <div use:ref={show} on:click={() => (show = !show)}>
+    <slot {show} />
+  </div>
+  <div use:content={{ placement: 'auto' }} class="absolute z-10">
+    {#if show}
+      <div
+        bind:this={panel}
+        transition:fly={{ y: 10, duration: 250 }}
+        class="inline-block m-2 shadow-lg"
+        style="height: {maxPanelHeight}px;"
+      >
+        <ColorPanel />
+      </div>
+    {/if}
+  </div>
 </div>

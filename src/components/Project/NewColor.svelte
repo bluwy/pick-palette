@@ -1,11 +1,13 @@
 <script>
   import chroma from 'chroma-js'
   import { fly } from 'svelte/transition'
+  import { createPopperActions } from '/@/actions/popper'
   import { clickOutside } from '/@/actions/click-outside'
   import { createColor, setCurrentColorId } from '/@/store/projects'
   import { genShadeTint } from '/@/utils/app'
   import ColorPicker from '/@/components/base/ColorPicker/Index.svelte'
-  import Popper from '/@/components/base/Popper.svelte'
+
+  const [ref, content] = createPopperActions()
 
   export let show = false
 
@@ -25,22 +27,24 @@
   class="inline-block"
   on:clickoutside={() => (show = false)}
 >
-  <Popper bind:show options={{ placement: 'auto' }}>
-    <div slot="reference" on:click={() => (show = !show)}>
-      <slot {show} />
-    </div>
-    <div
-      transition:fly={{ y: 10, duration: 250 }}
-      class="inline-block my-2 sm:m-2 bg-white border border-gray-300 rounded-lg
-      shadow-xl"
-    >
-      <div class="flex justify-between items-center mx-5 mt-3 mb-2">
-        <div class="text-sm opacity-70">Add a new color</div>
-        <button class="button button--small" on:click={handleOK}>OK</button>
+  <div use:ref={show} on:click={() => (show = !show)}>
+    <slot {show} />
+  </div>
+  <div use:content={{ placement: 'auto' }} class="absolute z-10">
+    {#if show}
+      <div
+        transition:fly={{ y: 10, duration: 250 }}
+        class="inline-block my-2 sm:m-2 bg-white border border-gray-300
+        rounded-lg shadow-xl"
+      >
+        <div class="flex justify-between items-center mx-5 mt-3 mb-2">
+          <div class="text-sm opacity-70">Add a new color</div>
+          <button class="button button--small" on:click={handleOK}>OK</button>
+        </div>
+        <div class="p-3 pt-0">
+          <ColorPicker bind:value={color} />
+        </div>
       </div>
-      <div class="p-3 pt-0">
-        <ColorPicker bind:value={color} />
-      </div>
-    </div>
-  </Popper>
+    {/if}
+  </div>
 </div>
