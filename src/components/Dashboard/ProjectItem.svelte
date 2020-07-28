@@ -54,7 +54,7 @@
     on:click={handleItemClick}
   >
     <div class="flex justify-between items-center mb-3">
-      <div class="flex-grow font-medium truncate">
+      <div class="flex-grow font-medium truncate" on:click|stopPropagation>
         <EditableText
           class="w-full bg-transparent"
           value={project.name}
@@ -66,14 +66,14 @@
         <button
           class="button button--small button--icon"
           title={`Export ${project.name}`}
-          on:click={handleExportClick}
+          on:click|stopPropagation={handleExportClick}
         >
           <Icon icon={faUpload} />
         </button>
         <button
           class="button button--small button--icon"
           title={`Remove ${project.name}`}
-          on:click={handleTrashClick}
+          on:click|stopPropagation={handleTrashClick}
         >
           <Icon icon={faTrashAlt} />
         </button>
