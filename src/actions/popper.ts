@@ -5,7 +5,6 @@ import {
   OptionsGeneric,
   Modifier
 } from '@popperjs/core'
-import { writable, Readable } from 'svelte/store'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type PopperOptions = Partial<OptionsGeneric<Partial<Modifier<any, any>>>>
@@ -22,35 +21,22 @@ type ContentAction = (
   destroy(): void
 }
 
-export function createPopperActions(): [
-  ReferenceAction,
-  ContentAction,
-  Readable<Instance>
-] {
-  const popperInstance = writable(undefined as Instance | undefined)
+export function createPopperActions(): [ReferenceAction, ContentAction] {
+  let popperInstance: Instance | undefined
   let referenceNode: HTMLElement
   let contentNode: HTMLElement
   let options: PopperOptions | undefined
 
-  const popper: Readable<Instance | undefined> = {
-    subscribe: popperInstance.subscribe
-  }
-
   function initPopper() {
     if (referenceNode && contentNode) {
-      popperInstance.set(createPopper(referenceNode, contentNode, options))
+      popperInstance = createPopper(referenceNode, contentNode, options)
     }
   }
 
   function deinitPopper() {
-    popperInstance.update((instance) => {
-      if (instance != null) {
-        instance.destroy()
-        return undefined
-      }
-
-      return instance
-    })
+    if (popperInstance != null) {
+      popperInstance.destroy()
+    }
   }
 
   function referenceAction(node: HTMLElement) {
@@ -70,10 +56,9 @@ export function createPopperActions(): [
     return {
       update(popperOptions: PopperOptions) {
         options = popperOptions
-        popperInstance.update((instance) => {
-          instance.setOptions(options)
-          return instance
-        })
+        if (popperInstance != null) {
+          popperInstance.setOptions(options)
+        }
       },
       destroy() {
         deinitPopper()
@@ -81,5 +66,5 @@ export function createPopperActions(): [
     }
   }
 
-  return [referenceAction, contentAction, popper]
+  return [referenceAction, contentAction]
 }
