@@ -1,7 +1,18 @@
 /** Emits `slide` event when sliding on node */
 export function slidable(node: HTMLElement) {
   const dispatchSlide = (e: MouseEvent | TouchEvent) => {
-    node.dispatchEvent(new MouseEvent('slide', e))
+    e.preventDefault()
+
+    const clientX = e instanceof MouseEvent ? e.clientX : e.touches[0]?.clientX
+    const clientY = e instanceof MouseEvent ? e.clientY : e.touches[0]?.clientY
+
+    if (clientX && clientY) {
+      node.dispatchEvent(
+        new CustomEvent('slide', {
+          detail: { clientX, clientY }
+        })
+      )
+    }
   }
 
   const handlePointerDown = (e: MouseEvent | TouchEvent) => {

@@ -69,7 +69,7 @@
 
   const handleSlide = throttle((e) => {
     const rect = e.target.getBoundingClientRect()
-    const xValue = clamp((e.clientX - rect.left) / rect.width, 0, 1)
+    const xValue = clamp((e.detail.clientX - rect.left) / rect.width, 0, 1)
     slideHandler(xValue)
   }, 30)
 </script>
