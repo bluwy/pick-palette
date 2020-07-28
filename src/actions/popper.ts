@@ -10,8 +10,7 @@ import { writable, Readable } from 'svelte/store'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type PopperOptions = Partial<OptionsGeneric<Partial<Modifier<any, any>>>>
 type ReferenceAction = (
-  node: HTMLElement,
-  options?: any
+  node: HTMLElement
 ) => {
   destroy(): void
 }
@@ -54,16 +53,10 @@ export function createPopperActions(): [
     })
   }
 
-  function referenceAction(node: HTMLElement, options?: any) {
+  function referenceAction(node: HTMLElement) {
     referenceNode = node
     initPopper()
     return {
-      update() {
-        popperInstance.update((instance) => {
-          instance.update()
-          return instance
-        })
-      },
       destroy() {
         deinitPopper()
       }

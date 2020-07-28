@@ -52,17 +52,17 @@
       />
     {/if}
   </div>
-  <div
-    use:content={{ placement: vertical ? 'bottom' : 'bottom-start' }}
-    class="absolute z-10"
-  >
-    {#if show}
+  {#if show}
+    <div
+      use:content={{ placement: vertical ? 'bottom' : 'bottom-start' }}
+      class="absolute z-10"
+    >
       <div
         transition:fly={{ y: 10, duration: 250 }}
         class="inline-block m-2 shadow-lg"
       >
         <ColorPicker bind:value />
       </div>
-    {/if}
-  </div>
+    </div>
+  {/if}
 </div>

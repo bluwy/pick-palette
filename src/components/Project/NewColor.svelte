@@ -27,11 +27,11 @@
   class="inline-block"
   on:clickoutside={() => (show = false)}
 >
-  <div use:ref={show} on:click={() => (show = !show)}>
+  <div use:ref on:click={() => (show = !show)}>
     <slot {show} />
   </div>
-  <div use:content={{ placement: 'auto' }} class="absolute z-10">
-    {#if show}
+  {#if show}
+    <div use:content={{ placement: 'auto' }} class="absolute z-10">
       <div
         transition:fly={{ y: 10, duration: 250 }}
         class="inline-block my-2 sm:m-2 bg-white border border-gray-300
@@ -45,6 +45,6 @@
           <ColorPicker bind:value={color} />
         </div>
       </div>
-    {/if}
-  </div>
+    </div>
+  {/if}
 </div>

@@ -30,8 +30,8 @@
   <div use:ref={show} on:click={() => (show = !show)}>
     <slot {show} />
   </div>
-  <div use:content={{ placement: 'auto' }} class="absolute z-10">
-    {#if show}
+  {#if show}
+    <div use:content={{ placement: 'auto' }} class="absolute z-10">
       <div
         bind:this={panel}
         transition:fly={{ y: 10, duration: 250 }}
@@ -40,6 +40,6 @@
       >
         <ColorPanel />
       </div>
-    {/if}
-  </div>
+    </div>
+  {/if}
 </div>
