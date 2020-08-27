@@ -1,7 +1,6 @@
 import { initRouter } from '@bjornlu/svelte-router'
 import Dashboard from './views/Dashboard.svelte'
 import Project from './views/Project.svelte'
-import Null from './views/Null.svelte'
 
 initRouter({
   mode: 'history',
@@ -16,7 +15,7 @@ initRouter({
     },
     {
       path: '/*',
-      component: Null
+      redirect: '/dashboard'
     }
   ]
 })
