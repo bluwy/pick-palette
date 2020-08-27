@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@bjornlu/colorblind": "^1.0.1",
+    "@bjornlu/svelte-router": "^0.1.2",
     "@fortawesome/free-regular-svg-icons": "^5.13.1",
     "@fortawesome/free-solid-svg-icons": "^5.13.1",
     "@popperjs/core": "^2.4.4",
@@ -29,8 +30,7 @@
     "nanoid": "^3.1.10",
     "superstruct": "^0.10.12",
     "svelte": "^3.24.0",
-    "svelte-fa": "^2.1.1",
-    "svelte-navigator": "^3.0.8"
+    "svelte-fa": "^2.1.1"
   },
   "devDependencies": {
     "@types/chroma-js": "^2.0.0",

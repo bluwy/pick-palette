@@ -2,7 +2,7 @@
   import type { SetupFunction } from '/@/actions/shortcut'
   import { faTimes } from '@fortawesome/free-solid-svg-icons'
   import Icon from 'svelte-fa'
-  import { navigate } from 'svelte-navigator'
+  import { navigate } from '@bjornlu/svelte-router'
   import { dragOnce } from '/@/actions/drag-once'
   import { shortcut } from '/@/actions/shortcut'
   import { importProject } from '/@/store/projects'

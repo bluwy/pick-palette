@@ -1,4 +1,5 @@
-import { writable } from 'svelte/store'
+import { route } from '@bjornlu/svelte-router'
+import { writable, derived } from 'svelte/store'
 import { synchronize } from '/@/store/base/synchronize'
 import { recordHistory } from '/@/store/base/record-history'
 import { Project, WritableId } from '/@/utils/types'
@@ -11,7 +12,10 @@ export const _projects = {
   history: recordHistory(projectsStore, { limit: 50 })
 }
 
-export const _currentProjectId: WritableId = writable(undefined)
+export const _currentProjectId = derived(
+  route,
+  ($route) => $route.params.projectId
+)
 
 export const _currentColorId: WritableId = writable(undefined)
 

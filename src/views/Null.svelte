@@ -1,13 +1,13 @@
 <script>
   import { tick } from 'svelte'
-  import { link, navigate } from 'svelte-navigator'
+  import { navigate, Link } from '@bjornlu/svelte-router'
 
   const isProd = process.env.NODE_ENV === 'production'
   const fallbackHref = '/dashboard'
 
   // If production, just route to dashboard
   if (isProd) {
-    tick().then(() => navigate(fallbackHref, { replace: true }))
+    tick().then(() => navigate(fallbackHref, true))
   }
 </script>
 
@@ -16,6 +16,6 @@
   <p>Oops.. The app accidentally route here.</p>
   <p>
     If this is expected, you can go to
-    <a use:link href={fallbackHref} replace>production fallback</a>
+    <Link to={fallbackHref}>production fallback</Link>
   </p>
 {/if}

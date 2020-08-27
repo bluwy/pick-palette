@@ -1,6 +1,6 @@
 import { assert, array } from 'superstruct'
+import { get } from 'svelte/store'
 import { addOpenedProject, removeOpenedProject } from '/@/store/opened'
-import { uget } from '/@/utils/common'
 import { ProjectStruct } from '/@/utils/validation-structs'
 import { _currentProjectId, _projects } from './state'
 
@@ -26,5 +26,5 @@ _currentProjectId.subscribe((currentProjectId) => {
 })
 
 window.addEventListener('beforeunload', () => {
-  removeOpenedProject(uget(_currentProjectId))
+  removeOpenedProject(get(_currentProjectId))
 })

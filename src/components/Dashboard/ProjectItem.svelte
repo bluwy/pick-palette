@@ -2,7 +2,7 @@
   import type { Project } from '/@/utils/types'
   import { faTrashAlt, faUpload } from '@fortawesome/free-solid-svg-icons'
   import Icon from 'svelte-fa'
-  import { navigate } from 'svelte-navigator'
+  import { navigate } from '@bjornlu/svelte-router'
   import { openedProjectIds } from '/@/store/opened'
   import {
     exportProject,

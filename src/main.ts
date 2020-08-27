@@ -1,5 +1,6 @@
 import { enablePatches } from 'immer'
 import App from './App.svelte'
+import './router'
 import './main.css'
 
 // For undo/redo

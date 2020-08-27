@@ -1,13 +1,12 @@
 <script>
   import type { SetupFunction } from '/@/actions/shortcut'
   import { onDestroy, tick } from 'svelte'
-  import { navigate, useParams } from 'svelte-navigator'
+  import { navigate } from '@bjornlu/svelte-router'
   import { shortcut } from '/@/actions/shortcut'
   import { breakpointLg } from '/@/store/breakpoint'
   import {
     currentProject,
     setCurrentColorId,
-    setCurrentProjectId,
     projectRedo,
     projectUndo
   } from '/@/store/projects'
@@ -15,20 +14,8 @@
   import Editor from '/@/components/Project/Editor.svelte'
   import Header from '/@/components/Project/Header.svelte'
 
-  const params = useParams()
-
-  // Update currentProjectId based on route param
-  const unsubscribeParams = params.subscribe((params) => {
-    setCurrentProjectId(params.projectId)
-  })
-
-  onDestroy(() => {
-    unsubscribeParams()
-    setCurrentProjectId(undefined)
-  })
-
   if ($currentProject == null) {
-    tick().then(() => navigate('/dashboard', { replace: true }))
+    tick().then(() => navigate('/dashboard', true))
   }
 
   const setupShortcuts: SetupFunction = (on) => {

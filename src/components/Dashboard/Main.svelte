@@ -6,7 +6,7 @@
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
   import Icon from 'svelte-fa'
-  import { navigate } from 'svelte-navigator'
+  import { navigate } from '@bjornlu/svelte-router'
   import { shortcut } from '/@/actions/shortcut'
   import {
     createProject,

@@ -27,7 +27,7 @@
   class="inline-block"
   on:clickoutside={() => (show = false)}
 >
-  <div use:ref={show} on:click={() => (show = !show)}>
+  <div use:ref on:click={() => (show = !show)}>
     <slot {show} />
   </div>
   {#if show}

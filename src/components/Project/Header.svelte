@@ -9,7 +9,7 @@
     faPlus
   } from '@fortawesome/free-solid-svg-icons'
   import Icon from 'svelte-fa'
-  import { link } from 'svelte-navigator'
+  import { Link } from '@bjornlu/svelte-router'
   import { breakpointLg } from '/@/store/breakpoint'
   import {
     currentProject,
@@ -35,15 +35,15 @@
   <div class="w-full lg:w-1/3 lg:order-2 text-xl text-center truncate">
     <EditableText
       class="w-full bg-transparent text-center"
-      value={$currentProject.name}
+      value={$currentProject?.name}
       size={7}
       on:change={handleNameChange}
     />
   </div>
   <div class="w-1/2 lg:w-1/3 lg:order-1">
-    <a use:link class="button button--icon" href="/dashboard">
+    <Link class="button button--icon" to="/dashboard">
       <Icon icon={faHome} />
-    </a>
+    </Link>
     <button
       class="button button--icon"
       disabled={!$canUndo}

@@ -1,7 +1,7 @@
 <script>
   import { faDownload } from '@fortawesome/free-solid-svg-icons'
   import Icon from 'svelte-fa'
-  import { navigate } from 'svelte-navigator'
+  import { navigate } from '@bjornlu/svelte-router'
   import { createProject } from '/@/store/projects'
   import InputFile from '/@/components/base/InputFile.svelte'
   import ImportProject from '/@/components/ImportProject.svelte'

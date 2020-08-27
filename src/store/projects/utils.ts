@@ -1,3 +1,4 @@
+import { get } from 'svelte/store'
 import { Project } from '/@/utils/types'
 import { findById } from '/@/utils/app'
 import { mod, uget } from '/@/utils/common'
@@ -21,7 +22,7 @@ export interface ShadeIdOptions extends ColorIdOptions {
 }
 
 export function computeProjectIdOptions(options?: ProjectIdOptions) {
-  const projectId = options?.projectId ?? uget(_currentProjectId)
+  const projectId = options?.projectId ?? get(_currentProjectId)
   return { projectId }
 }
 
@@ -75,7 +76,7 @@ export function getDefaultColorName(project: Project) {
 }
 
 export function goColorId(by: number) {
-  const project = findById(uget(_projects), uget(_currentProjectId))
+  const project = findById(uget(_projects), get(_currentProjectId))
 
   if (project.colors.length < 0) {
     return
