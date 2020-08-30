@@ -4,12 +4,13 @@
   import Bar from './Bar.svelte'
   import Box from './Box.svelte'
   import Inputs from './Inputs.svelte'
+  import { PickMode } from './types'
 
   export let value
 
   const dispatch = createEventDispatcher()
 
-  let mode = 'h'
+  let mode: PickMode = 'h'
 
   // Source of truth
   let [h, s, v] = chroma(value).hsv()

@@ -11,7 +11,7 @@ if (process.env.NODE_ENV !== 'production') {
   })
 }
 
-let prevProjectId = undefined
+let prevProjectId: string | undefined = undefined
 
 // Whenever current project changes, clear history
 _currentProjectId.subscribe((currentProjectId) => {

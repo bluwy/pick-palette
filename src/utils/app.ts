@@ -13,7 +13,7 @@ export const hueGradient = [
   '#ff0000'
 ]
 
-export function findById<T extends { id: string }>(arr: T[], id: string) {
+export function findById<T extends { id: string }>(arr: T[], id?: string) {
   const found = arr.find((v) => v.id === id)
 
   if (found == null) {

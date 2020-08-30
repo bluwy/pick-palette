@@ -9,6 +9,7 @@
       "svelte-fa": ["./stub.d.ts"]
     },
     "types": ["svelte", "node"],
+    "strict": true,
     "allowSyntheticDefaultImports": true,
     "isolatedModules": true
   },

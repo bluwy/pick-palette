@@ -4,8 +4,9 @@
   import { slidable } from '/@/actions/slidable'
   import { hueGradient } from '/@/utils/app'
   import { clamp, throttle } from '/@/utils/common'
+  import { PickMode } from './types'
 
-  export let mode: 'r' | 'g' | 'b' | 'h' | 's' | 'v'
+  export let mode: PickMode
 
   // Readonly
   export let r: number

@@ -35,8 +35,6 @@
 
   function handleCreateProject() {
     const projectId = createProject()
-    // Without tick, the url path change but page becomes half-transitioned.
-    // Not sure why it happened here, but tick works.
     tick().then(() => navigate(`/project/${projectId}`))
   }
 

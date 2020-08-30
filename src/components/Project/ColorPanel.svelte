@@ -12,10 +12,8 @@
   let draggedColorId: string
   let dropIndex: number
 
-  let colors: Color[]
   $: colors = $currentProject.colors
 
-  let orderedColors: Color[]
   $: orderedColors = produce(colors, (colors) => {
     if (draggedColorId != null && dropIndex != null) {
       const dragIndex = colors.findIndex((v) => v.id === draggedColorId)

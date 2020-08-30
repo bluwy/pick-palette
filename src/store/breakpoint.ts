@@ -20,6 +20,6 @@ function breakpointStore(minWidth: string) {
 
     match.onchange = (e) => set(e.matches)
 
-    return () => (match.onchange = undefined)
+    return () => (match.onchange = null)
   })
 }

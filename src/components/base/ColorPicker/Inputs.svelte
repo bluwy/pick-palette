@@ -6,9 +6,10 @@
   import { breakpointSm } from '/@/store/breakpoint'
   import { hueGradient } from '/@/utils/app'
   import { clamp, throttle } from '/@/utils/common'
+  import { PickMode } from './types'
 
   // Two-way bind
-  export let mode: 'r' | 'g' | 'b' | 'h' | 's' | 'v'
+  export let mode: PickMode
 
   // Readonly
   export let r: number
@@ -144,7 +145,7 @@
       value={input.value}
       min={input.min}
       max={input.max}
-      on:input={(e) => input.onInput(e.target.value)}
+      on:input={(e) => input.onInput(+e.target.value)}
     />
   {/each}
 

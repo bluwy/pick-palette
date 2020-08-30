@@ -11,15 +11,26 @@ export function dragOnce(node: HTMLElement) {
   node.addEventListener('drop', handleDrop)
 
   function handleDragEnter(e: DragEvent) {
+    if (e.target == null) {
+      return
+    }
+
     if (dragOverElements.length <= 0) {
       node.dispatchEvent(new CustomEvent('dragenteronce'))
     }
+
     dragOverElements.push(e.target)
   }
 
   function handleDragLeave(e: DragEvent) {
+    if (e.target == null) {
+      return
+    }
+
     const index = dragOverElements.indexOf(e.target)
+
     dragOverElements.splice(index, 1)
+
     if (dragOverElements.length <= 0) {
       node.dispatchEvent(new CustomEvent('dragleaveonce'))
     }

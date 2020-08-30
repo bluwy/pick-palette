@@ -109,6 +109,7 @@ export function importProject(data: Object) {
 
 export function exportProject(options?: ProjectIdOptions) {
   const { projectId } = computeProjectIdOptions(options)
+
   const project = findById(uget(_projects), projectId)
 
   // Remove ids to reduce output size

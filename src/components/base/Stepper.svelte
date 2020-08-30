@@ -4,10 +4,9 @@
   import Icon from 'svelte-fa'
   import { clamp } from '/@/utils/common'
 
-  export let steps
+  export let steps: number
   export let currentStep = 0
 
-  let fillRatio: number
   $: fillRatio = clamp(currentStep / (steps - 1), 0, 1)
 </script>
 

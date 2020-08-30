@@ -34,10 +34,7 @@
   class="inline-block"
   on:clickoutside={() => (show = false)}
 >
-  <div
-    use:ref={show}
-    class="flex items-center {vertical ? 'flex-col' : 'flex-row'}"
-  >
+  <div use:ref class="flex items-center {vertical ? 'flex-col' : 'flex-row'}">
     <button {disabled} on:click={() => (show = !disabled)}>
       <ColorBox color={value} />
     </button>

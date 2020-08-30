@@ -14,7 +14,7 @@ export const _projects = {
 
 export const _currentProjectId = derived(
   route,
-  ($route) => $route.params.projectId
+  ($route) => $route.params.projectId as string | undefined
 )
 
 export const _currentColorId: WritableId = writable(undefined)

@@ -22,7 +22,8 @@ export interface ShadeIdOptions extends ColorIdOptions {
 }
 
 export function computeProjectIdOptions(options?: ProjectIdOptions) {
-  const projectId = options?.projectId ?? get(_currentProjectId)
+  const projectId: string | undefined =
+    options?.projectId ?? get(_currentProjectId)
   return { projectId }
 }
 
