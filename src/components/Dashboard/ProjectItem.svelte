@@ -15,16 +15,14 @@
 
   export let projectId: string
 
-  let project: Project
   $: project = $projects.find((v) => v.id === projectId)
 
-  let isOpened: boolean
   $: isOpened = $openedProjectIds.includes(projectId)
 
   let itemTitle: string
   $: itemTitle = isOpened
-    ? `${project.name} is already opened in another tab`
-    : `Open ${project.name}`
+    ? `${project?.name} is already opened in another tab`
+    : `Open ${project?.name}`
 
   function handleNameChange(e: Event) {
     renameProject((e.target as HTMLInputElement).value, { projectId })
@@ -32,7 +30,7 @@
 
   function handleItemClick() {
     if (!isOpened) {
-      navigate(`project/${projectId}`)
+      navigate(`/project/${projectId}`)
     }
   }
 

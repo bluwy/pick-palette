@@ -20,10 +20,8 @@
   const dispatch = createEventDispatcher()
 
   // Maybe be undefined if deleted
-  let color: Color
   $: color = $currentProject.colors.find((v) => v.id === colorId)
 
-  let shades: string[]
   $: shades = color?.shades ?? []
 
   function clickColorBox(index: number) {

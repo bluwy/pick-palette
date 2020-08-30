@@ -1,5 +1,6 @@
 <script>
   import { faDownload } from '@fortawesome/free-solid-svg-icons'
+  import { tick } from 'svelte'
   import Icon from 'svelte-fa'
   import { navigate } from '@bjornlu/svelte-router'
   import { createProject } from '/@/store/projects'
@@ -19,7 +20,7 @@
     }
 
     const projectId = createProject(newProjectName)
-    navigate(`/project/${projectId}`)
+    tick().then(() => navigate(`/project/${projectId}`))
   }
 </script>
 

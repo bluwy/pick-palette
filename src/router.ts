@@ -3,7 +3,7 @@ import Dashboard from './views/Dashboard.svelte'
 import Project from './views/Project.svelte'
 
 initRouter({
-  mode: 'history',
+  mode: 'path',
   routes: [
     {
       path: '/dashboard',

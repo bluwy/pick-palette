@@ -141,7 +141,7 @@ export function removeProject(options?: ProjectIdOptions) {
 
   _projects.history.update('remove project', (projects) => {
     const index = projects.findIndex((v) => v.id === projectId)
-    if (index > 0) {
+    if (index >= 0) {
       projects.splice(index, 1)
     }
   })
