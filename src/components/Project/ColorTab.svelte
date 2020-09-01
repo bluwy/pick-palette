@@ -20,7 +20,7 @@
   const dispatch = createEventDispatcher()
 
   // Maybe be undefined if deleted
-  $: color = $currentProject.colors.find((v) => v.id === colorId)
+  $: color = $currentProject?.colors.find((v) => v.id === colorId)
 
   $: shades = color?.shades ?? []
 

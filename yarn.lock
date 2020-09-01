@@ -47,10 +47,10 @@
   resolved "https://registry.yarnpkg.com/@bjornlu/colorblind/-/colorblind-1.0.1.tgz#4a755055c5de3fdebb37229c1acd9f7e5c0083d9"
   integrity sha512-8uOxUpXxfe8QKI2AuXm9bgx138l0JPOambd8g2gu0+vF5tMU0y3rhDiUfEbkFzOV0WAWepNaD4bwianq1OSwjg==
 
-"@bjornlu/svelte-router@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@bjornlu/svelte-router/-/svelte-router-0.2.0.tgz#9776a4a090dca953ee4c2ff9578b46b5ecb959e0"
-  integrity sha512-4a1MjSVRlha70H5t0iVqaELX7DPkNT6G0gPZY/B4Qn13P+J1FP2vbJ0ZVXeOw3PbPCHgKr8psW6HRnWer2MXKQ==
+"@bjornlu/svelte-router@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@bjornlu/svelte-router/-/svelte-router-0.2.1.tgz#53f98f959c506c360f5c0746d50ae41f5cab0974"
+  integrity sha512-DY4XoUZrd9EK184MP00y1jwaFRdyaiN0tkKYAaHstBXSkJ0nKqM6ZT5jQNHwnyYMWDFoWM3hABkjtRz19wNx3A==
   dependencies:
     regexparam "^1.3.0"
 

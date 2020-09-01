@@ -9,10 +9,10 @@
   import ColorTab from './ColorTab.svelte'
 
   let canDrag = false
-  let draggedColorId: string
-  let dropIndex: number
+  let draggedColorId: string | undefined
+  let dropIndex: number | undefined
 
-  $: colors = $currentProject.colors
+  $: colors = $currentProject?.colors ?? []
 
   $: orderedColors = produce(colors, (colors) => {
     if (draggedColorId != null && dropIndex != null) {
@@ -51,7 +51,7 @@
   function handleDragEnd() {
     const dragIndex = colors.findIndex((v) => v.id === draggedColorId)
 
-    sortColor(dragIndex, dropIndex)
+    sortColor(dragIndex, dropIndex!)
 
     canDrag = false
     draggedColorId = undefined

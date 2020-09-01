@@ -1,6 +1,5 @@
 <script>
   import type { SetupFunction } from '/@/actions/shortcut'
-  import { onDestroy, tick } from 'svelte'
   import { navigate } from '@bjornlu/svelte-router'
   import { shortcut } from '/@/actions/shortcut'
   import { breakpointLg } from '/@/store/breakpoint'
@@ -15,7 +14,7 @@
   import Header from '/@/components/Project/Header.svelte'
 
   if ($currentProject == null) {
-    tick().then(() => navigate('/dashboard', true))
+    navigate('/dashboard', true)
   }
 
   const setupShortcuts: SetupFunction = (on) => {
@@ -25,7 +24,7 @@
     // mod+n opens color at index n-1
     for (let i = 1; i < 9; i++) {
       on(`mod+${i}`, () => {
-        const color = $currentProject.colors[i - 1]
+        const color = $currentProject?.colors[i - 1]
 
         if (color != null) {
           setCurrentColorId(color.id)

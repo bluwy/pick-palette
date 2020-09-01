@@ -25,14 +25,18 @@
   // Function bound from color picker
   let resetColorPicker: Function
 
+  $: currentProjectColors = $currentProject?.colors ?? []
+
   // Set a default color if none
-  $: if ($currentColor == null && $currentProject.colors.length > 0) {
-    setCurrentColorId($currentProject.colors[0].id)
+  $: if ($currentColor == null && currentProjectColors.length > 0) {
+    setCurrentColorId(currentProjectColors[0].id)
   }
 
+  $: currentColorShades = $currentColor?.shades ?? []
+
   // Set default shade if none
-  $: if ($currentShadeIndex < 0 && $currentColor?.shades.length > 0) {
-    setCurrentShadeIndex(Math.floor($currentColor?.shades.length / 2))
+  $: if ($currentShadeIndex < 0 && currentColorShades.length > 0) {
+    setCurrentShadeIndex(Math.floor((currentColorShades.length ?? 0) / 2))
   }
 
   // Reset color picker whenever color or shade change
@@ -52,7 +56,7 @@
       <button
         class="flex-shrink p-4 opacity-30 transition-opacity duration-200
         hover:opacity-50 focus:opacity-50"
-        class:hidden={$currentProject.colors.length <= 0}
+        class:hidden={currentProjectColors.length <= 0}
         on:click={() => goPrevColorId()}
       >
         <Icon icon={faChevronLeft} />
@@ -60,7 +64,7 @@
       <div class="flex-grow py-4">
         <EditableText
           class="text-center bg-transparent"
-          value={$currentColor.name}
+          value={$currentColor?.name ?? ''}
           size={9}
           on:change={handleNameChange}
         />
@@ -68,7 +72,7 @@
       <button
         class="flex-shrink p-4 opacity-30 transition-opacity duration-200
         hover:opacity-50 focus:opacity-50"
-        class:hidden={$currentProject.colors.length <= 0}
+        class:hidden={currentProjectColors.length <= 0}
         on:click={() => goNextColorId()}
       >
         <Icon icon={faChevronRight} />
@@ -77,7 +81,7 @@
     <ol
       class="flex justify-center items-center space-x-2 sm:space-x-3 mt-8 mb-12"
     >
-      {#each $currentColor.shades as shade, i}
+      {#each currentColorShades as shade, i}
         <li class="flex flex-col justify-center items-center">
           <button
             class="transition-a;; duration-100 transform {i === $currentShadeIndex ? 'mx-2 scale-150' : 'hover:scale-125'}"
@@ -92,7 +96,7 @@
       {#if $currentShade != null}
         <div class="inline-block">
           <ColorPicker
-            value={$currentShade}
+            value={$currentShade ?? ''}
             bind:reset={resetColorPicker}
             on:input={(e) => updateColorShade(e.detail)}
           />

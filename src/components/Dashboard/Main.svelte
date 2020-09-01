@@ -35,7 +35,7 @@
 
   function handleCreateProject() {
     const projectId = createProject()
-    tick().then(() => navigate(`/project/${projectId}`))
+    navigate(`/project/${projectId}`)
   }
 
   const setupShortcuts: SetupFunction = (on) => {
@@ -81,8 +81,8 @@
       {#each showProjects as project (project.id)}
         <li
           animate:flip={{ duration: 250, delay: 100 }}
-          in:fade={{ duration: 200, delay: 200 }}
-          out:fade={{ duration: 200 }}
+          in:fade|local={{ duration: 200, delay: 200 }}
+          out:fade|local={{ duration: 200 }}
           class="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2"
         >
           <ProjectItem projectId={project.id} />
