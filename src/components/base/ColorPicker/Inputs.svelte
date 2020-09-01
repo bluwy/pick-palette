@@ -6,7 +6,7 @@
   import { breakpointSm } from '/@/store/breakpoint'
   import { hueGradient } from '/@/utils/app'
   import { clamp, throttle } from '/@/utils/common'
-  import { PickMode } from './types'
+  import type { PickMode } from './types'
 
   // Two-way bind
   export let mode: PickMode

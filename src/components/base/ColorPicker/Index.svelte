@@ -4,9 +4,9 @@
   import Bar from './Bar.svelte'
   import Box from './Box.svelte'
   import Inputs from './Inputs.svelte'
-  import { PickMode } from './types'
+  import type { PickMode } from './types'
 
-  export let value
+  export let value: string
 
   const dispatch = createEventDispatcher()
 
@@ -23,7 +23,7 @@
   let r: number, g: number, b: number
   $: [r, g, b] = chroma.hsv(h, s, v).rgb()
 
-  function handleUpdate(e) {
+  function handleUpdate(e: CustomEvent) {
     const { type, value } = e.detail
 
     switch (type) {

@@ -4,7 +4,7 @@
   import { slidable } from '/@/actions/slidable'
   import { hueGradient } from '/@/utils/app'
   import { clamp, throttle } from '/@/utils/common'
-  import { PickMode } from './types'
+  import type { PickMode } from './types'
 
   export let mode: PickMode
 
