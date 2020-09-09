@@ -1,6 +1,8 @@
+import { get } from 'svelte/store'
 import { initPathRouter } from '@bjornlu/svelte-router'
 import Dashboard from './views/Dashboard.svelte'
 import Project from './views/Project.svelte'
+import { currentProject } from '/@/store/projects'
 
 initPathRouter([
   {
@@ -9,7 +11,8 @@ initPathRouter([
   },
   {
     path: '/project/:projectId',
-    component: Project
+    component: Project,
+    redirect: () => (get(currentProject) == null ? '/dashboard' : undefined)
   },
   {
     path: '/*',

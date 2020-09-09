@@ -1,6 +1,5 @@
 <script>
   import type { SetupFunction } from '/@/actions/shortcut'
-  import { navigate } from '@bjornlu/svelte-router'
   import { shortcut } from '/@/actions/shortcut'
   import { breakpointLg } from '/@/store/breakpoint'
   import {
@@ -12,10 +11,6 @@
   import ColorPanel from '/@/components/Project/ColorPanel.svelte'
   import Editor from '/@/components/Project/Editor.svelte'
   import Header from '/@/components/Project/Header.svelte'
-
-  if ($currentProject == null) {
-    navigate('/dashboard', true)
-  }
 
   const setupShortcuts: SetupFunction = (on) => {
     on('mod+z', () => projectUndo())
