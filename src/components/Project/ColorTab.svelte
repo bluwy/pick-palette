@@ -46,11 +46,16 @@
         <EditableText
           class="w-full bg-transparent"
           value={color.name}
+          title="Rename color"
+          buttonProps={{ title: 'Click to rename color' }}
           on:change={handleNameChange}
         />
       </div>
       <div class="flex-shrink">
-        <button on:click|stopPropagation={() => removeColor({ colorId })}>
+        <button
+          title="Remove color"
+          on:click|stopPropagation={() => removeColor({ colorId })}
+        >
           <Icon
             class="text-gray-700 text-opacity-50 transition-colors duration-200
             hover:text-error-500 focus:text-error-500 hover:text-opacity-100
@@ -60,6 +65,7 @@
         </button>
         <div
           class="inline-block px-2 cursor-grab"
+          title="Sort color order"
           on:click|stopPropagation
           on:mousedown={() => dispatch('candrag', true)}
         >

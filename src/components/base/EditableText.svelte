@@ -3,6 +3,7 @@
 
   export let value: string
   export let isEditing = false
+  export let buttonProps = {}
 
   let input: HTMLInputElement
 
@@ -27,5 +28,5 @@
     {...$$restProps}
   />
 {:else}
-  <button on:click={open}>{value}</button>
+  <button on:click={open} {...buttonProps}>{value}</button>
 {/if}

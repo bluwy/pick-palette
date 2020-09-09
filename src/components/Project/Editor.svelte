@@ -57,6 +57,7 @@
         class="flex-shrink p-4 opacity-30 transition-opacity duration-200
         hover:opacity-50 focus:opacity-50"
         class:hidden={currentProjectColors.length <= 0}
+        title="Select previous color"
         on:click={() => goPrevColorId()}
       >
         <Icon icon={faChevronLeft} />
@@ -66,6 +67,8 @@
           class="text-center bg-transparent"
           value={$currentColor?.name ?? ''}
           size={9}
+          title="Rename color"
+          buttonProps={{ title: 'Click to rename color' }}
           on:change={handleNameChange}
         />
       </div>
@@ -73,6 +76,7 @@
         class="flex-shrink p-4 opacity-30 transition-opacity duration-200
         hover:opacity-50 focus:opacity-50"
         class:hidden={currentProjectColors.length <= 0}
+        title="Select next color"
         on:click={() => goNextColorId()}
       >
         <Icon icon={faChevronRight} />
@@ -85,6 +89,7 @@
         <li class="flex flex-col justify-center items-center">
           <button
             class="transition-a;; duration-100 transform {i === $currentShadeIndex ? 'mx-2 scale-150' : 'hover:scale-125'}"
+            aria-label="Edit shade {(i + 1) * 100}"
             on:click={() => setCurrentShadeIndex(i)}
           >
             <ColorBox color={shade} />

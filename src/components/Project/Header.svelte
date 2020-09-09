@@ -35,13 +35,15 @@
   <div class="w-full lg:w-1/3 lg:order-2 text-xl text-center truncate">
     <EditableText
       class="w-full bg-transparent text-center"
-      value={$currentProject?.name}
+      value={$currentProject?.name ?? ''}
       size={7}
+      title="Rename project"
+      buttonProps={{ title: 'Click to rename project' }}
       on:change={handleNameChange}
     />
   </div>
   <div class="w-1/2 lg:w-1/3 lg:order-1">
-    <Link class="button button--icon" to="/dashboard">
+    <Link class="button button--icon" to="/dashboard" title="Go to dashboard">
       <Icon icon={faHome} />
     </Link>
     <button
@@ -66,6 +68,7 @@
       <button
         class="button button--icon relative"
         class:button--icon--active={show}
+        title="Add new color"
       >
         <Icon icon={faFill} />
         <Icon
@@ -75,7 +78,11 @@
         />
       </button>
     </NewColor>
-    <button class="button button--icon" on:click={() => exportProject()}>
+    <button
+      class="button button--icon"
+      title="Export project"
+      on:click={() => exportProject()}
+    >
       <Icon icon={faUpload} />
     </button>
     {#if !$breakpointLg}
@@ -83,6 +90,7 @@
         <button
           class="button button--icon lg:hidden"
           class:button--icon--active={show}
+          title="{show ? 'Close' : 'Open'} color panel"
         >
           <Icon icon={faPalette} />
         </button>
