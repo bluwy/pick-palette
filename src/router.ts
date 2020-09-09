@@ -1,21 +1,18 @@
-import { initRouter } from '@bjornlu/svelte-router'
+import { initPathRouter } from '@bjornlu/svelte-router'
 import Dashboard from './views/Dashboard.svelte'
 import Project from './views/Project.svelte'
 
-initRouter({
-  mode: 'path',
-  routes: [
-    {
-      path: '/dashboard',
-      component: Dashboard
-    },
-    {
-      path: '/project/:projectId',
-      component: Project
-    },
-    {
-      path: '/*',
-      redirect: '/dashboard'
-    }
-  ]
-})
+initPathRouter([
+  {
+    path: '/dashboard',
+    component: Dashboard
+  },
+  {
+    path: '/project/:projectId',
+    component: Project
+  },
+  {
+    path: '/*',
+    redirect: '/dashboard'
+  }
+])
