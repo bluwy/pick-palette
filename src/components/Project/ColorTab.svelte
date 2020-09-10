@@ -1,9 +1,13 @@
 <script>
   import type { Color } from '/@/utils/types'
+  import type { Deficiency } from '@bjornlu/colorblind'
+  import { simulate } from '@bjornlu/colorblind'
   import { faTrashAlt } from '@fortawesome/free-regular-svg-icons'
   import { faGripVertical } from '@fortawesome/free-solid-svg-icons'
   import { createEventDispatcher } from 'svelte'
   import Icon from 'svelte-fa'
+  import chroma from 'chroma-js'
+  import { colorDeficiency } from '/@/store/colorblind'
   import {
     currentColorId,
     currentProject,
@@ -22,7 +26,17 @@
   // Maybe be undefined if deleted
   $: color = $currentProject?.colors.find((v) => v.id === colorId)
 
-  $: shades = color?.shades ?? []
+  $: shades = (color?.shades ?? []).map((shade) => {
+    const deficiency = $colorDeficiency
+
+    if (deficiency == null) {
+      return shade
+    }
+
+    const [r, g, b] = chroma(shade).rgb()
+    const sim = simulate({ r, g, b }, deficiency)
+    return chroma(sim.r, sim.g, sim.b).hex()
+  })
 
   function clickColorBox(index: number) {
     setCurrentColorId(colorId)

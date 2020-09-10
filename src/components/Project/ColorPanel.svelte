@@ -6,6 +6,7 @@
   import { fade } from 'svelte/transition'
   import { sortColor, currentProject } from '/@/store/projects'
   import { debounce, removeAndInsertElement } from '/@/utils/common'
+  import SelectColorDeficiency from '/@/components/SelectColorDeficiency.svelte'
   import ColorTab from './ColorTab.svelte'
 
   let canDrag = false
@@ -71,6 +72,7 @@
 >
   <div class="flex justify-between items-center mx-5 mt-3 mb-2">
     <div class="text-sm opacity-70">Color Palette</div>
+    <SelectColorDeficiency />
   </div>
   <ul class="flex-grow px-3 mb-3 overflow-y-auto">
     {#each orderedColors as color (color.id)}
