@@ -51,7 +51,9 @@
   function handleDragEnd() {
     const dragIndex = colors.findIndex((v) => v.id === draggedColorId)
 
-    sortColor(dragIndex, dropIndex!)
+    if (dragIndex >= 0 && dropIndex != null) {
+      sortColor(dragIndex, dropIndex)
+    }
 
     canDrag = false
     draggedColorId = undefined
