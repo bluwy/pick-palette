@@ -20,7 +20,6 @@
     h = 0
   }
 
-  let r: number, g: number, b: number
   $: [r, g, b] = chroma.hsv(h, s, v).rgb()
 
   function handleUpdate(e: CustomEvent) {

@@ -50,70 +50,68 @@
   }
 </script>
 
-<div class="h-full text-center overflow-y-auto">
-  {#if $currentColor != null}
-    <div class="flex justify-center items-center w-full max-w-xs mx-auto my-6">
-      <button
-        class="flex-shrink p-4 opacity-30 transition-opacity duration-200
-        hover:opacity-50 focus:opacity-50"
-        class:hidden={currentProjectColors.length <= 0}
-        title="Select previous color"
-        on:click={() => goPrevColorId()}
-      >
-        <Icon icon={faChevronLeft} />
-      </button>
-      <div class="flex-grow py-4">
-        <EditableText
-          class="text-center bg-transparent"
-          value={$currentColor?.name ?? ''}
-          size={9}
-          title="Rename color"
-          buttonProps={{ title: 'Click to rename color' }}
-          on:change={handleNameChange}
+{#if $currentColor != null}
+  <div class="flex justify-center items-center w-full max-w-xs mx-auto my-6">
+    <button
+      class="flex-shrink p-4 opacity-30 transition-opacity duration-200
+      hover:opacity-50 focus:opacity-50"
+      class:hidden={currentProjectColors.length <= 0}
+      title="Select previous color"
+      on:click={() => goPrevColorId()}
+    >
+      <Icon icon={faChevronLeft} />
+    </button>
+    <div class="flex-grow text-center py-4">
+      <EditableText
+        class="text-center bg-transparent"
+        value={$currentColor?.name ?? ''}
+        size={9}
+        title="Rename color"
+        buttonProps={{ title: 'Click to rename color' }}
+        on:change={handleNameChange}
+      />
+    </div>
+    <button
+      class="flex-shrink p-4 opacity-30 transition-opacity duration-200
+      hover:opacity-50 focus:opacity-50"
+      class:hidden={currentProjectColors.length <= 0}
+      title="Select next color"
+      on:click={() => goNextColorId()}
+    >
+      <Icon icon={faChevronRight} />
+    </button>
+  </div>
+  <ol
+    class="flex justify-center items-center space-x-2 sm:space-x-3 mt-8 mb-12"
+  >
+    {#each currentColorShades as shade, i}
+      <li class="flex flex-col justify-center items-center">
+        <button
+          class="transition-a;; duration-100 transform {i === $currentShadeIndex ? 'mx-2 scale-150' : 'hover:scale-125'}"
+          aria-label="Edit shade {(i + 1) * 100}"
+          on:click={() => setCurrentShadeIndex(i)}
+        >
+          <ColorBox color={shade} />
+        </button>
+      </li>
+    {/each}
+  </ol>
+  <div class="text-center">
+    {#if $currentShade != null}
+      <div class="inline-block">
+        <ColorPicker
+          value={$currentShade ?? ''}
+          bind:reset={resetColorPicker}
+          on:input={(e) => updateColorShade(e.detail)}
         />
       </div>
-      <button
-        class="flex-shrink p-4 opacity-30 transition-opacity duration-200
-        hover:opacity-50 focus:opacity-50"
-        class:hidden={currentProjectColors.length <= 0}
-        title="Select next color"
-        on:click={() => goNextColorId()}
-      >
-        <Icon icon={faChevronRight} />
-      </button>
-    </div>
-    <ol
-      class="flex justify-center items-center space-x-2 sm:space-x-3 mt-8 mb-12"
-    >
-      {#each currentColorShades as shade, i}
-        <li class="flex flex-col justify-center items-center">
-          <button
-            class="transition-a;; duration-100 transform {i === $currentShadeIndex ? 'mx-2 scale-150' : 'hover:scale-125'}"
-            aria-label="Edit shade {(i + 1) * 100}"
-            on:click={() => setCurrentShadeIndex(i)}
-          >
-            <ColorBox color={shade} />
-          </button>
-        </li>
-      {/each}
-    </ol>
-    <div>
-      {#if $currentShade != null}
-        <div class="inline-block">
-          <ColorPicker
-            value={$currentShade ?? ''}
-            bind:reset={resetColorPicker}
-            on:input={(e) => updateColorShade(e.detail)}
-          />
-        </div>
-      {/if}
-    </div>
-  {:else}
-    <div class="flex flex-col h-full justify-center items-center">
-      <p class="text-xl mb-3">Welcome to a new project</p>
-      <NewColor>
-        <button class="button">Pick a color</button>
-      </NewColor>
-    </div>
-  {/if}
-</div>
+    {/if}
+  </div>
+{:else}
+  <div class="flex flex-col h-full justify-center items-center">
+    <p class="text-xl mb-3">Welcome to a new project</p>
+    <NewColor>
+      <button class="button">Pick a color</button>
+    </NewColor>
+  </div>
+{/if}

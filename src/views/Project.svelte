@@ -31,18 +31,16 @@
 
 <svelte:window use:shortcut={setupShortcuts} />
 
-{#if $currentProject != null}
-  <div class="flex justify-center h-full px-1 py-3 lg:py-6 overflow-y-auto">
-    {#if $breakpointLg}
-      <ColorPanel />
-    {/if}
-    <div class="flex flex-col w-full h-full max-w-lg lg:max-w-xl lg:pl-6">
-      <div class="flex-shrink">
-        <Header />
-      </div>
-      <div class="flex-grow">
-        <Editor />
-      </div>
+<div class="flex justify-center h-full px-1 py-3 lg:py-6">
+  {#if $breakpointLg}
+    <ColorPanel />
+  {/if}
+  <div class="flex flex-col w-full h-full max-w-lg lg:max-w-xl lg:pl-6">
+    <div class="flex-shrink">
+      <Header />
+    </div>
+    <div class="flex-grow h-full overflow-y-auto">
+      <Editor />
     </div>
   </div>
-{/if}
+</div>

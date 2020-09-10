@@ -32,7 +32,7 @@
 </script>
 
 <div class="flex flex-wrap items-center py-1">
-  <div class="w-full lg:w-1/3 lg:order-2 text-xl text-center truncate">
+  <div class="w-full sm:w-1/3 sm:order-2 text-xl text-center truncate">
     <EditableText
       class="w-full bg-transparent text-center"
       value={$currentProject?.name ?? ''}
@@ -42,7 +42,7 @@
       on:change={handleNameChange}
     />
   </div>
-  <div class="w-1/2 lg:w-1/3 lg:order-1">
+  <div class="w-1/2 sm:w-1/3 sm:order-1">
     <Link class="button button--icon" to="/dashboard" title="Go to dashboard">
       <Icon icon={faHome} />
     </Link>
@@ -63,7 +63,7 @@
       <Icon icon={faRedo} />
     </button>
   </div>
-  <div class="w-1/2 lg:w-1/3 lg:order-3 text-right">
+  <div class="w-1/2 sm:w-1/3 sm:order-3 text-right">
     <NewColor let:show>
       <button
         class="button button--icon relative"
