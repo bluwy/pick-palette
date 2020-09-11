@@ -5,8 +5,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "svite",
+    "build": "svite build",
     "tsc": "tsc --noEmit",
     "format": "prettier --write \"**/*.{html,css,js,ts,md,svelte}\""
   },
@@ -29,7 +29,7 @@
     "mousetrap": "^1.6.5",
     "nanoid": "^3.1.10",
     "superstruct": "^0.10.12",
-    "svelte": "^3.24.0",
+    "svelte": "^3.25.0",
     "svelte-fa": "^2.1.1"
   },
   "devDependencies": {
@@ -43,11 +43,11 @@
     "postcss-load-config": "^2.1.0",
     "prettier": "^2.0.5",
     "prettier-plugin-svelte": "^1.1.0",
+    "svelte-hmr": "^0.10.3",
     "svelte-preprocess": "^4.0.6",
-    "svite": "^0.2.4",
+    "svite": "^0.6.1",
     "tailwindcss": "^1.4.6",
-    "typescript": "^3.9.6",
-    "vite": "^1.0.0-rc.1"
+    "typescript": "^3.9.6"
   },
   "browserslist": [
     "> 1%",
