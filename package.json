@@ -7,7 +7,6 @@
   "scripts": {
     "dev": "svite",
     "build": "svite build",
-    "tsc": "tsc --noEmit",
     "format": "prettier --write \"**/*.{html,css,js,ts,md,svelte}\""
   },
   "husky": {

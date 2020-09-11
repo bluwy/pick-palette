@@ -1,1 +1,48 @@
-# pick-palette
+# Pick Palette
+
+A color palette manager made with Svelte!
+
+## Features
+
+- Responsive design
+- Smooth transitions done purely with [`svelte/transition`](https://svelte.dev/tutorial/transition)
+- Custom-built color picker with support for h, s, v, r, g, b mode
+- Custom-built drag-and-drop color tabs
+- Fullscreen file input
+- Full undo/redo functionality with [Immer](https://github.com/immerjs/immer)
+- Runs locally, all data is kept in local storage
+- Multi-tab support with local storage synchronization
+- Keyboard shortcuts with [Mousetrap](https://github.com/ccampbell/mousetrap)
+- Project import/export file with validation
+- Routing with [@bjornlu/svelte-router](https://github.com/bluwy/svelte-router)
+- Color blindness simulation with [@bjornlu/colorblind](https://github.com/bluwy/colorblind)
+- Developed with Svite, TypeScript and TailwindCSS
+
+## Note
+
+- Snackbar is never used
+- State management is separated to `state`, `actions`, `effects` and `utils`
+- Color picker isn't perfect but functional. Defects include:
+  - Color box gradient looks awful and inaccurate in different browsers
+  - Dispatched changes aren't properly throttled
+
+## Development
+
+Install dependencies with `yarn install`.
+
+```bash
+# Start dev server
+$ yarn dev
+
+# Build for production
+$ yarn build
+
+# Format code with Prettier
+$ yarn format
+```
+
+Code is auto-formatted on each `git push` with [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged).
+
+## License
+
+MIT
