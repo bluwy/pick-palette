@@ -41,8 +41,8 @@
     title={itemTitle}
     on:click={handleItemClick}
   >
-    <div class="flex justify-between items-center mb-3">
-      <div class="flex-grow font-medium truncate" on:click|stopPropagation>
+    <div class="flex flex-row justify-between items-center mb-3">
+      <div class="font-medium cursor-text truncate" on:click|stopPropagation>
         <EditableText
           class="w-full bg-transparent"
           value={project.name}
