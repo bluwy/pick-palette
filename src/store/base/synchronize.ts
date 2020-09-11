@@ -22,7 +22,9 @@ export function synchronize<T>(store: Writable<T>, key: string) {
 
   // Whenever localStorage data change, update store
   window.addEventListener('storage', (e) => {
-    if (e.key === key && e.newValue != null) {
+    // IE and Safari calls `storage` event in current tab, which is incorrect
+    // https://stackoverflow.com/a/62161627/13265944
+    if (!document.hasFocus() && e.key === key && e.newValue != null) {
       store.set(JSON.parse(e.newValue))
     }
   })
