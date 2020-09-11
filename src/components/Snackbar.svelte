@@ -38,7 +38,7 @@
 
 <div
   class="fixed flex flex-col justify-end bottom-0 right-0 p-3 w-full max-w-sm
-  h-full pointer-events-none"
+    h-full pointer-events-none"
 >
   <ul class="flip-y space-y-2">
     {#each $snacks as snack (snack.id)}

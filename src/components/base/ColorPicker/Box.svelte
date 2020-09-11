@@ -125,7 +125,7 @@
 >
   <div
     class="pointer absolute w-4 h-4 rounded-full cursor-pointer transform
-    -translate-x-1/2 translate-y-1/2"
+      -translate-x-1/2 translate-y-1/2"
     style="left: {pointerX * 100}%; bottom: {pointerY * 100}%;"
   />
 </div>

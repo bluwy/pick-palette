@@ -27,6 +27,4 @@
     on:blur={close}
     {...$$restProps}
   />
-{:else}
-  <button on:click={open} {...buttonProps}>{value}</button>
-{/if}
+{:else}<button on:click={open} {...buttonProps}>{value}</button>{/if}

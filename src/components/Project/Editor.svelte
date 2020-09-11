@@ -54,7 +54,7 @@
   <div class="flex justify-center items-center w-full max-w-xs mx-auto my-6">
     <button
       class="flex-shrink p-4 opacity-30 transition-opacity duration-200
-      hover:opacity-50 focus:opacity-50"
+        hover:opacity-50 focus:opacity-50"
       class:hidden={currentProjectColors.length <= 0}
       title="Select previous color"
       on:click={() => goPrevColorId()}
@@ -73,7 +73,7 @@
     </div>
     <button
       class="flex-shrink p-4 opacity-30 transition-opacity duration-200
-      hover:opacity-50 focus:opacity-50"
+        hover:opacity-50 focus:opacity-50"
       class:hidden={currentProjectColors.length <= 0}
       title="Select next color"
       on:click={() => goNextColorId()}
@@ -110,8 +110,6 @@
 {:else}
   <div class="flex flex-col h-full justify-center items-center">
     <p class="text-xl mb-3">Welcome to a new project</p>
-    <NewColor>
-      <button class="button">Pick a color</button>
-    </NewColor>
+    <NewColor><button class="button">Pick a color</button></NewColor>
   </div>
 {/if}

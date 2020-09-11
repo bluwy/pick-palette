@@ -61,7 +61,7 @@
   <FullscreenBackdrop>
     <div
       class="flex flex-col justify-center items-center text-center px-5 py-10
-      w-full max-w-2xl h-full text-primary-100"
+        w-full max-w-2xl h-full text-primary-100"
     >
       <div class="flex-shrink text-2xl font-light">Import Project</div>
       <label

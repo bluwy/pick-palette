@@ -28,7 +28,7 @@
 <div class="container flex w-full h-full">
   <div
     class="hidden flex-grow md:flex justify-center items-center relative
-    bg-primary-200"
+      bg-primary-200"
   >
     <img class="hero" src={WelcomeHero} alt="Welcome hero" aria-hidden="true" />
     <div class="left-botch" />
@@ -43,7 +43,7 @@
   </div>
   <div
     class="flex-grow md:flex-shrink flex flex-col justify-center items-center
-    text-center md:px-6 py-12"
+      text-center md:px-6 py-12"
   >
     <Logo />
     <form
@@ -62,7 +62,7 @@
     </form>
     <button
       class="mt-2 opacity-80 hover:opacity-100 focus:opacity-100
-      transition-opacity duration-200"
+        transition-opacity duration-200"
       on:click={() => (showImportProject = !showImportProject)}
     >
       <Icon class="opacity-40 mr-2" icon={faDownload} />

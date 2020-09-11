@@ -35,7 +35,7 @@
       <div
         transition:fly={{ y: 10, duration: 250 }}
         class="inline-block my-2 sm:m-2 bg-white border border-gray-300
-        rounded-lg shadow-xl"
+          rounded-lg shadow-xl"
       >
         <div class="flex justify-between items-center mx-5 mt-3 mb-2">
           <div class="text-sm opacity-70">Add a new color</div>

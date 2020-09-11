@@ -70,8 +70,8 @@
         >
           <Icon
             class="text-gray-700 text-opacity-50 transition-colors duration-200
-            hover:text-error-500 focus:text-error-500 hover:text-opacity-100
-            focus:text-opacity-100"
+              hover:text-error-500 focus:text-error-500 hover:text-opacity-100
+              focus:text-opacity-100"
             icon={faTrashAlt}
           />
         </button>
@@ -83,7 +83,7 @@
         >
           <Icon
             class="text-gray-700 text-opacity-50 transition-colors duration-200
-            hover:text-opacity-100 focus:text-opacity-100"
+              hover:text-opacity-100 focus:text-opacity-100"
             icon={faGripVertical}
           />
         </div>

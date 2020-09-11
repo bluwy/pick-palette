@@ -68,7 +68,7 @@
 
 <div
   class="flex flex-col h-full bg-white border border-gray-300 rounded-lg
-  shadow-xl"
+    shadow-xl"
 >
   <div class="flex justify-between items-center mx-5 mt-3 mb-2">
     <div class="text-sm opacity-70">Color Palette</div>
