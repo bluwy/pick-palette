@@ -1,8 +1,8 @@
 import { get } from 'svelte/store'
 import { initPathRouter } from '@bjornlu/svelte-router'
+import { currentProject } from '/@/store/projects'
 import Dashboard from './views/Dashboard.svelte'
 import Project from './views/Project.svelte'
-import { currentProject } from '/@/store/projects'
 
 initPathRouter([
   {

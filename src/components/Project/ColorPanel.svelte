@@ -1,13 +1,13 @@
 <script>
-  import type { Color } from '/@/utils/types'
-  import { faTimes } from '@fortawesome/free-solid-svg-icons'
-  import { produce } from 'immer'
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
+  import { produce } from 'immer'
+  import { faTimes } from '@fortawesome/free-solid-svg-icons'
   import { sortColor, currentProject } from '/@/store/projects'
   import { debounce, removeAndInsertElement } from '/@/utils/common'
   import SelectColorDeficiency from '/@/components/SelectColorDeficiency.svelte'
   import ColorTab from './ColorTab.svelte'
+  import type { Color } from '/@/utils/types'
 
   let canDrag = false
   let draggedColorId: string | undefined

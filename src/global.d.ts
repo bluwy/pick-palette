@@ -1,3 +1,6 @@
+declare module 'svelte-fa'
+declare module '*.svg'
+
 declare namespace svelte.JSX {
   //
   // Event Handler Types

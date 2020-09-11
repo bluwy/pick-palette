@@ -8,7 +8,7 @@
   // List of snack ids that have been setTimeout to close.
   // NOTE: Use const to prevent Svelte from making this reactive since this is
   // onlu used for internal id tracking
-  const timeoutIds = []
+  const timeoutIds: string[] = []
 
   // Class for different snack types (for purgecss)
   const typeClass = {
@@ -19,7 +19,7 @@
   }
 
   $: $snacks.forEach((snack) => {
-    if (timeoutIds.includes(snack)) {
+    if (timeoutIds.includes(snack.id)) {
       return
     }
 
@@ -30,7 +30,7 @@
     timeoutIds.push(snack.id)
   })
 
-  function closeSnack(id) {
+  function closeSnack(id: string) {
     removeSnack(id)
     timeoutIds.splice(timeoutIds.indexOf(id))
   }

@@ -1,12 +1,10 @@
 <script>
-  import type { Color } from '/@/utils/types'
-  import type { Deficiency } from '@bjornlu/colorblind'
-  import { simulate } from '@bjornlu/colorblind'
-  import { faTrashAlt } from '@fortawesome/free-regular-svg-icons'
-  import { faGripVertical } from '@fortawesome/free-solid-svg-icons'
   import { createEventDispatcher } from 'svelte'
   import Icon from 'svelte-fa'
   import chroma from 'chroma-js'
+  import { simulate } from '@bjornlu/colorblind'
+  import { faTrashAlt } from '@fortawesome/free-regular-svg-icons'
+  import { faGripVertical } from '@fortawesome/free-solid-svg-icons'
   import { colorDeficiency } from '/@/store/colorblind'
   import {
     currentColorId,

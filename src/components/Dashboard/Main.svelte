@@ -1,12 +1,9 @@
 <script>
-  import type { SetupFunction } from '/@/actions/shortcut'
-  import type { Project } from '/@/utils/types'
-  import { faDownload, faPlus } from '@fortawesome/free-solid-svg-icons'
-  import { tick } from 'svelte'
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
   import Icon from 'svelte-fa'
   import { navigate } from '@bjornlu/svelte-router'
+  import { faDownload, faPlus } from '@fortawesome/free-solid-svg-icons'
   import { shortcut } from '/@/actions/shortcut'
   import {
     createProject,
@@ -15,8 +12,10 @@
     projects
   } from '/@/store/projects'
   import { debounce } from '/@/utils/common'
-  import ProjectItem from '/@/components/Dashboard/ProjectItem.svelte'
   import ImportProject from '/@/components/ImportProject.svelte'
+  import ProjectItem from './ProjectItem.svelte'
+  import type { SetupFunction } from '/@/actions/shortcut'
+  import type { Project } from '/@/utils/types'
 
   let search = ''
   let showImportProject = false

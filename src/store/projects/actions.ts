@@ -8,7 +8,7 @@ import {
   removeAndInsertElement,
   uget
 } from '/@/utils/common'
-import { Project } from '/@/utils/types'
+import { ExportProject, Project } from '/@/utils/types'
 import { ProjectStruct } from '/@/utils/validation-structs'
 import {
   _projects,
@@ -113,7 +113,7 @@ export function exportProject(options?: ProjectIdOptions) {
   const project = findById(uget(_projects), projectId)
 
   // Remove ids to reduce output size
-  const projectData = produce(project, (project) => {
+  const projectData = produce(project, (project: ExportProject) => {
     delete project.id
 
     for (let i = 0; i < project.colors.length; i++) {

@@ -29,7 +29,7 @@ import { supportedShadeCount } from './app'
   I would have implemented coercing for app updates if superstruct were to
   mutate the object when setting default values. But the way it works is by
   recreating the object when coercing it. This way Immer is unable to detect
-  branch changes and the generated patches is just the entire root object.
+  branch changes and the generated patch is just the entire root object.
 */
 
 const ID = defaulted(string(), () => nanoid(6))

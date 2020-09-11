@@ -8,9 +8,22 @@ export interface Color {
   shades: string[]
 }
 
+export interface ExportColor {
+  id?: string
+  name: string
+  shades: string[]
+}
+
 export interface Project {
   id: string
   name: string
   version: number
   colors: Color[]
+}
+
+export interface ExportProject {
+  id?: string
+  name: string
+  version: number
+  colors: ExportColor[]
 }

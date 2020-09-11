@@ -1,5 +1,5 @@
-import { nanoid } from 'nanoid/non-secure'
 import { writable } from 'svelte/store'
+import { nanoid } from 'nanoid/non-secure'
 import { readonly } from '/@/utils/common'
 
 export type SnackType = 'info' | 'success' | 'warning' | 'error'
@@ -13,7 +13,7 @@ export type Snack = {
 const defaultType: SnackType = 'info'
 const defaultTimeout = 5000
 
-const _snacks = writable([] as Snack[])
+const _snacks = writable<Snack[]>([])
 
 export const snacks = readonly(_snacks)
 

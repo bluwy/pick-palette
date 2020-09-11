@@ -6,10 +6,6 @@
 export function dragOnce(node: HTMLElement) {
   let dragOverElements: EventTarget[] = []
 
-  node.addEventListener('dragenter', handleDragEnter)
-  node.addEventListener('dragleave', handleDragLeave)
-  node.addEventListener('drop', handleDrop)
-
   function handleDragEnter(e: DragEvent) {
     if (e.target == null) {
       return
@@ -42,6 +38,10 @@ export function dragOnce(node: HTMLElement) {
       dragOverElements = []
     }
   }
+
+  node.addEventListener('dragenter', handleDragEnter)
+  node.addEventListener('dragleave', handleDragLeave)
+  node.addEventListener('drop', handleDrop)
 
   return {
     destroy() {

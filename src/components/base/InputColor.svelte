@@ -1,17 +1,17 @@
 <script>
-  import chroma from 'chroma-js'
   import { fly } from 'svelte/transition'
+  import chroma from 'chroma-js'
   import { clickOutside } from '/@/actions/click-outside'
   import { createPopperActions } from '/@/actions/popper'
-  import ColorBox from './ColorBox.svelte'
   import ColorPicker from './ColorPicker/Index.svelte'
-
-  const [ref, content] = createPopperActions()
+  import ColorBox from './ColorBox.svelte'
 
   export let value: string
   export let hideInput = false
   export let vertical = false
   export let disabled = false
+
+  const [ref, content] = createPopperActions()
 
   let show = false
 
@@ -21,7 +21,9 @@
   }
 
   // Whenever disbled toggled true, set show to false
-  $: disabled && (show = false)
+  $: if (disabled) {
+    show = false
+  }
 
   // Make sure value is hex string
   function setValueAsHex() {

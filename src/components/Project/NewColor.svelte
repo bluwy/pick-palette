@@ -1,15 +1,15 @@
 <script>
-  import chroma from 'chroma-js'
   import { fly } from 'svelte/transition'
-  import { createPopperActions } from '/@/actions/popper'
+  import chroma from 'chroma-js'
   import { clickOutside } from '/@/actions/click-outside'
+  import { createPopperActions } from '/@/actions/popper'
   import { createColor, setCurrentColorId } from '/@/store/projects'
   import { genShadeTint } from '/@/utils/app'
   import ColorPicker from '/@/components/base/ColorPicker/Index.svelte'
 
-  const [ref, content] = createPopperActions()
-
   export let show = false
+
+  const [ref, content] = createPopperActions()
 
   let color = chroma.random().hex()
 

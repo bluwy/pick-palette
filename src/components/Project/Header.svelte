@@ -1,4 +1,6 @@
 <script>
+  import Icon from 'svelte-fa'
+  import { Link } from '@bjornlu/svelte-router'
   import {
     faUpload,
     faHome,
@@ -8,8 +10,6 @@
     faFill,
     faPlus
   } from '@fortawesome/free-solid-svg-icons'
-  import Icon from 'svelte-fa'
-  import { Link } from '@bjornlu/svelte-router'
   import { breakpointLg } from '/@/store/breakpoint'
   import {
     currentProject,

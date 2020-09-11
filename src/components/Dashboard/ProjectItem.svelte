@@ -1,8 +1,7 @@
 <script>
-  import type { Project } from '/@/utils/types'
-  import { faTrashAlt, faUpload } from '@fortawesome/free-solid-svg-icons'
   import Icon from 'svelte-fa'
   import { navigate } from '@bjornlu/svelte-router'
+  import { faTrashAlt, faUpload } from '@fortawesome/free-solid-svg-icons'
   import { openedProjectIds } from '/@/store/opened'
   import {
     exportProject,
@@ -19,7 +18,6 @@
 
   $: isOpened = $openedProjectIds.includes(projectId)
 
-  let itemTitle: string
   $: itemTitle = isOpened
     ? `${project?.name} is already opened in another tab`
     : `Open ${project?.name}`
@@ -32,14 +30,6 @@
     if (!isOpened) {
       navigate(`/project/${projectId}`)
     }
-  }
-
-  function handleExportClick() {
-    exportProject({ projectId })
-  }
-
-  function handleTrashClick() {
-    removeProject({ projectId })
   }
 </script>
 
@@ -64,14 +54,14 @@
         <button
           class="button button--small button--icon"
           title={`Export ${project.name}`}
-          on:click|stopPropagation={handleExportClick}
+          on:click|stopPropagation={() => exportProject({ projectId })}
         >
           <Icon icon={faUpload} />
         </button>
         <button
           class="button button--small button--icon"
           title={`Remove ${project.name}`}
-          on:click|stopPropagation={handleTrashClick}
+          on:click|stopPropagation={() => removeProject({ projectId })}
         >
           <Icon icon={faTrashAlt} />
         </button>

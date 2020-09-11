@@ -1,5 +1,5 @@
-import { assert, array } from 'superstruct'
 import { get } from 'svelte/store'
+import { assert, array } from 'superstruct'
 import { addOpenedProject, removeOpenedProject } from '/@/store/opened'
 import { ProjectStruct } from '/@/utils/validation-structs'
 import { _currentProjectId, _projects } from './state'

@@ -1,12 +1,12 @@
 <script>
-  import type { SetupFunction } from '/@/actions/shortcut'
-  import { faTimes } from '@fortawesome/free-solid-svg-icons'
   import Icon from 'svelte-fa'
   import { navigate } from '@bjornlu/svelte-router'
+  import { faTimes } from '@fortawesome/free-solid-svg-icons'
   import { dragOnce } from '/@/actions/drag-once'
   import { shortcut } from '/@/actions/shortcut'
   import { importProject } from '/@/store/projects'
   import FullscreenBackdrop from './base/FullscreenBackdrop.svelte'
+  import type { SetupFunction } from '/@/actions/shortcut'
 
   export let show = false
 
@@ -18,7 +18,7 @@
     const reader = new FileReader()
 
     reader.onload = (e) => {
-      const text = e.target.result as string
+      const text = e.target?.result as string
       const projectId = importProject(JSON.parse(text))
       navigate(`/project/${projectId}`)
     }

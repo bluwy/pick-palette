@@ -1,12 +1,12 @@
 <script>
   import { fly } from 'svelte/transition'
-  import { createPopperActions } from '/@/actions/popper'
   import { clickOutside } from '/@/actions/click-outside'
+  import { createPopperActions } from '/@/actions/popper'
   import ColorPanel from './ColorPanel.svelte'
 
-  const [ref, content] = createPopperActions()
-
   export let show = false
+
+  const [ref, content] = createPopperActions()
 
   let panel: HTMLElement | undefined
 

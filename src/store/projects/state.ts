@@ -4,7 +4,7 @@ import { synchronize } from '/@/store/base/synchronize'
 import { recordHistory } from '/@/store/base/record-history'
 import { Project, WritableId } from '/@/utils/types'
 
-const projectsStore = writable([] as Project[])
+const projectsStore = writable<Project[]>([])
 
 export const _projects = {
   ...projectsStore,

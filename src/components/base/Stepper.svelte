@@ -1,7 +1,7 @@
 <script>
-  import { faCheck } from '@fortawesome/free-solid-svg-icons'
   import { scale } from 'svelte/transition'
   import Icon from 'svelte-fa'
+  import { faCheck } from '@fortawesome/free-solid-svg-icons'
   import { clamp } from '/@/utils/common'
 
   export let steps: number

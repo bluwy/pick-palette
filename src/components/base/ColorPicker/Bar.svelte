@@ -1,6 +1,6 @@
 <script>
-  import chroma from 'chroma-js'
   import { createEventDispatcher } from 'svelte'
+  import chroma from 'chroma-js'
   import { slidable } from '/@/actions/slidable'
   import { hueGradient } from '/@/utils/app'
   import { clamp, throttle } from '/@/utils/common'

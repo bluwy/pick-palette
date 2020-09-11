@@ -1,6 +1,6 @@
 <script>
-  import chroma from 'chroma-js'
   import { createEventDispatcher } from 'svelte'
+  import chroma from 'chroma-js'
   import Bar from './Bar.svelte'
   import Box from './Box.svelte'
   import Inputs from './Inputs.svelte'

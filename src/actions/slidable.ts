@@ -1,6 +1,6 @@
 /** Emits `slide` event when sliding on node */
 export function slidable(node: HTMLElement) {
-  const dispatchSlide = (e: MouseEvent | TouchEvent) => {
+  function dispatchSlide(e: MouseEvent | TouchEvent) {
     e.preventDefault()
 
     const clientX = e instanceof MouseEvent ? e.clientX : e.touches[0]?.clientX
@@ -15,7 +15,7 @@ export function slidable(node: HTMLElement) {
     }
   }
 
-  const handlePointerDown = (e: MouseEvent | TouchEvent) => {
+  function handlePointerDown(e: MouseEvent | TouchEvent) {
     dispatchSlide(e)
     document.addEventListener('mousemove', dispatchSlide)
     document.addEventListener('touchmove', dispatchSlide)
@@ -23,7 +23,7 @@ export function slidable(node: HTMLElement) {
     document.addEventListener('touchend', handlePointerUp)
   }
 
-  const handlePointerUp = (e: MouseEvent | TouchEvent) => {
+  function handlePointerUp(e: MouseEvent | TouchEvent) {
     dispatchSlide(e)
     document.removeEventListener('mousemove', dispatchSlide)
     document.removeEventListener('touchmove', dispatchSlide)
@@ -36,7 +36,6 @@ export function slidable(node: HTMLElement) {
 
   return {
     destroy() {
-      // Clean up
       node.removeEventListener('mousedown', handlePointerDown)
       node.removeEventListener('touchstart', handlePointerDown)
 
