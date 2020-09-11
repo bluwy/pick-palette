@@ -1,6 +1,10 @@
 # Pick Palette
 
-A color palette manager made with Svelte!
+[![Netlify Status](https://api.netlify.com/api/v1/badges/199bb34b-fdb9-49f6-af77-885e7b844f7f/deploy-status)](https://app.netlify.com/sites/pick-palette/deploys)
+
+A color palette manager made with [Svelte](https://svelte.dev/)!
+
+[**View website**](https://pick-palette.netlify.app)
 
 ## Features
 
@@ -16,7 +20,7 @@ A color palette manager made with Svelte!
 - Project import/export file with validation
 - Routing with [@bjornlu/svelte-router](https://github.com/bluwy/svelte-router)
 - Color blindness simulation with [@bjornlu/colorblind](https://github.com/bluwy/colorblind)
-- Developed with Svite, TypeScript and TailwindCSS
+- Developed with [Svite](https://github.com/dominikg/svite), [TypeScript](https://typescriptlang.org/) and [TailwindCSS](https://tailwindcss.com/)
 
 ## Note
 
@@ -25,6 +29,8 @@ A color palette manager made with Svelte!
 - Color picker isn't perfect but functional. Defects include:
   - Color box gradient looks awful and inaccurate in different browsers
   - Dispatched changes aren't properly throttled
+- Default generated shades is only OK looking
+- Minified JS code still has comments, waiting for `vite@1.0.0-rc.5` terser options
 
 ## Development
 
