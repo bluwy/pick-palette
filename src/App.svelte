@@ -3,7 +3,7 @@
   import Snackbar from './components/Snackbar.svelte'
 </script>
 
-<main class="w-full h-screen overflow-hidden">
+<main class="w-full h-full">
   <RouterView />
   <Snackbar />
 </main>

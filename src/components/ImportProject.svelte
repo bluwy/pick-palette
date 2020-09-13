@@ -65,7 +65,7 @@
     >
       <div class="flex-shrink text-2xl font-light">Import Project</div>
       <label
-        class="label-style flex-grow relative w-full my-5"
+        class="label-style flex-grow relative w-full h-full my-5"
         class:label-style--hover={isFileHover}
       >
         <div

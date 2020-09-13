@@ -35,7 +35,7 @@
   </div>
   <div class="hidden md:block flex-shrink">
     <img
-      class="h-screen"
+      class="h-full"
       src={WelcomeDivider}
       alt="Welcome divider"
       aria-hidden="true"
