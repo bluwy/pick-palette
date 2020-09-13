@@ -6,6 +6,7 @@
   import { faTrashAlt } from '@fortawesome/free-regular-svg-icons'
   import { faGripVertical } from '@fortawesome/free-solid-svg-icons'
   import { colorDeficiency } from '/@/store/colorblind'
+  import { isTouchscreen } from '/@/store/media'
   import {
     currentColorId,
     currentProject,
@@ -75,18 +76,20 @@
             icon={faTrashAlt}
           />
         </button>
-        <div
-          class="inline-block px-2 cursor-grab"
-          title="Sort color order"
-          on:click|stopPropagation
-          on:mousedown={() => dispatch('candrag', true)}
-        >
-          <Icon
-            class="text-gray-700 text-opacity-50 transition-colors duration-200
-              hover:text-opacity-100 focus:text-opacity-100"
-            icon={faGripVertical}
-          />
-        </div>
+        {#if !$isTouchscreen}
+          <div
+            class="inline-block px-2 cursor-grab"
+            title="Sort color order"
+            on:click|stopPropagation
+            on:mousedown={() => dispatch('candrag', true)}
+          >
+            <Icon
+              class="text-gray-700 text-opacity-50 transition-colors
+                duration-200 hover:text-opacity-100 focus:text-opacity-100"
+              icon={faGripVertical}
+            />
+          </div>
+        {/if}
       </div>
     </div>
     <ol class="flex space-x-1 sm:space-x-2">

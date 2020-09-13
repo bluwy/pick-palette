@@ -1,6 +1,6 @@
 <script>
   import { shortcut } from '/@/actions/shortcut'
-  import { breakpointLg } from '/@/store/breakpoint'
+  import { breakpointLg } from '/@/store/media'
   import {
     currentProject,
     setCurrentColorId,

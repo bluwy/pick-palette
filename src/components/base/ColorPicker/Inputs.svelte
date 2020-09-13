@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte'
   import chroma from 'chroma-js'
   import { slidable } from '/@/actions/slidable'
-  import { breakpointSm } from '/@/store/breakpoint'
+  import { breakpointSm } from '/@/store/media'
   import { hueGradient } from '/@/utils/app'
   import { clamp, throttle } from '/@/utils/common'
   import type { Color } from 'chroma-js'
@@ -149,7 +149,7 @@
     />
   {/each}
 
-  <div class="col-span-2 sm:col-span-3 mt-2 flex justify-end items-center">
+  <div class="sm:col-span-3 mt-2 flex justify-end items-center">
     <label
       for="cp-hex"
       class="inline-block w-6 h-6 border border-gray-300 rounded-full"
@@ -158,7 +158,7 @@
   </div>
   <input
     id="cp-hex"
-    class="input input--small mt-2"
+    class="input input--small hex-input col-span-2 sm:col-span-1 mt-2"
     type="text"
     size={3}
     value={color.hex()}
@@ -193,5 +193,9 @@
 
   .pointer::after {
     top: 100%;
+  }
+
+  .hex-input {
+    min-width: 80px;
   }
 </style>

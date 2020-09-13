@@ -10,7 +10,7 @@
     faFill,
     faPlus
   } from '@fortawesome/free-solid-svg-icons'
-  import { breakpointLg } from '/@/store/breakpoint'
+  import { breakpointLg } from '/@/store/media'
   import {
     currentProject,
     renameProject,

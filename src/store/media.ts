@@ -12,9 +12,15 @@ export const breakpointMd = breakpointStore(breakpoints.md)
 export const breakpointLg = breakpointStore(breakpoints.lg)
 export const breakpointXl = breakpointStore(breakpoints.xl)
 
+export const isTouchscreen = matchMediaStore('(pointer: coarse)')
+
 function breakpointStore(minWidth: string) {
+  return matchMediaStore(`(min-width: ${minWidth})`)
+}
+
+function matchMediaStore(query: string) {
   return readable(false, (set) => {
-    const match = window.matchMedia(`(min-width: ${minWidth})`)
+    const match = window.matchMedia(query)
 
     set(match.matches)
 

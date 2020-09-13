@@ -8,13 +8,12 @@ A color palette manager made with [Svelte](https://svelte.dev/)!
 
 ## Features
 
-- Responsive design
 - Smooth transitions done purely with [`svelte/transition`](https://svelte.dev/tutorial/transition)
-- Custom-built color picker with support for h, s, v, r, g, b mode
+- Custom-built color picker with support for h, s, v, r, g, b modes
 - Custom-built drag-and-drop color tabs
 - Fullscreen file input
 - Full undo/redo functionality with [Immer](https://github.com/immerjs/immer)
-- Runs locally, all data is kept in local storage
+- Data is all kept in local storage
 - Multi-tab support with local storage synchronization
 - Keyboard shortcuts with [Mousetrap](https://github.com/ccampbell/mousetrap)
 - Project import/export file with validation
