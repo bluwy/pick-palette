@@ -13,6 +13,15 @@
 
   let color = chroma.random().hex()
 
+  function handleRefClick() {
+    show = !show
+
+    // Randomize color when open
+    if (show) {
+      color = chroma.random().hex()
+    }
+  }
+
   function handleOK() {
     // Opinionated shade generation. Maybe expand this in the future?
     const shades = genShadeTint(color, 9)
@@ -27,7 +36,7 @@
   class="inline-block"
   on:clickoutside={() => (show = false)}
 >
-  <div use:ref on:click={() => (show = !show)}>
+  <div use:ref on:click={handleRefClick}>
     <slot {show} />
   </div>
   {#if show}
