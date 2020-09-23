@@ -3094,6 +3094,13 @@ svelte-hmr@^0.10.3:
   resolved "https://registry.yarnpkg.com/svelte-hmr/-/svelte-hmr-0.10.3.tgz#6939a6ae483bb0180e0f3f120554d947e00d2223"
   integrity sha512-s90yAPnfGE6rTbq9Vvq73z1XqLJ2qGw0VjorpwKfDZRIsB0/Ozu+uF5cyC1fS3dCyQcS2sZDMt4zQ/qDjDwa/Q==
 
+svelte-popperjs@1.0.13:
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/svelte-popperjs/-/svelte-popperjs-1.0.13.tgz#690949afd4b5fcd1f0efe5aa5b9950f70e2609ba"
+  integrity sha512-ZrBKv8dJ+s/66qFXfVcHuvkIxX6CRAutAJiWAlQ2MRhB6EV+d8sIgx2ALOr7rYKMavPFx4181KrG83o1SkQ24Q==
+  dependencies:
+    "@popperjs/core" "^2.4.4"
+
 svelte-preprocess@4.2.1, svelte-preprocess@^4.2.1:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/svelte-preprocess/-/svelte-preprocess-4.2.1.tgz#46a936ade6e7b14f407167bff3318df4528484d3"

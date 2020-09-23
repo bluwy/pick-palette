@@ -1,8 +1,8 @@
 <script>
   import { fly } from 'svelte/transition'
+  import { createPopperActions } from 'svelte-popperjs'
   import chroma from 'chroma-js'
   import { clickOutside } from '/@/actions/click-outside'
-  import { createPopperActions } from '/@/actions/popper'
   import { createColor, setCurrentColorId } from '/@/store/projects'
   import { genShadeTint } from '/@/utils/app'
   import ColorPicker from '/@/components/base/ColorPicker/Index.svelte'
