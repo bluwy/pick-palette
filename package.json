@@ -23,7 +23,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.14.0",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "chroma-js": "^2.1.0",
-    "immer": "^7.0.9",
+    "immer": "^8.0.1",
     "mousetrap": "^1.6.5",
     "nanoid": "^3.1.12",
     "superstruct": "^0.10.12",
