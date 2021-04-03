@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "format": "prettier --write \"**/*.{html,css,js,ts,md,svelte}\""
+    "format": "prettier --write \"**/*.{html,css,js,ts,md,svelte}\"",
+    "prebuild": "test \"$CI\" = true && npx pnpm install -r --store=node_modules/.pnpm-store || echo skipping pnpm install"
   },
   "husky": {
     "hooks": {
