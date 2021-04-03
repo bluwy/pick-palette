@@ -5,5 +5,5 @@ export function addOpenedProject(id: string) {
 }
 
 export function removeOpenedProject(id: string) {
-_openedProjectIds.update((v) => v.filter((u) => u !== id))
+  _openedProjectIds.update((v) => v.filter((u) => u !== id))
 }

@@ -48,7 +48,9 @@
         class="flip-y pointer-events-auto"
       >
         <div
-          class="flex items-center px-3 py-2 border-2 rounded {typeClass[snack.type]}"
+          class="flex items-center px-3 py-2 border-2 rounded {typeClass[
+            snack.type
+          ]}"
         >
           <div class="flex-grow">{snack.message}</div>
           <div>

@@ -2,5 +2,6 @@
   "proseWrap": "never",
   "semi": false,
   "singleQuote": true,
-  "trailingComma": "none"
+  "trailingComma": "none",
+  "plugins": ["prettier-plugin-svelte"]
 }

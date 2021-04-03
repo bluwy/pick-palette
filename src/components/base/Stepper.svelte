@@ -24,7 +24,10 @@
     {#each Array(steps) as _, i (i)}
       <div
         class="flex justify-center items-center w-6 h-6 rounded-full text-center
-          transition-colors duration-200 {i <= currentStep ? 'bg-primary-500 delay-100' : 'bg-gray-300'}"
+          transition-colors duration-200 {i <=
+        currentStep
+          ? 'bg-primary-500 delay-100'
+          : 'bg-gray-300'}"
       >
         <div>
           {#if i === currentStep}

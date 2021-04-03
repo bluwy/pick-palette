@@ -23,7 +23,7 @@
   import NewColor from './NewColor.svelte'
 
   // Function bound from color picker
-  let resetColorPicker: Function
+  let resetColorPicker: () => void
 
   $: currentProjectColors = $currentProject?.colors ?? []
 
@@ -87,7 +87,9 @@
     {#each currentColorShades as shade, i}
       <li class="flex flex-col justify-center items-center">
         <button
-          class="transition-a;; duration-100 transform {i === $currentShadeIndex ? 'mx-2 scale-150' : 'hover:scale-125'}"
+          class="transition-all duration-100 transform {i === $currentShadeIndex
+            ? 'mx-2 scale-150'
+            : 'hover:scale-125'}"
           aria-label="Edit shade {(i + 1) * 100}"
           on:click={() => setCurrentShadeIndex(i)}
         >
