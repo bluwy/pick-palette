@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
   import { createEventDispatcher } from 'svelte'
   import chroma from 'chroma-js'
-  import { slidable } from '/@/actions/slidable'
-  import { breakpointSm } from '/@/store/media'
-  import { hueGradient } from '/@/utils/app'
-  import { clamp, throttle } from '/@/utils/common'
+  import { slidable } from '@/actions/slidable'
+  import { breakpointSm } from '@/store/media'
+  import { hueGradient } from '@/utils/app'
+  import { clamp, throttle } from '@/utils/common'
   import type { Color } from 'chroma-js'
   import type { PickMode } from './types'
 
@@ -166,8 +166,9 @@
   />
 </div>
 
-<style lang="postcss">
+<style>
   .inputs-grid {
+    @apply p-4;
     display: grid;
     grid-template-columns: repeat(3, auto);
     gap: 0.3rem;

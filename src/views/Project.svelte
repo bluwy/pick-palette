@@ -1,16 +1,16 @@
-<script>
-  import { shortcut } from '/@/actions/shortcut'
-  import { breakpointLg } from '/@/store/media'
+<script lang="ts">
+  import { shortcut } from '@/actions/shortcut'
+  import { breakpointLg } from '@/store/media'
   import {
     currentProject,
     setCurrentColorId,
     projectRedo,
     projectUndo
-  } from '/@/store/projects'
-  import ColorPanel from '/@/components/Project/ColorPanel.svelte'
-  import Editor from '/@/components/Project/Editor.svelte'
-  import Header from '/@/components/Project/Header.svelte'
-  import type { SetupFunction } from '/@/actions/shortcut'
+  } from '@/store/projects'
+  import ColorPanel from '@/components/Project/ColorPanel.svelte'
+  import Editor from '@/components/Project/Editor.svelte'
+  import Header from '@/components/Project/Header.svelte'
+  import type { SetupFunction } from '@/actions/shortcut'
 
   const setupShortcuts: SetupFunction = (on) => {
     on('mod+z', () => projectUndo())

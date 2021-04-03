@@ -1,21 +1,21 @@
-<script>
+<script lang="ts">
   import { flip } from 'svelte/animate'
   import { fade } from 'svelte/transition'
   import Icon from 'svelte-fa'
   import { navigate } from '@bjornlu/svelte-router'
   import { faDownload, faPlus } from '@fortawesome/free-solid-svg-icons'
-  import { shortcut } from '/@/actions/shortcut'
+  import { shortcut } from '@/actions/shortcut'
   import {
     createProject,
     projectRedo,
     projectUndo,
     projects
-  } from '/@/store/projects'
-  import { debounce } from '/@/utils/common'
-  import ImportProject from '/@/components/ImportProject.svelte'
+  } from '@/store/projects'
+  import { debounce } from '@/utils/common'
+  import ImportProject from '@/components/ImportProject.svelte'
   import ProjectItem from './ProjectItem.svelte'
-  import type { SetupFunction } from '/@/actions/shortcut'
-  import type { Project } from '/@/utils/types'
+  import type { SetupFunction } from '@/actions/shortcut'
+  import type { Project } from '@/utils/types'
 
   let search = ''
   let showImportProject = false

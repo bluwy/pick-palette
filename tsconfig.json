@@ -5,12 +5,13 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "/@/*": ["./src/*"]
+      "@/*": ["./src/*"]
     },
     "types": ["svelte", "node"],
     "strict": true,
     "allowSyntheticDefaultImports": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "importsNotUsedAsValues": "error"
   },
   "include": ["./src/**/*"],
   "exclude": ["node_modules"]

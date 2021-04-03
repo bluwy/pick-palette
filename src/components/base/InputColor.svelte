@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
   import { fly } from 'svelte/transition'
   import { createPopperActions } from 'svelte-popperjs'
   import chroma from 'chroma-js'
-  import { clickOutside } from '/@/actions/click-outside'
+  import { clickOutside } from '@/actions/click-outside'
   import ColorPicker from './ColorPicker/Index.svelte'
   import ColorBox from './ColorBox.svelte'
 

@@ -1,4 +1,4 @@
-import { Writable } from 'svelte/store'
+import type { Writable } from 'svelte/store'
 
 /** Sync store across tabs */
 export function synchronize<T>(store: Writable<T>, key: string) {

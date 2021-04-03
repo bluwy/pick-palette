@@ -1,5 +1,5 @@
 import { derived } from 'svelte/store'
-import { readonly } from '/@/utils/common'
+import { readonly } from '@/utils/common'
 import {
   _currentProjectId,
   _currentColorId,

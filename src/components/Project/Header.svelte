@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Icon from 'svelte-fa'
   import { Link } from '@bjornlu/svelte-router'
   import {
@@ -10,7 +10,7 @@
     faFill,
     faPlus
   } from '@fortawesome/free-solid-svg-icons'
-  import { breakpointLg } from '/@/store/media'
+  import { breakpointLg } from '@/store/media'
   import {
     currentProject,
     renameProject,
@@ -21,8 +21,8 @@
     projectRedo,
     currentUndoName,
     currentRedoName
-  } from '/@/store/projects'
-  import EditableText from '/@/components/base/EditableText.svelte'
+  } from '@/store/projects'
+  import EditableText from '@/components/base/EditableText.svelte'
   import NewColor from './NewColor.svelte'
   import ToggleColorPanel from './ToggleColorPanel.svelte'
 

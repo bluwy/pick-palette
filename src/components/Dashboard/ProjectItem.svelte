@@ -1,16 +1,16 @@
-<script>
+<script lang="ts">
   import Icon from 'svelte-fa'
   import { navigate } from '@bjornlu/svelte-router'
   import { faTrashAlt, faUpload } from '@fortawesome/free-solid-svg-icons'
-  import { openedProjectIds } from '/@/store/opened'
+  import { openedProjectIds } from '@/store/opened'
   import {
     exportProject,
     projects,
     removeProject,
     renameProject
-  } from '/@/store/projects'
-  import ColorBox from '/@/components/base/ColorBox.svelte'
-  import EditableText from '/@/components/base/EditableText.svelte'
+  } from '@/store/projects'
+  import ColorBox from '@/components/base/ColorBox.svelte'
+  import EditableText from '@/components/base/EditableText.svelte'
 
   export let projectId: string
 

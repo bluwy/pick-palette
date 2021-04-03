@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store'
-import { synchronize } from '/@/store/base/synchronize'
+import { synchronize } from '@/store/base/synchronize'
 
 const openedProjectIdsStore = writable<string[]>([])
 

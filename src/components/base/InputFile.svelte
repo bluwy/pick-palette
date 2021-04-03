@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let files: FileList
   export let multiple = false
 </script>

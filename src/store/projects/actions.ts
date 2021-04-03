@@ -1,15 +1,15 @@
 import { produce } from 'immer'
 import { nanoid } from 'nanoid/non-secure'
 import { coerce } from 'superstruct'
-import { findById } from '/@/utils/app'
+import { findById } from '@/utils/app'
 import {
   debounce,
   download,
   removeAndInsertElement,
   uget
-} from '/@/utils/common'
-import { ExportProject, Project } from '/@/utils/types'
-import { ProjectStruct } from '/@/utils/validation-structs'
+} from '@/utils/common'
+import type { ExportProject, Project } from '@/utils/types'
+import { ProjectStruct } from '@/utils/validation-structs'
 import {
   _projects,
   _currentProjectId,
@@ -22,11 +22,9 @@ import {
   computeProjectIdOptions,
   computeShadeIdOptions,
   getDefaultColorName,
-  goColorId,
-  ColorIdOptions,
-  ProjectIdOptions,
-  ShadeIdOptions
+  goColorId
 } from './utils'
+import type { ColorIdOptions, ProjectIdOptions, ShadeIdOptions } from './utils'
 
 const debounceProjectsHistoryBreakMerge = debounce(
   _projects.history.breakMerge,

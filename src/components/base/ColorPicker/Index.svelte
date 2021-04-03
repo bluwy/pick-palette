@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { createEventDispatcher } from 'svelte'
   import chroma from 'chroma-js'
   import Bar from './Bar.svelte'

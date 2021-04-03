@@ -5,8 +5,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "svite",
-    "build": "svite build",
+    "dev": "vite",
+    "build": "vite build",
     "format": "prettier --write \"**/*.{html,css,js,ts,md,svelte}\""
   },
   "husky": {
@@ -18,35 +18,31 @@
     "*.{html,css,js,ts,md,svelte}": "prettier --write"
   },
   "dependencies": {
-    "@bjornlu/colorblind": "^1.0.2",
-    "@bjornlu/svelte-router": "^0.3.0",
-    "@fortawesome/free-regular-svg-icons": "^5.14.0",
-    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@bjornlu/colorblind": "^1.0.3",
+    "@bjornlu/svelte-router": "^0.4.1",
+    "@fortawesome/free-regular-svg-icons": "^5.15.3",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "chroma-js": "^2.1.0",
     "immer": "^8.0.1",
     "mousetrap": "^1.6.5",
     "nanoid": "^3.1.12",
     "superstruct": "^0.10.12",
-    "svelte": "^3.25.0",
-    "svelte-fa": "^2.1.1",
+    "svelte": "^3.37.0",
+    "svelte-fa": "^2.2.0",
     "svelte-popperjs": "1.0.13"
   },
   "devDependencies": {
-    "@types/chroma-js": "^2.0.1",
-    "@types/mousetrap": "^1.6.3",
-    "@types/node": "^14.10.0",
-    "autoprefixer": "^9.8.6",
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.5",
+    "@types/chroma-js": "^2.1.3",
+    "@types/mousetrap": "^1.6.6",
+    "@types/node": "^14.14.37",
     "husky": "^4.3.0",
     "lint-staged": "^10.3.0",
-    "postcss": "^7.0.32",
-    "postcss-load-config": "^2.1.0",
-    "prettier": "^2.1.1",
-    "prettier-plugin-svelte": "^1.2.1",
-    "svelte-hmr": "^0.10.3",
-    "svelte-preprocess": "^4.2.1",
-    "svite": "^0.6.1",
-    "tailwindcss": "^1.8.8",
-    "typescript": "^4.0.2"
+    "prettier": "^2.2.1",
+    "prettier-plugin-svelte": "^2.2.0",
+    "vite": "^2.1.5",
+    "vite-plugin-windicss": "^0.12.2",
+    "windicss": "^2.5.9"
   },
   "browserslist": [
     "> 1%",

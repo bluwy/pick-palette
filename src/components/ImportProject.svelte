@@ -1,12 +1,12 @@
-<script>
+<script lang="ts">
   import Icon from 'svelte-fa'
   import { navigate } from '@bjornlu/svelte-router'
   import { faTimes } from '@fortawesome/free-solid-svg-icons'
-  import { dragOnce } from '/@/actions/drag-once'
-  import { shortcut } from '/@/actions/shortcut'
-  import { importProject } from '/@/store/projects'
+  import { dragOnce } from '@/actions/drag-once'
+  import { shortcut } from '@/actions/shortcut'
+  import { importProject } from '@/store/projects'
   import FullscreenBackdrop from './base/FullscreenBackdrop.svelte'
-  import type { SetupFunction } from '/@/actions/shortcut'
+  import type { SetupFunction } from '@/actions/shortcut'
 
   export let show = false
 

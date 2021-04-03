@@ -1,6 +1,7 @@
 import { enablePatches } from 'immer'
 import App from './App.svelte'
 import './router'
+import 'virtual:windi.css'
 import './main.css'
 
 // For undo/redo

@@ -2,7 +2,5 @@
   "proseWrap": "never",
   "semi": false,
   "singleQuote": true,
-  "trailingComma": "none",
-  "svelteBracketNewLine": true,
-  "svelteSortOrder": "scripts-markup-styles"
+  "trailingComma": "none"
 }

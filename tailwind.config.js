@@ -1,19 +1,12 @@
-const { colors } = require('tailwindcss/defaultTheme')
+const colors = require('windicss/colors')
 
 module.exports = {
-  future: {
-    removeDeprecatedGapUtilities: true,
-    purgeLayersByDefault: true
-  },
-  purge: ['./src/**/*.svelte'],
   theme: {
     container: {
       center: true,
       padding: '1rem'
     },
     colors: {
-      transparent: colors.transparent,
-      current: colors.current,
       black: colors.black,
       white: colors.white,
       gray: colors.gray,

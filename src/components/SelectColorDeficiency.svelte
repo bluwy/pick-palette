@@ -1,5 +1,5 @@
-<script>
-  import { colorDeficiency } from '/@/store/colorblind'
+<script lang="ts">
+  import { colorDeficiency } from '@/store/colorblind'
   import Select from './base/Select.svelte'
   import type { Deficiency } from '@bjornlu/colorblind'
 

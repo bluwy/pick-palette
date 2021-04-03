@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store'
 import { nanoid } from 'nanoid/non-secure'
-import { readonly } from '/@/utils/common'
+import { readonly } from '@/utils/common'
 
 export type SnackType = 'info' | 'success' | 'warning' | 'error'
 export type Snack = {

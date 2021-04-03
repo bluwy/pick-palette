@@ -1,12 +1,12 @@
-<script>
+<script lang="ts">
   import { createEventDispatcher } from 'svelte'
   import Icon from 'svelte-fa'
   import chroma from 'chroma-js'
   import { simulate } from '@bjornlu/colorblind'
   import { faTrashAlt } from '@fortawesome/free-regular-svg-icons'
   import { faGripVertical } from '@fortawesome/free-solid-svg-icons'
-  import { colorDeficiency } from '/@/store/colorblind'
-  import { isTouchscreen } from '/@/store/media'
+  import { colorDeficiency } from '@/store/colorblind'
+  import { isTouchscreen } from '@/store/media'
   import {
     currentColorId,
     currentProject,
@@ -14,9 +14,9 @@
     renameColor,
     setCurrentColorId,
     setCurrentShadeIndex
-  } from '/@/store/projects'
-  import ColorBox from '/@/components/base/ColorBox.svelte'
-  import EditableText from '/@/components/base/EditableText.svelte'
+  } from '@/store/projects'
+  import ColorBox from '@/components/base/ColorBox.svelte'
+  import EditableText from '@/components/base/EditableText.svelte'
 
   export let colorId: string
 

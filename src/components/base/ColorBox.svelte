@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let color: string
   export let small = false
 </script>

@@ -1,13 +1,13 @@
-<script>
+<script lang="ts">
   import Icon from 'svelte-fa'
   import { navigate } from '@bjornlu/svelte-router'
   import { faDownload } from '@fortawesome/free-solid-svg-icons'
-  import { createProject } from '/@/store/projects'
-  import InputFile from '/@/components/base/InputFile.svelte'
-  import ImportProject from '/@/components/ImportProject.svelte'
-  import Logo from '/@/components/Logo.svelte'
-  import WelcomeDivider from '/@/assets/images/welcome/divider.svg'
-  import WelcomeHero from '/@/assets/images/welcome/hero.svg'
+  import { createProject } from '@/store/projects'
+  import InputFile from '@/components/base/InputFile.svelte'
+  import ImportProject from '@/components/ImportProject.svelte'
+  import Logo from '@/components/Logo.svelte'
+  import WelcomeDivider from '@/assets/images/welcome/divider.svg'
+  import WelcomeHero from '@/assets/images/welcome/hero.svg'
 
   let newProjectName = ''
   let showImportProject = false

@@ -1,4 +1,4 @@
-import { Writable, Readable } from 'svelte/store'
+import type { Writable, Readable } from 'svelte/store'
 
 /** Proper math modulus implementation that handles negative `val` */
 export function mod(val: number, by: number) {

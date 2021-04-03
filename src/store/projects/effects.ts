@@ -1,7 +1,7 @@
 import { get } from 'svelte/store'
 import { assert, array } from 'superstruct'
-import { addOpenedProject, removeOpenedProject } from '/@/store/opened'
-import { ProjectStruct } from '/@/utils/validation-structs'
+import { addOpenedProject, removeOpenedProject } from '@/store/opened'
+import { ProjectStruct } from '@/utils/validation-structs'
 import { _currentProjectId, _projects } from './state'
 
 // Run state validation in development
@@ -26,5 +26,8 @@ _currentProjectId.subscribe((currentProjectId) => {
 })
 
 window.addEventListener('beforeunload', () => {
-  removeOpenedProject(get(_currentProjectId))
+  const currentProjectId = get(_currentProjectId)
+  if (currentProjectId) {
+    removeOpenedProject(currentProjectId)
+  }
 })

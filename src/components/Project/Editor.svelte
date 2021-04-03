@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { tick } from 'svelte'
   import Icon from 'svelte-fa'
   import {
@@ -16,10 +16,10 @@
     goPrevColorId,
     renameColor,
     setCurrentColorId
-  } from '/@/store/projects'
-  import ColorPicker from '/@/components/base/ColorPicker/Index.svelte'
-  import ColorBox from '/@/components/base/ColorBox.svelte'
-  import EditableText from '/@/components/base/EditableText.svelte'
+  } from '@/store/projects'
+  import ColorPicker from '@/components/base/ColorPicker/Index.svelte'
+  import ColorBox from '@/components/base/ColorBox.svelte'
+  import EditableText from '@/components/base/EditableText.svelte'
   import NewColor from './NewColor.svelte'
 
   // Function bound from color picker

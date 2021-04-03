@@ -1,6 +1,8 @@
-import { writable, derived, Writable } from 'svelte/store'
-import { applyPatches, produceWithPatches, Patch } from 'immer'
-import { uget } from '/@/utils/common'
+import { writable, derived } from 'svelte/store'
+import type { Writable } from 'svelte/store'
+import { applyPatches, produceWithPatches } from 'immer'
+import type { Patch } from 'immer'
+import { uget } from '@/utils/common'
 
 export interface HistoryStoreOptions {
   /** Max history record count */

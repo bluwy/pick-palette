@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let value: string
   // Accepts array of objects with label and value keys
   export let choices: { label: string; value: string }[]

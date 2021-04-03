@@ -1,7 +1,7 @@
 import { get } from 'svelte/store'
-import { Project } from '/@/utils/types'
-import { findById } from '/@/utils/app'
-import { mod, uget } from '/@/utils/common'
+import type { Project } from '@/utils/types'
+import { findById } from '@/utils/app'
+import { mod, uget } from '@/utils/common'
 import {
   _currentProjectId,
   _currentColorId,

@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
   import { fly } from 'svelte/transition'
   import { createPopperActions } from 'svelte-popperjs'
-  import { clickOutside } from '/@/actions/click-outside'
+  import { clickOutside } from '@/actions/click-outside'
   import ColorPanel from './ColorPanel.svelte'
 
   export let show = false

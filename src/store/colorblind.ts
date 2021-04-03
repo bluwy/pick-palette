@@ -1,4 +1,4 @@
 import { writable } from 'svelte/store'
-import { Deficiency } from '@bjornlu/colorblind'
+import type { Deficiency } from '@bjornlu/colorblind'
 
 export const colorDeficiency = writable<Deficiency | undefined>(undefined)
