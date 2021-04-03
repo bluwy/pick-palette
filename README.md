@@ -19,31 +19,33 @@ A color palette manager made with [Svelte](https://svelte.dev/)!
 - Project import/export file with validation
 - Routing with [@bjornlu/svelte-router](https://github.com/bluwy/svelte-router)
 - Color blindness simulation with [@bjornlu/colorblind](https://github.com/bluwy/colorblind)
-- Developed with [Svite](https://github.com/dominikg/svite), [TypeScript](https://typescriptlang.org/) and [TailwindCSS](https://tailwindcss.com/)
+- Developed with [Vite](https://github.com/vitejs/vite), [TypeScript](https://typescriptlang.org/) and [Windi CSS](https://github.com/windicss/windicss)
 
-## Note
+## Notes
 
 - Snackbar is never used
-- State management is separated to `state`, `actions`, `effects` and `utils`
+- State management is separated to `state`, `actions`, `effects` and `utils` ([Explanation](https://www.reddit.com/r/sveltejs/comments/itu9o7/keeping_organized/g5hj74p/?context=3))
 - Color picker isn't perfect but functional. Defects include:
-  - Color box gradient looks awful and inaccurate in different browsers
+  - Color box gradient is inaccurate in different browsers
   - Dispatched changes aren't properly throttled
 - Default generated shades is only OK looking
-- Minified JS code still has comments, waiting for `vite@1.0.0-rc.5` terser options
 
 ## Development
 
-Install dependencies with `yarn install`.
+Install dependencies with `pnpm install`.
 
 ```bash
 # Start dev server
-$ yarn dev
+$ pnpm dev
 
 # Build for production
-$ yarn build
+$ pnpm build
+
+# Preview production build
+$ pnpm serve
 
 # Format code with Prettier
-$ yarn format
+$ pnpm format
 ```
 
 Code is auto-formatted on each `git push` with [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged).
