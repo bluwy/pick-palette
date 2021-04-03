@@ -1,6 +1,7 @@
-const colors = require('windicss/colors')
+import { defineConfig } from 'vite-plugin-windicss'
+import colors from 'windicss/colors'
 
-module.exports = {
+export default defineConfig({
   theme: {
     container: {
       center: true,
@@ -66,4 +67,4 @@ module.exports = {
       }
     }
   }
-}
+})
