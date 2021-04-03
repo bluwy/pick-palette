@@ -78,8 +78,8 @@
     {#each orderedColors as color (color.id)}
       <li
         animate:flip={{ duration: 250, delay: 100 }}
-        in:fade={{ duration: 200, delay: 200 }}
-        out:fade={{ duration: 200 }}
+        in:fade|local={{ duration: 200, delay: 200 }}
+        out:fade|local={{ duration: 200 }}
         class="h-20 flex justify-center items-center"
         draggable={canDrag}
         on:dragstart={() => handleDragStart(color.id)}
@@ -88,7 +88,7 @@
         on:dragend={handleDragEnd}
       >
         {#if color.id !== draggedColorId}
-          <div transition:fade={{ duration: 200 }}>
+          <div transition:fade|local={{ duration: 200 }}>
             <ColorTab colorId={color.id} on:candrag={handleCanDrag} />
           </div>
         {/if}
