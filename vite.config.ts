@@ -1,10 +1,10 @@
 import path from 'path'
 import { defineConfig } from 'vite'
-import svelte from '@sveltejs/vite-plugin-svelte'
+import { svelte } from '@sveltejs/vite-plugin-svelte'
 import windicss from 'vite-plugin-windicss'
 
 export default defineConfig({
-  plugins: [svelte({ useVitePreprocess: true }), windicss()],
+  plugins: [svelte({ experimental: { useVitePreprocess: true } }), windicss()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src')

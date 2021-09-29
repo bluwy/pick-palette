@@ -9,7 +9,6 @@
     "build": "vite build",
     "serve": "vite preview",
     "format": "prettier --write \"**/*.{html,css,js,ts,md,svelte}\"",
-    "prebuild": "test \"$CI\" = true && npx pnpm install -r --store=node_modules/.pnpm-store || echo skipping pnpm install",
     "prepare": "husky install"
   },
   "lint-staged": {
@@ -17,30 +16,30 @@
   },
   "dependencies": {
     "@bjornlu/colorblind": "^1.0.3",
-    "@bjornlu/svelte-router": "^0.4.1",
-    "@fortawesome/free-regular-svg-icons": "^5.15.3",
-    "@fortawesome/free-solid-svg-icons": "^5.15.3",
-    "chroma-js": "^2.1.0",
+    "@bjornlu/svelte-router": "^0.5.0",
+    "@fortawesome/free-regular-svg-icons": "^5.15.4",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "chroma-js": "^2.1.2",
     "immer": "^8.0.1",
     "mousetrap": "^1.6.5",
-    "nanoid": "^3.1.12",
+    "nanoid": "^3.1.28",
     "superstruct": "^0.10.12",
-    "svelte": "^3.37.0",
-    "svelte-fa": "^2.2.0",
+    "svelte": "^3.43.0",
+    "svelte-fa": "^2.3.3",
     "svelte-popperjs": "1.0.13"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.6",
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.26",
     "@types/chroma-js": "^2.1.3",
-    "@types/mousetrap": "^1.6.6",
-    "@types/node": "^14.14.37",
+    "@types/mousetrap": "^1.6.8",
+    "@types/node": "^16.10.2",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
-    "prettier": "^2.2.1",
-    "prettier-plugin-svelte": "^2.2.0",
-    "vite": "^2.1.5",
+    "prettier": "^2.4.1",
+    "prettier-plugin-svelte": "^2.4.0",
+    "vite": "^2.6.0",
     "vite-plugin-windicss": "^0.13.2",
-    "windicss": "^2.5.13"
+    "windicss": "^2.5.14"
   },
   "browserslist": [
     "> 1%",
