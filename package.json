@@ -24,7 +24,7 @@
     "mousetrap": "^1.6.5",
     "nanoid": "^3.1.28",
     "superstruct": "^0.10.12",
-    "svelte": "^3.43.0",
+    "svelte": "^3.49.0",
     "svelte-fa": "^2.3.3",
     "svelte-popperjs": "1.0.13"
   },
