@@ -22,7 +22,7 @@
     "chroma-js": "^2.1.2",
     "immer": "^8.0.1",
     "mousetrap": "^1.6.5",
-    "nanoid": "^3.1.28",
+    "nanoid": "^3.1.31",
     "superstruct": "^0.10.12",
     "svelte": "^3.43.0",
     "svelte-fa": "^2.3.3",
